@@ -19,8 +19,8 @@ login_manager.login_view = "login"
 
 # Création du formulaire de connexion
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()]) # Champ utilisateur obligatoire
-    password = PasswordField('Password', validators=[DataRequired()])  # Champ mot de passe obligatoire
+    username = StringField("Nom d'utilisateur", validators=[DataRequired()]) # Champ utilisateur obligatoire
+    password = PasswordField('Mot de passe', validators=[DataRequired()])  # Champ mot de passe obligatoire
     submit = SubmitField('Login')  # Bouton de soumission du formulaire
 
 # Création d'un utilisateur fictif
