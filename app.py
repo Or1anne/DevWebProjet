@@ -1,71 +1,36 @@
+# Importation des bibliothèques
 from flask import *
 from flask_login import *
-from flask_wtf import *
-from wtforms import *
-from wtforms.validators import *
-
+from extensions import login_manager
 
 # Création de l'application Flask
 app = Flask(__name__)
-app.secret_key = "your_secret_key"  # Nécessaire pour Flask-Login et flash messages
+app.secret_key = "your_secret_key"  # Nécessaire pour sécuriser les sessions et les cookies
 
-# Configuration de Flask-Login
-login_manager = LoginManager()
+# Initialisation de Flask-Login avec l'application
 login_manager.init_app(app)
-# Redirection si non connecté 
-# TODO A vérifier si ce n'est pas en conflit avec le CdC
-login_manager.login_view = "login" 
 
-
-# Création du formulaire de connexion
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
-
-# Création d'un utilisateur fictif
-class User(UserMixin):
-    def __init__(self, id):
-        self.id = id
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    # TODO Remplacer par une vraie recherche en base de données
-    return User(user_id)
-
-
-
-
+# Définition des routes de l'application
 @app.route("/")
 def home():
+    """ Route principale : Affiche la page d'accueil """
     return "<p>Page d'accueil</p>"
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        # Simuler un utilisateur pour l'exemple (à remplacer par une requête à ta base de données)
-        user = User(id=1)  
-
-        login_user(user)
-        flash('Connexion réussie')
-        return redirect(url_for('home'))
-
-    return render_template('login.html', form=form)
-
-
-
 @app.route("/settings")
-@login_required
+@login_required # Protection : Accessible uniquement aux utilisateurs connectés
 def settings():
+    """ Page des paramètres : Accès restreint aux utilisateurs connectés """
     return "<p>Paramètres</p>"
 
 @app.route("/logout")
-@login_required
+@login_required # Protection : Accessible uniquement aux utilisateurs connectés
 def logout():
-    logout_user()
-    return redirect(url_for('home'))
+    """ Déconnexion de l'utilisateur et redirection vers l'accueil """
+    logout_user() # Déconnection de l'utilisateur
+    return redirect(url_for('home')) # Redirection vers la page d'accueil des visiteurs
 
+
+# Importer les routes APRÈS la création de `app` pour éviter l'import circulaire
 if __name__ == '__main__':
+    from login import *
     app.run(debug=True)
