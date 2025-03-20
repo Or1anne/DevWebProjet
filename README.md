@@ -6,7 +6,6 @@
 - [Compiler](#compiler) Comment compiler le projet
 - [Prérequis](#prérequis) Les bibliothèques à installer 
 - [Utilisation_de_l'application](#utilisation_de_l'application) Comment utiliser l'application
-- [Répartition](#répartition) Répartition des tâches parmis les membres du groupe
 - [Sources](#sources) Les ressources sur lesquelles nous nous sommes basées
 
 
@@ -16,9 +15,12 @@
 
 ## Groupe
 
+Notre groupe est d'Orianne COURTADE, Alban SOUPPAYA, Medhi BOULAICH EL KHADRI et Saïd BELKACEM.
+
 ## Fichiers
 
 ## Compiler
+
 Pour compiler notre projet vous devez vous placez dans le dossier parent de "DevWebProjet" et lancer la commande :
 ```
 flask run
@@ -46,8 +48,6 @@ Une fois toutes les bibliothèques installer, vous devez modifier les variables 
 ```
 
 ## Utilisation_de_l'application
-
-## Répartition 
 
 ## Sources 
 
