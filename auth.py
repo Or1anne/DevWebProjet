@@ -18,8 +18,13 @@ def signup():
 @auth.route('/signup', methods=['POST'])
 def signup_post():
     email = request.form.get('email')
-    name = request.form.get('name')
+    pseudo = request.form.get('pseudo')
     password = request.form.get('password')
+    firstname = request.form.get('firstname')
+    lastname = request.form.get('lastname')
+    age = request.form.get('age')
+    gender = request.form.get('gender')
+
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
 
@@ -28,7 +33,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'))
+    new_user = User(email=email, pseudo=pseudo, password=generate_password_hash(password, method='pbkdf2:sha256'), lastname=lastname, firstname=firstname, age=age, gender=gender)
 
     # add the new user to the database
     db.session.add(new_user)
@@ -39,11 +44,11 @@ def signup_post():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    email = request.form.get('email')
+    pseudo = request.form.get('pseudo')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(pseudo=pseudo).first()
 
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database

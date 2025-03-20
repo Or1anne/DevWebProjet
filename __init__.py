@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_migrate import Migrate
 import os
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
@@ -16,6 +18,8 @@ def create_app():
     db.init_app(app)
 
     from .models import User
+    
+    migrate.init_app(app, db)
     
     with app.app_context():
         db.create_all()
