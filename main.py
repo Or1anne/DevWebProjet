@@ -10,4 +10,4 @@ def index():
 
 @main.route('/profile')
 def profile():
-    return render_template('profile.html', name=current_user.pseudo)
+    return render_template('profile.html', name=current_user.firstname)
