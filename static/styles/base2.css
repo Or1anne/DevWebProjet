@@ -1,0 +1,107 @@
+/* Général */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #00d1b2; 
+    color: rgb(0, 0, 0);
+    text-align: center; /* Centre tous les textes */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: flex-end; /* Aligne la navbar à droite */
+    background: transparent;
+    padding: 15px;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-item {
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none; /* Supprime le soulignement */
+    padding: 10px;
+}
+
+.navbar-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Conteneur principal */
+.hero-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 56px);
+}
+
+/* Formulaire */
+.box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center; /* Centre le texte à l'intérieur */
+}
+
+/* Champs d'entrée */
+.input {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Placeholder stylisé */
+.input::placeholder {
+    color: #aaa;
+}
+
+/* Bouton */
+.button.is-info {
+    background-color: #00d1b2;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    transition: background 0.3s;
+    font-size: 20px;
+}
+
+.button.is-info:hover {
+    background-color: #14c2a8;
+}
+
+/* Message de bienvenue sur la page de profil */
+.profile-message {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.125
+}
+
+.subtitle {
+    color: #eaeaea;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.25
+}
