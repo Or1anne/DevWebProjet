@@ -279,3 +279,6 @@ html, body {
     text-align: center;
 }
 
+.read-more:hover{
+    color: #14c2a8;
+}
