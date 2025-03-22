@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -7,6 +8,7 @@ import os
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 migrate = Migrate()
+mail = Mail()
 
 def create_app():
     app = Flask(__name__)
@@ -14,7 +16,16 @@ def create_app():
     db_path = os.path.join(os.getcwd(), "DevWebProjet", "db.sqlite")
     app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    app.config['SECURITY_PASSWORD_SALT'] = 'un_salt_securise'
 
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = 'asumakino@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'nvyn evsn rogu toqt'
+    app.config['MAIL_DEFAULT_SENDER'] = 'asumakino@gmail.com'
+
+    mail.init_app(app)
     db.init_app(app)
 
     from .models import User
