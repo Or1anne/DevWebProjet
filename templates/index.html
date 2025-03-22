@@ -4,7 +4,25 @@
 <h1 class="title">
     Page d'accueil
 </h1>
-<h2 class="subtitle">
-    Page accessible une fois connecté
-</h2>
+
+<!-- Barre de recherche -->
+<div class="search-container">
+    <input type="text" class="search-input" placeholder="Rechercher une actualité...">
+    <button class="search-button">Rechercher</button>
+</div>
+
+<!-- Conteneur des actualités et informations -->
+<div class="content-container">
+    <!-- Actualités -->
+    <div class="box-index news-box">
+        <h2>Actualités</h2>
+        <p>Ici, les dernières nouvelles du jour...</p>
+    </div>
+
+    <!-- Informations locales -->
+    <div class="box-index info-box">
+        <h2>Informations Locales</h2>
+        <p>Dernières mises à jour sur votre région...</p>
+    </div>
+</div>
 {% endblock %}
