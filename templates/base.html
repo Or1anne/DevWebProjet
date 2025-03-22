@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -10,47 +10,66 @@
 </head>
 
 <body>
-    <section class="hero is-primary is-fullheight">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Applique la logique de lecture des textes tronqués
+            document.querySelectorAll(".news-item p, .info-item p").forEach(p => {
+                let fullText = p.innerText;
+                if (fullText.length > 200) {  // Limite de caractères avant tronquer
+                    let truncated = fullText.substring(0, 200) + "..."; // Texte tronqué
+                    // Mise à jour du contenu HTML avec texte tronqué
+                    p.innerHTML = `<div class="text-container">
+                                        <span class="truncated-text">${truncated}</span>
+                                        <span class="full-text">${fullText}</span>
+                                    </div>
+                                    <span class="read-more">Lire plus</span>`;
+    
+                    // Appliquer un style pour assurer le retour à la ligne
+                    p.querySelector(".truncated-text").style.whiteSpace = "normal";
+                    p.querySelector(".full-text").style.whiteSpace = "normal";
+    
+                    p.querySelector(".read-more").addEventListener("click", function () {
+                        let textContainer = p.querySelector(".text-container");
+                        let truncatedText = textContainer.querySelector(".truncated-text");
+                        let fullText = textContainer.querySelector(".full-text");
+    
+                        if (fullText.style.display === "none" || fullText.style.display === "") {
+                            fullText.style.display = "inline"; // Afficher le texte complet
+                            truncatedText.style.display = "none"; // Cacher le texte tronqué
+                            this.textContent = "Lire moins"; // Changer le texte du bouton
+                        } else {
+                            fullText.style.display = "none"; // Cacher le texte complet
+                            truncatedText.style.display = "inline"; // Afficher le texte tronqué
+                            this.textContent = "Lire plus"; // Réinitialiser le texte du bouton
+                        }
+                    });
+                }
+            });
+        });
+    </script>    
 
+    <section class="hero is-primary is-fullheight">
         <div class="hero-head">
             <nav class="navbar">
                 <div class="container">
-
-                    <!-- Home à gauche -->
                     <div class="navbar-start">
-                        <a href="{{ url_for('main.index') }}" class="navbar-item">
-                            Home
-                        </a>
-                    
+                        <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
+
                         {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.manage') }}" class="navbar-item">
-                            Manage
-                        </a>
-                        <a href="{{ url_for('main.admin') }}" class="navbar-item">
-                            Administration
-                        </a>
+                            <a href="{{ url_for('main.manage') }}" class="navbar-item">Manage</a>
+                            <a href="{{ url_for('main.admin') }}" class="navbar-item">Administration</a>
                         {% endif %}
                     </div>
 
-                    <!-- Autres éléments à droite -->
                     <div class="navbar-end">
                         {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                            Profile
-                        </a>
-                        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                            Logout
-                        </a>
+                            <a href="{{ url_for('main.profile') }}" class="navbar-item">Profile</a>
+                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a>
                         {% else %}
-                        <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                            Login
-                        </a>
-                        <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                            Sign Up
-                        </a>
+                            <a href="{{ url_for('auth.login') }}" class="navbar-item">Login</a>
+                            <a href="{{ url_for('auth.signup') }}" class="navbar-item">Sign Up</a>
                         {% endif %}
                     </div>
-
                 </div>
             </nav>
         </div>

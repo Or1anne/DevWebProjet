@@ -84,7 +84,7 @@ def confirm_email(token):
         email=user_data['email'],
         firstname=user_data['firstname'],
         lastname=user_data['lastname'],
-        password=generate_password_hash(user_data['password'], method='pbkdf2:sha256'),
+        password= user_data['password'], #generate_password_hash(user_data['password'], method='pbkdf2:sha256'),
         pseudo=user_data['pseudo'],
         age=user_data['age'],
         gender=user_data['gender']
@@ -114,7 +114,7 @@ def login_post():
         return redirect(url_for('auth.login')) # Si l'utilisateur ou le MDP n'existe pas alors refresh la page
     else:
         login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('main.index'))
 
 
 @auth.route('/logout')

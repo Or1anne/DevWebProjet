@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    Page d'accueil
-</h1>
 
 <!-- Barre de recherche -->
 <div class="search-container">
@@ -11,18 +8,44 @@
     <button class="search-button">Rechercher</button>
 </div>
 
+<h1 class="title">
+    Page d'accueil
+</h1>
+
 <!-- Conteneur des actualités et informations -->
 <div class="content-container">
     <!-- Actualités -->
     <div class="box-index news-box">
-        <h2>Actualités</h2>
-        <p>Ici, les dernières nouvelles du jour...</p>
+        <h2 class="title-box">📰 Actualités</h2>
+        <div class="news-item">
+            <h3>Nouvelle réforme économique</h3>
+            <p>Le gouvernement annonce une nouvelle réforme pour soutenir les petites entreprises, dans le but de favoriser leur croissance et de renforcer leur compétitivité sur le marché. Cette réforme comprend des mesures de simplification administrative, un allégement fiscal, ainsi qu'un soutien renforcé à l'innovation et à la transition numérique. L'objectif est de permettre aux petites entreprises d'accéder plus facilement aux financements et de stimuler leur développement, tout en leur offrant un cadre plus flexible et adapté à leurs besoins. En renforçant ces acteurs économiques clés, le gouvernement espère également créer de nouveaux emplois et dynamiser l'économie locale.</p>
+        </div>
+        <div class="news-item">
+            <h3>Technologie : avancées de l'IA</h3>
+            <p>Une nouvelle IA révolutionnaire pourrait changer la manière dont nous interagissons avec le web</p>
+        </div>
+        <div class="news-item">
+            <h3>Sport : résultats de la Ligue 1</h3>
+            <p>Le PSG remporte son match contre l'OM avec un score de 3-1</p>
+        </div>
     </div>
 
     <!-- Informations locales -->
     <div class="box-index info-box">
-        <h2>Informations Locales</h2>
-        <p>Dernières mises à jour sur votre région...</p>
+        <h2 class="title-box">📍 Informations Locales</h2>
+        <div class="info-item">
+            <h3>Travaux sur la ligne de métro</h3>
+            <p>Le métro ligne 3 sera en travaux du 10 au 15 mars, avec des bus de substitution</p>
+        </div>
+        <div class="info-item">
+            <h3>Marché local ce weekend</h3>
+            <p>Retrouvez les producteurs locaux sur la place centrale ce samedi matin !</p>
+        </div>
+        <div class="info-item">
+            <h3>Météo : pluie prévue</h3>
+            <p>Préparez vos parapluies ! De fortes averses sont prévues en fin de semaine</p>
+        </div>
     </div>
 </div>
 {% endblock %}

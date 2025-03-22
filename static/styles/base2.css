@@ -58,6 +58,8 @@ html, body {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 56px);
+    width: 100%;
+    box-sizing: border-box; /* Prend en compte les paddings dans les dimensions */
 }
 
 /* Formulaire */
@@ -129,6 +131,7 @@ html, body {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    padding-top: 150px;
 }
 
 .search-input {
@@ -157,28 +160,122 @@ html, body {
     background-color: #00d1b2;
 }
 
-/* Conteneur principal */
+/* Conteneur des actualités et informations locales */
 .content-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 20px;
     margin-top: 20px;
+    width: 100%; /* Utilise toute la largeur de la page */
+    margin-left: auto;
+    margin-right: auto;
+    height: calc(100vh - 56px); 
+    padding: 0 50px; /* Espace de 20px à gauche et à droite du conteneur */
+    box-sizing: border-box; /* Inclut le padding dans les dimensions */
 }
 
-/* Styles des cadres */
+/* .news-box {
+    width: 70%;
+}
+
+.info-box {
+    width: 30%;
+} */
+
+/* Taille fixe des sections */
 .box-index {
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 40%;
-    text-align: center;
+    flex-basis: 50%; /* Chaque section occupe 50% de l'écran */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Permet au contenu de s'étirer jusqu'à la fin */
+    overflow: hidden; /* Masque tout excédent de contenu */
+    width: 100%; /* Permet à la boîte de prendre toute la largeur disponible */
+    box-sizing: border-box; /* Inclut le padding dans les dimensions */
 }
 
+
+/* Centrage des titres */
+.title-box {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    width: 100%;
+    display: block;
+}
+
+
+/* Styles des sections */
+
 .news-box {
-    border-top: 5px solid #ff6080; /* Couleur pour différencier les actualités */
+    border-top: 5px solid #ff6080; /* Couleur pour les actualités */
 }
 
 .info-box {
-    border-top: 5px solid #66a1ff; /* Couleur pour différencier les informations locales */
+    border-top: 5px solid #66a1ff; /* Couleur pour les informations locales */
 }
+
+/* Style des articles */
+.news-item, .info-item {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.news-item h3, .info-item h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.news-item p, .info-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    overflow: hidden;
+    text-align: justify; 
+}
+
+.news-item a, .info-item a {
+    display: inline-block;
+    margin-top: 5px;
+    text-decoration: none;
+    color: #00d1b2;
+    font-weight: bold;
+}
+
+.news-item a:hover, .info-item a:hover {
+    text-decoration: underline;
+}
+
+/* Limitation du texte et bouton "Lire plus" */
+.truncated-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.full-text {
+    white-space: normal;
+    display: none; /* Texte complet masqué par défaut */
+}
+
+.read-more {
+    color: #00d1b2;
+    font-weight: bold;
+    cursor: pointer;
+    display: block; /* Le bouton passe en mode bloc */
+    margin-top: 10px;
+    text-align: center;
+}
+
