@@ -11,8 +11,8 @@ def index():
 @main.route('/manage')
 def manage():
     return render_template('manage.html')
-@main.route('/admin')
 
+@main.route('/admin')
 def admin():
     return render_template('admin.html')
 

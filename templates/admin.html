@@ -6,5 +6,16 @@
 </h1>
 <h2 class="subtitle">
     Page accessible seulement pour les administrateurs
+    Statistiques clés (ex. : nombre d’utilisateurs, taux d’utilisation, alertes en cours)<br>
+    Graphiques et indicateurs (ex. consommation énergétique, historique de connexion)<br>
+    Liste des derniers événements (ex. derniers utilisateurs inscrits, objets ajoutés)<br>
 </h2>
+<div class="container-admin">
+    <!-- TODO Créer les pages html correspondantes -->
+    <a href="{{ url_for('main.manage') }}" class="admin-item">Gestion des utilisateurs</a>
+    <a href="{{ url_for('main.manage') }}" class="admin-item">Gestion des objets et outils</a>
+    <a href="{{ url_for('main.manage') }}" class="admin-item">Sécurité et maintenance</a>
+    <a href="{{ url_for('main.manage') }}" class="admin-item">Personnalisation</a>
+    <a href="{{ url_for('main.manage') }}" class="admin-item">Rapports avancés</a>
+</div>
 {% endblock %}
