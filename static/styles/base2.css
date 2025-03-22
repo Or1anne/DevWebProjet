@@ -189,7 +189,7 @@ html, body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    flex-basis: 50%; /* Chaque section occupe 50% de l'écran */
+    /* flex-basis: 50%; Chaque section occupe 50% de l'écran */
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Permet au contenu de s'étirer jusqu'à la fin */
@@ -214,10 +214,12 @@ html, body {
 
 .news-box {
     border-top: 5px solid #ff6080; /* Couleur pour les actualités */
+    flex-basis: 70%;
 }
 
 .info-box {
     border-top: 5px solid #66a1ff; /* Couleur pour les informations locales */
+    flex-basis: 30%;
 }
 
 /* Style des articles */
