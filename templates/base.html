@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="static/styles/base2.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base2.css') }}" />
 </head>
 
 <body>
-    <script src="static/scripts/index.js">
+    <script src="{{ url_for('static', filename='scripts/index.js') }}">
         
     </script>    
 
