@@ -11,6 +11,11 @@
 
 ## Contenu
 
+Ce projet est une plateforme numérqiue intelligente qui regroupe divers services et fonctionnalités pour les utilisateurs d'une université. Cette plateforme contient plusieurs modules qui sont accessibles selon le type d'utilisateur (visiteur, simple, complexe et administateur).   
+Le module "Information" conresponds à la page d'accueil quand les utilisateurs ne sont pas connectés (les visiteurs) pour voir les actualités et quelques informations locales.  
+Le module "Visualisation" accessible seulement aux personnes inscrites sur la plateforme et apparetenant à l'université (cette condition est vérifiée via un envoi de mail sur l'adresse de l'école @etu.cyu.fr). Ainsi l'utilisateur de type simple a accès au module "Information" mais peut également modifier son profil, recherhcer et consulter des objets.   
+Le module "Gestion" est dédier aux utilisateurs de type complexe (qui ont aussi accès aux modules "Information" et "Visualisation"). Ce module est une sorte de tableau de bord avancé
+
 ## Objectif
 
 ## Groupe
@@ -20,9 +25,10 @@ Notre groupe est d'Orianne COURTADE, Alban SOUPPAYA, Medhi BOULAICH EL KHADRI et
 ## Fichiers
 
 ## Compiler
-
-Pour compiler notre projet vous devez vous placez dans le dossier parent de "DevWebProjet" et lancer la commande :
+Avant de lancer et compiler le projet vous devez aller dans le dossier "DevWebProjet" est lancer l'environnement virtuel à l'aide des commandes suivantes:
 ```
+.\venv\Scripts\activate
+cd ..
 flask run
 ```
 
@@ -32,9 +38,11 @@ Vous devez en premier lieu télécharger le dossier DevWebProjet à partir du d�
 ```
 python -m venv venv
 ```
-Ensuite vous devez activer l'environnement virtuel:
+ >[!NOTE] 
+ >Il faut activer les scripts pour windows
+ Ensuite vous devez activer l'environnement virtuel:
 ```
-.\venv\Scripts\activate
+.\venv\Scripts\activate 
 ```
 Afin d'installer toutes les bilbliothèques nécessaires il faut exéctuer sous windows: 
 ```
