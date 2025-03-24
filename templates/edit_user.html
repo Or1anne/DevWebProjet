@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Modifier l'utilisateur</h3>
+    <div class="box">
+        <form method="POST" action='/edit/{{user.id}}'>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="" value="{{user.email}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="pseudo" placeholder="Pseudo" autofocus="" value="{{user.pseudo}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Password" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="firstname" placeholder="Prénom" value="{{user.firstname}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="lastname" placeholder="Nom" value="{{user.lastname}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="gender" placeholder="Sexe/Genre" value="{{user.gender}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="age" placeholder="Age" value="{{user.age}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="level" placeholder="Level" autofocus="" value="{{user.level}}" required>
+                </div>
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">Enregistrer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
