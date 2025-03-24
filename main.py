@@ -20,7 +20,7 @@ def admin():
 @main.route('/profile')
 def profile():
     return render_template('profile.html', name=current_user.firstname)
-
+#pour la gestion
 @main.route('/gestion')
 def gestion_utilisateur():
     users = User.query.all()
