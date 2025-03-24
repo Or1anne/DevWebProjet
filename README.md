@@ -13,12 +13,10 @@
 
 Ce projet est une plateforme numérqiue intelligente qui regroupe divers services et fonctionnalités pour les utilisateurs d'une université. Cette plateforme contient plusieurs modules qui sont accessibles selon le type d'utilisateur (visiteur, simple, complexe et administateur).   
 Le module "Information" conresponds à la page d'accueil quand les utilisateurs ne sont pas connectés (les visiteurs) pour voir les actualités et quelques informations locales.  
-Le module "Visualisation" accessible seulement aux personnes inscrites sur la plateforme et apparetenant à l'université (cette condition est vérifiée via un envoi de mail sur l'adresse de l'école @etu.cyu.fr). Ainsi l'utilisateur de type simple a accès au module "Information" mais peut également modifier son profil, recherhcer et consulter des objets.   
-<<<<<<< Updated upstream
-Le module "Gestion" est dédier aux utilisateurs de type complexe (qui ont aussi accès aux modules "Information" et "Visualisation"). Ce module est une sorte de tableau de bord avancé
-=======
-Le module "Gestion" est dédier aux utilisateurs de type complexe (qui ont aussi accès aux modules "Information" et "Visualisation")
->>>>>>> Stashed changes
+Le module "Visualisation" accessible seulement aux personnes inscrites sur la plateforme et apparetenant à l'université (cette condition est vérifiée via un envoi de mail sur l'adresse de l'école @etu.cyu.fr). Ainsi l'utilisateur de type simple a accès au module "Information" mais peut également modifier son profil, recherhcer et consulter des objets et les services.   
+Le module "Gestion" est dédier aux utilisateurs de type complexe (qui ont aussi accès aux modules "Information" et "Visualisation"). Ce module est une sorte de tableau de bord avancé dédié à la gestion des objets connectés et des services.  
+Le module "Administrateur" est dédié aux utilisateurs du type administrateur, qui ont accès à tous les modules de la plateforme. IL permet de gèrer la plateforme sans son ensemble, y compris les utilisateurs, les objets connectés et les services.
+
 
 ## Objectif
 
