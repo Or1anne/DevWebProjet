@@ -4,7 +4,12 @@
 
 <!-- Barre de recherche -->
 <div class="search-container">
-    <input type="text" class="search-input" placeholder="Rechercher une actualité...">
+    {% if not current_user.is_authenticated %}
+    <input type="text" class="search-input search-news" placeholder="Rechercher une actualité...">
+    {% endif %}
+    {% if current_user.is_authenticated %}
+    <input type="text" class="search-input search-obj" placeholder="Rechercher un objet...">
+    {% endif %}
     <button class="search-button">Rechercher</button>
 </div>
 

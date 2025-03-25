@@ -20,11 +20,25 @@ Le module "Administrateur" est dédié aux utilisateurs du type administrateur, 
 
 ## Objectif
 
+L'objectif est de rendre l'université plus connectée, inclusive et efficace en centralisant des fonctionnalités adaptées aux besoins de différents types d'utilisateurs. Cette plateforme permet de faciliter la vie quotienne de ses utilisateurs en proposant des outils variés comme la gestion d'accès, actualités, le menu de la semaine, consommation d'énergie, consommation d’eau, gestion de pièces/salles, etc.
+
 ## Groupe
 
 Notre groupe est d'Orianne COURTADE, Alban SOUPPAYA, Medhi BOULAICH EL KHADRI et Saïd BELKACEM.
 
 ## Fichiers
+
+    - migrations :  
+    - static : 
+        - scripts :
+        - styles :
+    - templates :
+    - __init__.py :
+    - auth.py :
+    - db.sqlite :
+    - ItsDangerous.py :
+    - main.py :
+    - models.py :
 
 ## Compiler
 Avant de lancer et compiler le projet vous devez aller dans le dossier "DevWebProjet" est lancer l'environnement virtuel à l'aide des commandes suivantes:
@@ -41,8 +55,9 @@ Vous devez en premier lieu télécharger le dossier DevWebProjet à partir du d�
 python -m venv venv
 ```
  >[!NOTE] 
- >Il faut activer les scripts pour windows
- Ensuite vous devez activer l'environnement virtuel:
+ >Il faut activer les scripts pour windows  
+ 
+Ensuite vous devez activer l'environnement virtuel:
 ```
 .\venv\Scripts\activate 
 ```

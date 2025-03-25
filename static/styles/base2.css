@@ -59,7 +59,7 @@ html, body {
     align-items: center;
     height: calc(100vh - 56px);
     width: 100%;
-    box-sizing: border-box; /* Prend en compte les paddings dans les dimensions */
+    box-sizing: border-box;
 }
 
 /* Formulaire */
@@ -135,7 +135,8 @@ html, body {
 }
 
 .search-input {
-    width: 50%;
+    width: 400px; 
+    max-width: 100%; 
     padding: 10px;
     border: 2px solid #00d1b2;
     border-radius: 5px;
@@ -291,6 +292,9 @@ html, body {
     gap: 15px; 
     width: 90vw; /* Utilisation d'une largeur plus grande */
     padding: 20px 2vw;
+    align-items: center;
+    justify-content: center; /* Centre les éléments horizontalement */
+    margin: auto; 
 }
 
 .admin-item {
@@ -349,4 +353,102 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #eaeaea; 
+}
+
+
+/* Conteneur principal de la page Gestion */
+.gestion-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto; /* Centre la boîte sur la page */
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Liste des utilisateurs */
+.gestion-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.gestion-container li {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.gestion-container li:hover {
+    background: #00d1b2;
+}
+
+.gestion-container li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.gestion-container li a:hover {
+    color: white;
+}
+
+/* Conteneur principal */
+.user-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Informations utilisateur */
+.user-info p {
+    font-size: 16px;
+    color: #555;
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 8px 0;
+}
+
+/* Boutons */
+.user-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.user-actions button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+/* Bouton Modifier */
+.user-actions .edit-btn {
+    background: #00d1b2;
+    color: white;
+}
+
+.user-actions .edit-btn:hover {
+    background: #14c2a8;
+}
+
+/* Bouton Supprimer */
+.user-actions .delete-btn {
+    background: #ff4d4d;
+    color: white;
+}
+
+.user-actions .delete-btn:hover {
+    background: #cc0000;
 }
