@@ -20,6 +20,11 @@ def admin():
 @main.route('/profile')
 def profile():
     return render_template('profile.html', name=current_user.firstname)
+
+@main.route('/update_profile')
+def update_profile():
+    return render_template('update_profile.html', name=current_user.firstname)
+
 #pour la gestion
 @main.route('/gestion')
 def gestion_utilisateur():
@@ -59,3 +64,4 @@ def delete_user(user_id):
         db.session.commit()
 
     return redirect(url_for('main.gestion_utilisateur'))
+

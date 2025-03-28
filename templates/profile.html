@@ -3,5 +3,7 @@
 {% block content %}
 <h1 class="title">
     Bonjour, {{ current_user.firstname}} {{ current_user.lastname}} !
+    <!-- style a ajouter -->
+    <a href="{{ url_for('main.update_profile') }}" class="update_profile">Modifier son profile</a>
 </h1>
 {% endblock %}
