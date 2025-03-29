@@ -175,13 +175,36 @@ html, body {
     box-sizing: border-box; /* Inclut le padding dans les dimensions */
 }
 
-/* .news-box {
-    width: 70%;
+/* TODO presque bon mais pas encore ça à modifier */
+/* TODO s'occuper de la barre de recher qui n'est pas adapter */
+@media (max-width: 1024px) {
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 95vw;
+        padding: 20px 2vw;
+        gap: 20px;
+    }
+
+    .news-box,
+    .info-box {
+        width: 100%; /* Prend toute la largeur */
+        min-height: auto; /* S'ajuste au contenu */
+        height: auto; /* Permet à la box de s'étendre */
+    }
+
+    .box-index {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        height: auto; /* Permet l'agrandissement */
+        overflow: visible; /* Assure que rien n'est caché */
+    }
 }
 
-.info-box {
-    width: 30%;
-} */
+
 
 /* Taille fixe des sections */
 .box-index {
