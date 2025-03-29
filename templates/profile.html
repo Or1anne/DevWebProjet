@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    Bonjour, {{ current_user.firstname}} {{ current_user.lastname}} !
-    <!-- style a ajouter -->
-    <a href="{{ url_for('main.update_profile') }}" class="update_profile">Modifier son profile</a>
-</h1>
+    <h1 class="title is-3">
+        Bonjour, {{ user.firstname }} {{ user.lastname }} !
+    </h1>
+
+    <a href="{{ url_for('main.update_profile') }}" class="button is-link is-small">Modifier mon profil</a>
+
+    <div class="box" style="max-width: 500px; margin: 30px auto;">
+        <h2 class="subtitle is-4" style="color: black;">Mes informations :</h2>
+
+        <ul class="has-text-left">
+            <li><strong>Prénom :</strong> {{ user.firstname }}</li>
+            <li><strong>Nom :</strong> {{ user.lastname }}</li>
+            <li><strong>Âge :</strong> {{ user.age }}</li>
+            <li><strong>Genre :</strong> {{ user.gender }}</li>
+            <li><strong>Email :</strong> {{ user.email }}</li>
+            <li><strong>Pseudo :</strong> {{ user.pseudo }}</li>
+            <li><strong>Niveau :</strong> {{ user.level }}</li>
+        </ul>
+    </div>
 {% endblock %}
