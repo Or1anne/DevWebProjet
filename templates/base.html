@@ -23,6 +23,7 @@
                         <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
 
                         {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('main.objet') }}" class="navbar-item">Objet</a>
                             <a href="{{ url_for('main.manage') }}" class="navbar-item">Manage</a>
                             <a href="{{ url_for('main.admin') }}" class="navbar-item">Administration</a>
                         {% endif %}
@@ -32,7 +33,7 @@
                         {% if current_user.is_authenticated %}
                         <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a>
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                                <img src="{{ url_for('static', filename='utilisateur-de-profil.png') }}" alt="Profil"  width="30" height="30">
+                                <img src="{{ url_for('static', filename='profile-icon-white-6-1.png') }}" alt="Profil"  width="30" height="30">
                             </a>
                         {% else %}
                             <a href="{{ url_for('auth.login') }}" class="navbar-item">Login</a>
@@ -49,13 +50,13 @@
                 {% endblock %}
             </div>
             {% with messages = get_flashed_messages() %}
-  {% if messages %}
+    {% if messages %}
     <div class="notification is-danger">
-      {% for message in messages %}
-        {{ message }}
-      {% endfor %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
     </div>
-  {% endif %}
+    {% endif %}
 {% endwith %}
 
         </div>

@@ -182,21 +182,21 @@ html, body {
 
 /* TODO presque bon mais pas encore ça à modifier */
 /* TODO s'occuper de la barre de recher qui n'est pas adapter */
-@media (max-width: 1024px) {
+@media (max-width: 640px) {
     .content-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr; /* Une seule colonne */
+        grid-auto-rows: min-content; /* Les éléments prennent leur hauteur naturelle */
+        row-gap: 20px; /* Ajoute de l'espace entre les éléments */
         width: 95vw;
-        padding: 20px 2vw;
-        gap: 20px;
-    }
-
+    }    
+    
     .news-box,
     .info-box {
         width: 100%; /* Prend toute la largeur */
         min-height: auto; /* S'ajuste au contenu */
         height: auto; /* Permet à la box de s'étendre */
+        
     }
 
     .box-index {
@@ -214,12 +214,11 @@ html, body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    /* flex-basis: 50%; Chaque section occupe 50% de l'écran */
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Permet au contenu de s'étirer jusqu'à la fin */
     overflow: hidden; /* Masque tout excédent de contenu */
-    width: 100%; /* Permet à la boîte de prendre toute la largeur disponible */
+    width: 100%; 
     box-sizing: border-box; /* Inclut le padding dans les dimensions */
 }
 
@@ -251,9 +250,7 @@ html, body {
     border-radius: 8px;
     margin: 10px 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+
 }
 
 /* Style des titres des articles */
@@ -354,7 +351,7 @@ html, body {
     background-color: #00d1b2;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 640px) {
     .container-admin {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         width: 95vw; /* Plus large sur mobile */
@@ -491,28 +488,67 @@ html, body {
 
 
 
-/* style pour le profile */
-.profile-info {
-    background-color: #f8f9fa;
+/* Mise en forme de la page objet */
+.box-objet {
+    background: white;
     padding: 20px;
     border-radius: 10px;
-    width: 50%;
-    margin: 20px auto;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;    
+    overflow: hidden; 
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
-.profile-info p {
-    font-size: 1.1rem;
+.obj{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px; 
+    width: 70vw; 
+    padding: 20px 2vw;
+    align-items: center;
+    justify-content: center; 
+    margin: auto; 
+}
+
+/* Style des articles */
+.objet-item{
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
     margin: 10px 0;
-}
-
-.update_profile {
-    margin-left: 20px;
-    font-size: 0.9rem;
-    color: #007bff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
     text-decoration: none;
 }
 
-.update_profile:hover {
-    text-decoration: underline;
+.objet-item:hover{
+    background: rgba(214, 213, 213, 0.6);
+}
+
+/* Style des titres des articles */
+.objet-item h3{
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Style des textes des articles */
+.objet-item p{
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    overflow: hidden;
+    text-align: justify; 
+}
+
+@media (max-width: 640px) {
+    .obj {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); 
+    }
 }

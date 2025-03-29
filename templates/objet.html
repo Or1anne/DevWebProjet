@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="search-container">
+    <input type="text" class="search-input search-obj" placeholder="Rechercher un objet...">
+    <button class="search-button">Rechercher</button>
+</div>
+
+<h1 class="title">
+    Page  des objets connectés
+</h1>
+
+<div class="content-container">
+    <div class="box-objet">
+        <h2 class="title-box">Objets</h2>
+        <div class="obj">
+            
+            <!-- TODO Modifier les liens de redirect au bonne endroit comme pour les id (voir avec Alban) -->
+            <!-- TODO Utiliser la base de données -->
+            <a href="{{ url_for('main.index') }}" class="objet-item">
+                <h3>Radiateur</h3>
+                <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
+            </a>
+            <a href="{{ url_for('main.index') }}" class="objet-item">
+                <h3>Aspirateur</h3>
+                <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
+            </a>
+            <a href="{{ url_for('main.index') }}" class="objet-item">
+                <h3>Alarme</h3>
+                <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

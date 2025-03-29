@@ -21,6 +21,10 @@ def manage():
 def admin():
     return render_template('admin.html')
 
+@main.route('/objet')
+def objet():
+    return render_template('objet.html')
+
 @main.route('/profile')
 @login_required
 def profile():
