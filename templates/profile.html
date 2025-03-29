@@ -7,17 +7,16 @@
 
     <a href="{{ url_for('main.update_profile') }}" class="button is-link is-small">Modifier mon profil</a>
 
-    <div class="box" style="max-width: 500px; margin: 30px auto;">
-        <h2 class="subtitle is-4" style="color: black;">Mes informations :</h2>
-
-        <ul class="has-text-left">
-            <li><strong>Prénom :</strong> {{ user.firstname }}</li>
-            <li><strong>Nom :</strong> {{ user.lastname }}</li>
-            <li><strong>Âge :</strong> {{ user.age }}</li>
-            <li><strong>Genre :</strong> {{ user.gender }}</li>
-            <li><strong>Email :</strong> {{ user.email }}</li>
-            <li><strong>Pseudo :</strong> {{ user.pseudo }}</li>
-            <li><strong>Niveau :</strong> {{ user.level }}</li>
-        </ul>
+    <div class="user-container">
+        <h2 class="title-box">Mes informations :</h2>
+        <div class="user-info">
+            <p><strong>Prénom :</strong> {{ user.firstname }}</p>
+            <p><strong>Nom :</strong> {{ user.lastname }}</p>
+            <p><strong>Âge :</strong> {{ user.age }}</p>
+            <p><strong>Genre :</strong> {{ user.gender }}</p>
+            <p><strong>Email :</strong> {{ user.email }}</p>
+            <p><strong>Pseudo :</strong> {{ user.pseudo }}</p>
+            <p><strong>Niveau :</strong> {{ user.level }}</p>
+        </div>
     </div>
 {% endblock %}

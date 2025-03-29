@@ -1,73 +1,66 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="title is-3">Modifier mon profil</h1>
-
-    <form method="POST" action="{{ url_for('main.update_profile') }}" style="max-width: 500px; margin: auto;">
-        {{ form.hidden_tag() }}
-
-        <div class="field">
-            <label class="label">Prénom</label>
-            <div class="control">
-                {{ form.firstname(class="input") }}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Modifier mon profil</h3>
+    <div class="box"> 
+        <form method="POST" action="{{ url_for('main.update_profile') }}">
+            {{ form.hidden_tag() }}
+        
+            <div class="field">
+                <div class="control">
+                    {{ form.firstname(class="input is-large", placeholder="Prénom") }}
+                </div>
+                {% for error in form.firstname.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
             </div>
-            {% for error in form.firstname.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="field">
-            <label class="label">Nom</label>
-            <div class="control">
-                {{ form.lastname(class="input") }}
+        
+            <div class="field">
+                <div class="control">
+                    {{ form.lastname(class="input is-large", placeholder="Nom") }}
+                </div>
+                {% for error in form.lastname.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
             </div>
-            {% for error in form.lastname.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="field">
-            <label class="label">Âge</label>
-            <div class="control">
-                {{ form.age(class="input") }}
+        
+            <div class="field">
+                <div class="control">
+                    {{ form.age(class="input is-large", placeholder="Âge") }}
+                </div>
             </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Genre</label>
-            <div class="control">
-                {{ form.gender(class="input") }}
+        
+            <div class="field">
+                <div class="control">
+                    {{ form.gender(class="input is-large", placeholder="Genre") }}
+                </div>
             </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-                {{ form.email(class="input") }}
+        
+            <div class="field">
+                <div class="control">
+                    {{ form.email(class="input is-large", placeholder="Email") }}
+                </div>
+                {% for error in form.email.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
             </div>
-            {% for error in form.email.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="field">
-            <label class="label">Pseudo</label>
-            <div class="control">
-                {{ form.pseudo(class="input") }}
+        
+            <div class="field">
+                <div class="control">
+                    {{ form.pseudo(class="input is-large", placeholder="Pseudo") }}
+                </div>
+                {% for error in form.pseudo.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
             </div>
-            {% for error in form.pseudo.errors %}
-                <p class="help is-danger">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <div class="field is-grouped is-grouped-centered">
-            <div class="control">
-                {{ form.submit(class="button is-link") }}
-            </div>
-            <div class="control">
-                <a href="{{ url_for('main.profile') }}" class="button is-light">Annuler</a>
-            </div>
-        </div>
-    </form>
+            <div class="user-actions">
+                <button type="submit" class="edit-btn">Enregistrer</button>
+                <a href="{{ url_for('main.profile') }}">
+                    <button class="delete-btn">Annuler</button>
+                </a>
+            </div>                                
+        </form>
+    </div>
+</div>
 {% endblock %}

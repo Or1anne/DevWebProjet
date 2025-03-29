@@ -1,18 +1,20 @@
-/* Général */
+/* Corps de la page base */
 html, body {
     height: 100%;
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #00d1b2; 
     color: rgb(0, 0, 0);
-    text-align: center; /* Centre tous les textes */
+    text-align: center; 
 }
+
+
 
 /* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between; /* Home à gauche, les autres liens à droite */
-    align-items: center; /* Aligner verticalement */
+    align-items: center; 
     background-color: #2bc1aa;
     padding: 10px 20px;
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0));
@@ -37,7 +39,9 @@ html, body {
     gap: 15px; /* Espacement entre les liens */
 }
 
-/* Liens de navigation */
+
+
+/* Liens de navigation  vers les autres pages*/
 .navbar-item {
     color: white !important;
     font-weight: bold;
@@ -51,7 +55,8 @@ html, body {
 }
 
 
-/* Conteneur principal */
+
+/* Conteneur principal des pages */
 .hero-body {
     display: flex;
     flex-direction: column;
@@ -61,6 +66,8 @@ html, body {
     width: 100%;
     box-sizing: border-box;
 }
+
+
 
 /* Formulaire */
 .box {
@@ -72,7 +79,6 @@ html, body {
     text-align: center; /* Centre le texte à l'intérieur */
 }
 
-/* Champs d'entrée */
 .input {
     border-radius: 5px;
     border: 1px solid #ddd;
@@ -82,12 +88,11 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Placeholder stylisé */
 .input::placeholder {
     color: #aaa;
 }
 
-/* Bouton */
+/* Bouton des formulaires*/
 .button.is-info {
     background-color: #00d1b2;
     color: white;
@@ -104,12 +109,7 @@ html, body {
     background-color: #14c2a8;
 }
 
-/* Message de bienvenue sur la page de profil */
-.profile-message {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-}
+
 
 /* Intialisation des classes title et subtitle  */
 .title {
@@ -126,6 +126,9 @@ html, body {
     line-height: 1.25
 }
 
+
+
+/*  Mise en forme de la page index */
 /* Barre de recherche */
 .search-container {
     display: flex;
@@ -159,6 +162,8 @@ html, body {
     border: 1px solid #eaeaea;
     background-color: #00d1b2;
 }
+
+
 
 /* Conteneur des actualités et informations locales */
 .content-container {
@@ -204,9 +209,6 @@ html, body {
     }
 }
 
-
-
-/* Taille fixe des sections */
 .box-index {
     background: white;
     padding: 20px;
@@ -221,11 +223,9 @@ html, body {
     box-sizing: border-box; /* Inclut le padding dans les dimensions */
 }
 
-
-/* Centrage des titres */
 .title-box {
     text-align: center;
-    font-size: 22px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 15px;
     width: 100%;
@@ -234,7 +234,6 @@ html, body {
 
 
 /* Styles des sections */
-
 .news-box {
     border-top: 5px solid #ff6080; /* Couleur pour les actualités */
     flex-basis: 70%;
@@ -257,12 +256,14 @@ html, body {
     white-space: normal;
 }
 
+/* Style des titres des articles */
 .news-item h3, .info-item h3 {
     margin: 0;
     font-size: 18px;
     color: #333;
 }
 
+/* Style des textes des articles */
 .news-item p, .info-item p {
     font-size: 14px;
     color: #666;
@@ -271,6 +272,7 @@ html, body {
     text-align: justify; 
 }
 
+/* Style des liens des articles */
 .news-item a, .info-item a {
     display: inline-block;
     margin-top: 5px;
@@ -283,6 +285,9 @@ html, body {
     text-decoration: underline;
 }
 
+
+
+/* Style des boutons pour afficher plus de texte */
 /* Limitation du texte et bouton "Lire plus" */
 .truncated-text {
     white-space: nowrap;
@@ -308,15 +313,17 @@ html, body {
     color: #14c2a8;
 }
 
+
+
 /* Mise en forme de la page admin */
 .container-admin {
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
     gap: 15px; 
-    width: 95vw; /* Utilisation d'une largeur plus grande */
+    width: 95vw; 
     padding: 20px 2vw;
     align-items: center;
-    justify-content: center; /* Centre les éléments horizontalement */
+    justify-content: center; 
     margin: auto; 
 }
 
@@ -351,14 +358,17 @@ html, body {
     .container-admin {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         width: 95vw; /* Plus large sur mobile */
-        padding: 20px 2vw; /* Ajuste le padding */
+        padding: 20px 2vw; 
     }
 }
 
+
+
+/* Style de la barre de sroll */
 /* Largeur de la scrollbar */
 ::-webkit-scrollbar {
-    width: 8px; /* Largeur verticale */
-    height: 8px; /* Largeur horizontale */
+    width: 8px; 
+    height: 8px; 
 }
 
 /* Fond de la scrollbar */
@@ -369,7 +379,7 @@ html, body {
 
 /* Barre de défilement */
 ::-webkit-scrollbar-thumb {
-    background: #00a88b; /* Couleur principale */
+    background: #00a88b; 
     border-radius: 5px;
     transition: background 0.3s;
 }
@@ -379,7 +389,9 @@ html, body {
 }
 
 
-/* Conteneur principal de la page Gestion */
+
+/*  Mise en forme de la page gestion des utilisateurs */
+/* Conteneur principal */
 .gestion-container {
     width: 80%;
     max-width: 800px;
@@ -475,6 +487,9 @@ html, body {
 .user-actions .delete-btn:hover {
     background: #cc0000;
 }
+
+
+
 
 /* style pour le profile */
 .profile-info {
