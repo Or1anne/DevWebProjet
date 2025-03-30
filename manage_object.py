@@ -34,10 +34,10 @@ def add_object():
 
         if 'size' in request.form:
             size = request.form.get('size', type=int)
-            resolution = request.form.get('resolution', type=int)
+            resolution = request.form.get('resolution')
 
         if type_obj == "Enceinte" or type_obj == "Television" or type_obj == "Ecran":
-            temp = random.randint(-5,30)
+            volume = random.randint(0,100)
 
         if type_obj == "Thermomètre" or type_obj == "Radiateur":
             temp = random.randint(-5,30)
@@ -54,7 +54,7 @@ def add_object():
         )
 
         if size is not None:
-            new_object.size = size
+            new_object.size =size
             new_object.resolution = resolution
 
         if volume is not None:
