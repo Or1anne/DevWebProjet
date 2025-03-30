@@ -6,6 +6,8 @@ from .forms import UpdateProfileForm # Pour update_profile
 from flask import session
 from .ItsDangerous import generate_confirmation_token
 from .ItsDangerous import confirm_token
+from werkzeug.security import generate_password_hash
+from flask_login import logout_user
 
 main = Blueprint('main', __name__)
 
@@ -41,6 +43,9 @@ def update_profile():
         if not form.email.data.endswith('@etu.cyu.fr'):
             flash("❗️ Veuillez utiliser une adresse email valide au format : prenom.nom@etu.cyu.fr")
             return redirect(url_for('main.update_profile'))
+
+        if form.password.data:
+            current_user.password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
 
         # Vérifie si le pseudo est déjà utilisé par un autre utilisateur
         existing_pseudo = User.query.filter_by(pseudo=form.pseudo.data).first()
@@ -169,3 +174,15 @@ def delete_user(user_id):
 
     return redirect(url_for('main.gestion_utilisateur'))
 
+@main.route('/delete_profile', methods=['POST'])
+@login_required
+def delete_profile():
+    user = current_user
+    
+    db.session.delete(user)
+    db.session.commit()
+
+    logout_user()
+
+    flash("Votre compte a bien été supprimé.")
+    return redirect(url_for('main.index'))
