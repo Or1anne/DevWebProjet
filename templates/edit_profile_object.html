@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Modifier l'utilisateur</h3>
+    <div class="box">
+        <form method="POST" action='/edit_object/{{obj.id}}'>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="nom" autofocus="" value="{{obj.nom}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="type" autofocus="" value="{{obj.type}}" readonly>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="reference" value="{{obj.reference}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="brand" value="{{obj.brand}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="battery" value="{{obj.battery}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="energy" value="{{obj.energy}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="connectivity" value="{{obj.connectivity}}" required>
+                </div>
+            </div>
+            
+            {% if obj.size is not none %}
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="number" name="size" value="{{obj.size}}" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="text" name="resolution" value="{{obj.resolution}}" required>
+                    </div>
+                </div>
+            {% endif %}
+        
+            {% if obj.volume is not none %}
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="number" name="volume" value="{{obj.volume}}" required>
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% if obj.temp is not none %}
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="temp" placeholder="temp" value="{{obj.temp}}" required>
+                </div>
+            </div>
+            {% endif %}
+
+            <button class="button is-block is-info is-large is-fullwidth">Enregistrer</button>
+        </form>
+        <a href="{{ url_for('manage_object.list_objects')}}">Annuler</a>
+    </div>
+</div>
+{% endblock %}

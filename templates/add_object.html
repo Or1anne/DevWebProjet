@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Ajouter un objet</h2>
+<form method="POST" enctype="multipart/form-data">
+    <p>Type :
+        <select id="objectType" name="type" required onchange="showFields()">
+            <option value="">-- Sélectionner un type --</option>
+            <option value="Television">Television/Smartphone</option>
+            <option value="Ecran">Ecran Ordinateur</option>
+            <option value="Enceinte">Enceinte</option>
+            <option value="autre">Lave-Vaiselle</option>
+            <option value="autre">Machine à laver</option>
+            <option value="autre">Radiateur</option>
+            <option value="autre">Thermomètre</option>
+            <option value="autre">Robot-aspirateur</option>
+            <option value="autre">Autre</option>
+
+        </select>
+    </p>
+
+    <p>Nom : <input type="text" name="nom"></p>
+    <p>Référence : <input type="text" name="reference"></p>
+    <p>Marque : <input type="text" name="brand"></p>
+    <p>Connectivité : <input type="text" name="connectivity"></p>
+    <p>Consommation électrique : <input type="number" name="energy"> Wh</p>
+
+    <div id="Screens" style="display: none;">
+        <h3>Caractéristiques</h3>
+        <p>Taille : <input type="text" name="size"> Pouces</p>
+        <p>Résolution : <input type="text" name="resolution"> px</p>
+    </div>
+
+    <p>Image : <input type="file" name="image"></p>
+
+    <p><input type="submit" value="Ajouter l'objet"></p>
+</form>
+<a href="{{ url_for('manage_object.list_objects') }}">Voir les objets</a>
+
+
+<script>
+    function showFields() {
+        var type = document.getElementById("objectType").value;
+
+        // Masquer tous les champs
+        document.getElementById("Screens").style.display = "none";
+
+        // Afficher les champs spécifiques au type choisi
+        if (type === "Ecran" || type ==="Television") {
+            document.getElementById("Screens").style.display = "block";
+        }
+    }
+</script>
+
+{% endblock %}

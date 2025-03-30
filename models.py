@@ -12,5 +12,35 @@ class User(UserMixin, db.Model):
     age = db.Column(db.Integer)
     gender = db.Column(db.String(100))
 
+class Object(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nom = db.Column(db.String)
+    type = db.Column(db.String, nullable=False)
+    reference = db.Column(db.String, unique=True, index=True)
+    brand = db.Column(db.String)
+    status = db.Column(db.String)
+    image = db.Column(db.LargeBinary)
+
+    battery = db.Column(db.Integer)
+    energy = db.Column(db.Integer)
+    connectivity = db.Column(db.String)
+
+    volume = db.Column(db.Integer)
+    luminosity = db.Column(db.Integer)
+    size = db.Column(db.Integer)
+    resolution = db.Column(db.Integer)
+
+    temp = db.Column(db.Integer)
+
+class Info(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    content = db.Column(db.Text)
+
+
+
+
+
+
 
 

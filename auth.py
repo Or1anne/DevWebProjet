@@ -27,10 +27,6 @@ def signup_post():
     age=request.form.get('age')
     gender=request.form.get('gender')
 
-    if not email.endswith('@etu.cyu.fr'):
-        flash("L'adresse email doit être une adresse étudiante de type 'etu.cyu.fr'.")
-        return redirect(url_for('auth.signup'))
-
     user_by_email = User.query.filter_by(email=email).first()
     user_by_pseudo = User.query.filter_by(pseudo=pseudo).first()
 
@@ -114,7 +110,14 @@ def login_post():
         return redirect(url_for('auth.login')) # Si l'utilisateur ou le MDP n'existe pas alors refresh la page
     else:
         login_user(user, remember=remember)
-        return redirect(url_for('main.index'))
+        #TODO Changer les redirections pour aller sur la page correspondante
+        if user.level =="Simple" or user.level == "Intermédiaire": 
+            return redirect(url_for('main.index'))
+        elif user.level == "Avancé" :
+            return redirect(url_for('main.index'))
+        else:
+            return redirect(url_for('main.index'))
+
 
 
 @auth.route('/logout')

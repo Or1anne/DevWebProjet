@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2><strong>{{ obj.nom }} ({{ obj.type }})</strong><br></h2>
+
+    {% if obj.image %}
+        <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="100">
+    {% else %}
+        <p>Aucune image</p>
+    {% endif %}
+
+    <p>Référence : {{ obj.reference }}</p>
+    <p>Marque : {{ obj.brand }}</p>
+    <p>Statut : {{ obj.status }}</p>
+    <p>Batterie : {{ obj.battery }} %</p>
+    <p>Consommation électrique : {{ obj.energy }} Wh</p>
+    <p>Connectivité : {{ obj.connectivity }}</p>
+
+    {% if obj.size is not none %}
+        <p>Taille : {{ obj.size }} Pouces</p>
+        <p>Résolution : {{obj.resolution}} px</p>
+    {% endif %}
+
+    {% if obj.volume is not none %}
+        <p>Volume : {{ obj.volume }} %</p>
+    {% endif %}
+    
+    {% if obj.temp is not none %}
+        <p>Température : {{ obj.temp }}</p>
+    {% endif %}
+
+<br>
+<a href="{{ url_for('manage_object.list_objects')}}">Retour</a>
+<a href="{{ url_for('manage_object.edit_object', obj_id=obj.id)}}">Modifier</a>
+<form action="{{ url_for('manage_object.delete_object', obj_id=obj.id) }}" method="post">
+    <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cet objet ?')">
+        Supprimer
+    </button>
+</form>
+
+    
+{% endblock %}

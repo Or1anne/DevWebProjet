@@ -24,6 +24,7 @@ def create_app():
     app.config['MAIL_USERNAME'] = 'asumakino@gmail.com'
     app.config['MAIL_PASSWORD'] = 'nvyn evsn rogu toqt'
     app.config['MAIL_DEFAULT_SENDER'] = 'asumakino@gmail.com'
+    app.config['UPLOAD_FOLDER'] = 'static/uploads' 
 
     mail.init_app(app)
     db.init_app(app)
@@ -52,5 +53,9 @@ def create_app():
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    from .manage_object import manage_object as manage_object_blueprint, b64encode_filter
+    app.register_blueprint(manage_object_blueprint)
+    app.jinja_env.filters['b64encode'] = b64encode_filter
 
     return app
