@@ -83,6 +83,7 @@ def confirm_email(token):
         password= user_data['password'], #generate_password_hash(user_data['password'], method='pbkdf2:sha256'),
         pseudo=user_data['pseudo'],
         age=user_data['age'],
+        level="Debutant",
         gender=user_data['gender']
     )
 
@@ -110,13 +111,7 @@ def login_post():
         return redirect(url_for('auth.login')) # Si l'utilisateur ou le MDP n'existe pas alors refresh la page
     else:
         login_user(user, remember=remember)
-        #TODO Changer les redirections pour aller sur la page correspondante
-        if user.level =="Simple" or user.level == "Intermédiaire": 
-            return redirect(url_for('main.index'))
-        elif user.level == "Avancé" :
-            return redirect(url_for('main.index'))
-        else:
-            return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
 
 
 

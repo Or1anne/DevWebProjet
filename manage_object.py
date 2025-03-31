@@ -12,7 +12,7 @@ manage_object = Blueprint('manage_object', __name__)
 @manage_object.route('/objects')
 def list_objects():
     objects = Object.query.all()
-    return render_template('manage.html', objects=objects)
+    return render_template('objet.html', objects=objects)
 
 @manage_object.route('/add_object', methods=['GET', 'POST'])
 def add_object():
@@ -31,10 +31,14 @@ def add_object():
         temp = None
         size = None
         resolution = None
+        luminosity = None
 
         if 'size' in request.form:
             size = request.form.get('size', type=int)
             resolution = request.form.get('resolution')
+
+        if 'luminosity' in request.form:
+            luminosity = request.form.get('luminosity', type=int)
 
         if type_obj == "Enceinte" or type_obj == "Television" or type_obj == "Ecran":
             volume = random.randint(0,100)
@@ -54,11 +58,14 @@ def add_object():
         )
 
         if size is not None:
-            new_object.size =size
+            new_object.size = size
             new_object.resolution = resolution
 
         if volume is not None:
             new_object.volume = volume
+
+        if luminosity is not None:
+            new_object.luminosity = luminosity
 
         if temp is not None:
             new_object.temp = temp
@@ -112,6 +119,16 @@ def delete_object(obj_id):
         db.session.commit()
 
     return redirect(url_for('manage_object.list_objects'))
+
+@manage_object.route('/activate_object/<int:obj_id>')
+def activate_object(obj_id):
+    object = Object.query.get(obj_id)
+    if object.status == "ON" :
+        object.status = "OFF"
+    else:
+        object.status = "ON"
+    db.session.commit()
+    return render_template('profile_object.html', obj=object)
 
 
 def b64encode_filter(data):

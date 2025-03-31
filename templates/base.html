@@ -23,9 +23,11 @@
                         <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
 
                         {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('main.objet') }}" class="navbar-item">Objet</a>
-                            <a href="{{ url_for('manage_object.list_objects') }}" class="navbar-item">Manage</a>
+
+                            <a href="{{ url_for('manage_object.list_objects') }}" class="navbar-item">Objet</a>
+                            {% if current_user.level == "Expert" %}
                             <a href="{{ url_for('main.admin') }}" class="navbar-item">Administration</a>
+                            {%endif%}
                         {% endif %}
                     </div>
 

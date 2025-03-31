@@ -46,6 +46,14 @@
                     <input class="input is-large" type="text" name="connectivity" value="{{obj.connectivity}}" required>
                 </div>
             </div>
+
+            {% if obj.luminosity is not none %}
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="number" name="luminosity" value="{{obj.luminosity}}" required>
+                    </div>
+                </div>
+            {% endif %} 
             
             {% if obj.size is not none %}
                 <div class="field">
