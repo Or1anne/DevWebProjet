@@ -46,7 +46,18 @@
     {% endif %}
 
     {% if current_user.level == "Avance" %}
+        <button type="button" onclick="openRequestMotif()">Demande de suppression</button>
 
+        <div id="requestMotif" style="display: none;">
+            <h2>Demande de suppression2</h2>
+            <button type="button" onclick="closeRequestMotif()">Fermer</button>
+            <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
+                <label for="description">Motif :</label>
+                <textarea name="description" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+        
     {% endif %}
 
     {% if current_user.level == "Expert" %}
@@ -54,8 +65,18 @@
             <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cet objet ?')">
                 Supprimer
             </button>
+        </form>
     {% endif %}
-</form>
 
+<script>
+    function openRequestMotif() {
+        console.log("Bouton cliqué, ouverture du formulaire...");
+        document.getElementById("requestMotif").style.display = "block";
+    }
     
+    function closeRequestMotif() {
+        document.getElementById("requestMotif").style.display = "none";
+    }
+</script>
+
 {% endblock %}

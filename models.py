@@ -37,6 +37,17 @@ class Info(db.Model):
     title = db.Column(db.String)
     content = db.Column(db.Text)
 
+class Request(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    description = db.Column(db.Text)
+    status = db.Column(db.String)
+
+    object_id = db.Column(db.Integer, db.ForeignKey('object.id'))
+    object = db.relationship('Object', backref='requests')
+
+
+
 
 
 

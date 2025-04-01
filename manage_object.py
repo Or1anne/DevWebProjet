@@ -53,8 +53,15 @@ def add_object():
                 image_data = image_file.read()
 
         new_object = Object(
-            nom=nom, type=type_obj, reference=reference, brand=brand, status=status,
-            image=image_data, battery=battery, energy=energy, connectivity=connectivity
+            nom=nom,
+            type=type_obj,
+            reference=reference,
+            brand=brand,
+            status=status,
+            image=image_data,
+            battery=battery,
+            energy=energy,
+            connectivity=connectivity
         )
 
         if size is not None:
@@ -129,6 +136,25 @@ def activate_object(obj_id):
         object.status = "ON"
     db.session.commit()
     return render_template('profile_object.html', obj=object)
+
+@manage_object.route('/request_object/<int:obj_id>')
+def request_object(obj_id):
+    title = "Demande de supression"
+    description = request.form.get['description']
+    status = "En Cours"
+    object_id = obj_id
+
+    new_request = Request(
+            title=title,
+            description=description,
+            status=status,
+            object_id=object_id
+        )
+    
+    db.session.add(new_request)
+    db.session.commit()
+    return redirect(url_for('manage_object.list_objects'))
+
 
 
 def b64encode_filter(data):
