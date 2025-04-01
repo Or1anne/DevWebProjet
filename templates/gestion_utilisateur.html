@@ -9,7 +9,9 @@
     <h1 class="title-box">Liste des Utilisateurs</h1>
     <ul>
         {% for user in users %}
-            <li><a href="{{ url_for('main.user_profile', user_id=user.id) }}">{{ user.pseudo }}</a></li>
+            <a class="list-user" href="{{ url_for('main.user_profile', user_id=user.id) }}">
+                <li>{{ user.pseudo }}</li>
+            </a>
         {% endfor %}
     </ul>
 </div>

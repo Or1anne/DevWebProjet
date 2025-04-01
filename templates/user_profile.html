@@ -2,6 +2,11 @@
 
 {% block content %}
 <div class="user-container">
+    <div class="back">
+        <a href="{{ url_for('manage_object.list_objects') }}" class="button">
+            <img src="{{ url_for('static', filename='croix.png') }}" alt="Profil"  width="20" height="20">
+        </a>
+    </div>
     <h1 class="title-box">Information de l'utilisateur</h1>
 
     <div class="user-info">

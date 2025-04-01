@@ -421,13 +421,13 @@ html, body {
     background: #00d1b2;
 }
 
-.gestion-container li a {
+.gestion-container .list-user{
     text-decoration: none;
     color: #333;
     font-weight: bold;
 }
 
-.gestion-container li a:hover {
+.gestion-container .list-user:hover {
     color: white;
 }
 
@@ -571,4 +571,113 @@ html, body {
 
 .add-btn:hover{
     background: #14c2a8;
+}
+
+/* Style des boutons retours */
+.box {
+    position: relative;
+    padding: 2rem;
+}
+
+.user-container {
+    position: relative;
+    padding: 2rem;
+}
+.back {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+
+/* Style des listes déroulantes */
+select {
+    appearance: none;
+    color: #7c7c7c;
+    border: 0 !important;
+    background: white;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.select {
+    position: relative;
+    width: 350px;
+    height: 45px;
+    overflow: hidden;
+    border: white;
+    display: flex;
+    justify-content: center;
+}
+
+.label{
+    font-weight: bold;
+}
+
+
+/* Style des checkbox */
+.checkbox-box {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    justify-content: center;    
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 5px;
+    cursor: pointer; 
+}
+
+.checkbox input[type="checkbox"] {
+    margin-right: 5px; /* Ajoute un petit espace entre le checkbox et le texte */
+    appearance: none;
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    width: 16px;
+    height: 16px; 
+    cursor: pointer;
+    display: inline-block; 
+    position: relative; 
+}
+
+.checkbox input[type="checkbox"]:checked {
+    background-color: #00d1b2; 
+}
+
+.checkbox input[type="checkbox"]:checked::before {
+    content: ""; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -60%) rotate(45deg); /* Style de la coche */
+}
+
+.checkbox input[type="checkbox"]:focus {
+    outline: none; 
+    border-color: #00d1b2; 
+    box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25); 
+}
+
+
+/* Style des imput avec des unitiés */
+.unit {
+    display: flex; 
+    align-items: center; 
+}
+
+.unit .input {
+    margin-right: 10px; 
+}
+
+.unit span {
+    font-size: 1rem; 
+    color: #555; 
 }

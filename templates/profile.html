@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="title is-3">
-        Bonjour, {{ user.firstname }} {{ user.lastname }} !
-    </h1>
-
-    <a href="{{ url_for('main.update_profile') }}" class="button is-link is-small">Modifier mon profil</a>
-
     <div class="user-container">
         <h2 class="title-box">Mes informations :</h2>
         <div class="user-info">
@@ -17,10 +11,16 @@
             <p><strong>Email :</strong> {{ user.email }}</p>
             <p><strong>Pseudo :</strong> {{ user.pseudo }}</p>
             <p><strong>Niveau :</strong> {{ user.level }}</p>
+        </div>  
+        <div class="user-actions">
+            <a href="{{ url_for('main.update_profile') }}">
+                <button class="edit-btn">Modifier</button>
+            </a>
+            <form method="POST" action="{{ url_for('main.delete_profile') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+                <button class="delete-btn" type="submit">
+                    Supprimer
+                </button>
+            </form>
         </div>
-        <form method="POST" action="{{ url_for('main.delete_profile') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
-            <button class="button is-danger is-light" type="submit">Supprimer mon compte</button>
-        </form>
-        
     </div>
 {% endblock %}
