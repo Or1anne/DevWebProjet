@@ -6,74 +6,144 @@
     <h2 class="title">Ajouter un objet</h2>
     <div class="box">
         <form method="POST" enctype="multipart/form-data">
-            <p>Type :
-                <select id="objectType" name="type" required onchange="showFields()">
-                    <option value="">-- Sélectionner un type --</option>
-                    <option value="Television">Television/Smartphone</option>
-                    <option value="Ecran">Ecran Ordinateur</option>
-                    <option value="Enceinte">Enceinte</option>
-                    <option value="Lave-Vaiselle">Lave-Vaiselle</option>
-                    <option value="Machine à laver">Machine à laver</option>
-                    <option value="Radiateur">Radiateur</option>
-                    <option value="Thermomètre">Thermomètre</option>
-                    <option value="Robot-aspirateur">Robot-aspirateur</option>
-                    <option value="Lumiere">Lampe/Lumière</option>
-                    <option value="Alarme">Alarme</option>
-                    <option value="Autre">Autre</option>
-        
-                </select>
-            </p>
-        
-            <p>Nom : <input type="text" name="nom"></p>
-            <p>Référence : <input type="text" name="reference"></p>
-            <p>Marque : <input type="text" name="brand"></p>
-            <p>Connectivité : <input type="text" name="connectivity"></p>
-            <p>Consommation électrique : <input type="number" name="energy"> Wh</p>
-        
+            <div class="field">
+                <label class="label">Type :</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select id="objectType" name="type" required onchange="showFields()">
+                            <option value="">-- Sélectionner un type --</option>
+                            <option value="Television">Television/Smartphone</option>
+                            <option value="Ecran">Ecran Ordinateur</option>
+                            <option value="Enceinte">Enceinte</option>
+                            <option value="Lave-Vaiselle">Lave-Vaiselle</option>
+                            <option value="Machine à laver">Machine à laver</option>
+                            <option value="Radiateur">Radiateur</option>
+                            <option value="Thermomètre">Thermomètre</option>
+                            <option value="Robot-aspirateur">Robot-aspirateur</option>
+                            <option value="Lumiere">Lampe/Lumière</option>
+                            <option value="Alarme">Alarme</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Nom :</label>
+                <div class="control">
+                    <input class="input" type="text" name="nom">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Référence :</label>
+                <div class="control">
+                    <input class="input" type="text" name="reference">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Marque :</label>
+                <div class="control">
+                    <input class="input" type="text" name="brand">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Connectivité :</label>
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" name="connectivity" value="Wifi"> Wifi
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="connectivity" value="Bluetooth"> Bluetooth
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="connectivity" value="Ethernet"> Ethernet
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" id="no-network" value="Sans réseau"> Sans réseau
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Consommation électrique :</label>
+                <div class="control">
+                    <input class="input" type="number" name="energy"> Wh
+                </div>
+            </div>
+
             <div id="Screens" style="display: none;">
                 <h3>Caractéristiques</h3>
-                <p>Taille : <input type="number" name="size"> Pouces</p>
-                <select name="resolution">
-                    <option value="">-- Sélectionner une résolution --</option>
-                    <option value="7680 x 4320">7680 x 4320 px</option>
-                    <option value="3840 x 2160">3840 x 2160 px</option>
-                    <option value="2560 x 1140">2560 x 1140 px</option>
-                    <option value="1920 x 1080">1920 x 1080 px</option>
-                    <option value="1280 x 720">1280 x 720 px</option>
-                    <option value="854 x 480">854 x 480 px</option>
-                    <option value="640 x 360">640 x 360 px</option>
-                    <option value="426 x 240">426 x 240 px</option>    
-                </select>
+                <div class="field">
+                    <label class="label">Taille :</label>
+                    <div class="control">
+                        <input class="input" type="number" name="size"> Pouces
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Résolution :</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="resolution">
+                                <option value="">-- Sélectionner une résolution --</option>
+                                <option value="7680 x 4320">7680 x 4320 px</option>
+                                <option value="3840 x 2160">3840 x 2160 px</option>
+                                <option value="2560 x 1140">2560 x 1140 px</option>
+                                <option value="1920 x 1080">1920 x 1080 px</option>
+                                <option value="1280 x 720">1280 x 720 px</option>
+                                <option value="854 x 480">854 x 480 px</option>
+                                <option value="640 x 360">640 x 360 px</option>
+                                <option value="426 x 240">426 x 240 px</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="Lux" style="display: none;">
                 <h3>Caractéristiques</h3>
-                <p>Consommation lumineuse : <input type="number" name="luminosity"> Lux</p>
+                <div class="field">
+                    <label class="label">Consommation lumineuse :</label>
+                    <div class="control">
+                        <input class="input" type="number" name="luminosity"> Lux
+                    </div>
+                </div>
             </div>
-        
-            <p>Image : <input type="file" name="image"></p>
-        
-            <p><input type="submit" value="Ajouter l'objet"></p>
+
+            <div class="upload-file">
+                <label class="label">Image :</label>
+                <div class="control">
+                    <input class="input" type="file" name="image">
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-info" type="submit">Ajouter l'objet</button>
+                </div>
+                <div class="control">
+                    <a href="{{ url_for('manage_object.list_objects') }}" class="button">Voir les objets</a>
+                </div>
+            </div>
         </form>
-        <a href="{{ url_for('manage_object.list_objects') }}">Voir les objets</a>
     </div>
 </div>
-
-
 
 <script>
     function showFields() {
         var type = document.getElementById("objectType").value;
 
-        // Masquer tous les champs
+        // Masquer tous les champs spécifiques
         document.getElementById("Screens").style.display = "none";
         document.getElementById("Lux").style.display = "none";
 
         // Afficher les champs spécifiques au type choisi
-        if (type === "Ecran" || type ==="Television") {
+        if (type === "Ecran" || type === "Television") {
             document.getElementById("Screens").style.display = "block";
         }
-        if (type ==="Lumiere") {
+        if (type === "Lumiere") {
             document.getElementById("Lux").style.display = "block";
         }
     }

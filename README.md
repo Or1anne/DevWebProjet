@@ -54,7 +54,7 @@ Vous devez en premier lieu télécharger le dossier DevWebProjet à partir du d�
 ```
 python -m venv venv
 ```
- >[!NOTE] 
+ >[!IMPORTANT] 
  >Il faut activer les scripts pour windows  
  
 Ensuite vous devez activer l'environnement virtuel:

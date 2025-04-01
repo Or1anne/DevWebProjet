@@ -26,13 +26,15 @@
                             <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
                         {% endif %}
                 </a>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                <a href="{{ url_for('manage_object.add_object') }}">
+                    <button class="add-btn">Ajouter un objet</button>
+                </a>
+            {%endif%}
     </div>
 
-    {% if current_user.level == "Avance" or current_user.level == "Expert" %}
-        <a href="{{ url_for('manage_object.add_object') }}">Ajouter un objet</a>
-    {%endif%}
 
 </div>
 {% endblock %}
