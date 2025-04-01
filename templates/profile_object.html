@@ -1,72 +1,94 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="user-container">
+        <div class="back">
+            <a href="{{ url_for('manage_object.list_objects')}}">
+                <img src="{{ url_for('static', filename='croix.png') }}" alt="Profil"  width="20" height="20">
+            </a>
+        </div>
+        <h2 class="title-box">
+            {{ obj.nom }} ({{ obj.type }})
+        </h2>
 
-    <h2><strong>{{ obj.nom }} ({{ obj.type }})</strong><br></h2>
+        <div class="user-info">
+            {% if obj.image %}
+                <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="100">
+            {% else %}
+                <p>Aucune image</p>
+            {% endif %}
 
-    {% if obj.image %}
-        <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="100">
-    {% else %}
-        <p>Aucune image</p>
-    {% endif %}
-
-    <p>Référence : {{ obj.reference }}</p>
-    <p>Marque : {{ obj.brand }}</p>
-    <p>Statut : {{ obj.status }}</p>
-    <p>Batterie : {{ obj.battery }} %</p>
-    <p>Consommation électrique : {{ obj.energy }} Wh</p>
-    <p>Connectivité : {{ obj.connectivity }}</p>
-
-    {% if obj.luminosity is not none %}
-        <p>Consommation lumineuse : {{ obj.luminosity }} %</p>
-    {% endif %}
-
-    {% if obj.size is not none %}
-        <p>Taille : {{ obj.size }} Pouces</p>
-        <p>Résolution : {{obj.resolution}} px</p>
-    {% endif %}
-
-    {% if obj.volume is not none %}
-        <p>Volume : {{ obj.volume }} %</p>
-    {% endif %}
-    
-    {% if obj.temp is not none %}
-        <p>Température : {{ obj.temp }}</p>
-    {% endif %}
-
-    <a href="{{ url_for('manage_object.list_objects')}}">Retour</a>
-
-    {% if current_user.level =="Avance" or current_user.level == "Expert" %}
-        <a href="{{ url_for('manage_object.edit_object', obj_id=obj.id)}}">Modifier</a>
-        {% if obj.status == "ON" %}
-            <a href="{{ url_for('manage_object.activate_object', obj_id=obj.id)}}">Désactiver</a>
-        {% else %}
-            <a href="{{ url_for('manage_object.activate_object', obj_id=obj.id)}}">Activer</a>
-        {% endif %}
-    {% endif %}
-
-    {% if current_user.level == "Avance" %}
-        <button type="button" onclick="openRequestMotif()">Demande de suppression</button>
-
-        <div id="requestMotif" style="display: none;">
-            <h2>Demande de suppression2</h2>
-            <button type="button" onclick="closeRequestMotif()">Fermer</button>
-            <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
-                <label for="description">Motif :</label>
-                <textarea name="description" required></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
+            {% if current_user.level =="Avance" or current_user.level == "Expert" %}
+            <!-- TODO problème quand je refresh ma page le statut change -->
+                {% if obj.status == "ON" %}
+                    <a href="{{ url_for('manage_object.activate_object', obj_id=obj.id)}}"><button class="button is-info" >Désactiver</button></a>
+                {% else %}
+                    <a href="{{ url_for('manage_object.activate_object', obj_id=obj.id)}}"><button class="button is-info" >Activer</button></a>
+                {% endif %}
+            {% endif %}
+        
+            <p><strong>Référence :</strong>{{ obj.reference }}</p>
+            <p><strong>Marque : </strong>{{ obj.brand }}</p>
+            <p><strong>Statut : </strong>{{ obj.status }}</p>
+            <p><strong>Batterie : </strong>{{ obj.battery }} %</p>
+            <p><strong>Consommation électrique : </strong>{{ obj.energy }} Wh</p>
+            <p><strong>Connectivité : </strong>{{ obj.connectivity }}</p>
+        
+            {% if obj.luminosity is not none %}
+                <p><strong>Consommation lumineuse : </strong>{{ obj.luminosity }} %</p>
+            {% endif %}
+        
+            {% if obj.size is not none %}
+                <p><strong>Taille : </strong>{{ obj.size }} Pouces</p>
+                <p><strong>Résolution : </strong>{{obj.resolution}} px</p>
+            {% endif %}
+        
+            {% if obj.volume is not none %}
+                <p><strong>Volume : </strong>{{ obj.volume }} %</p>
+            {% endif %}
+            
+            {% if obj.temp is not none %}
+                <p><strong>Température : </strong>{{ obj.temp }}</p>
+            {% endif %}
         </div>
         
-    {% endif %}
 
-    {% if current_user.level == "Expert" %}
-        <form action="{{ url_for('manage_object.delete_object', obj_id=obj.id) }}" method="post">
-            <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cet objet ?')">
-                Supprimer
-            </button>
-        </form>
-    {% endif %}
+        <div class="user-actions">
+            {% if current_user.level =="Avance" or current_user.level == "Expert" %}
+                <a href="{{ url_for('manage_object.edit_object', obj_id=obj.id)}}">
+                    <button class="edit-btn">Modifier</button>
+                </a>
+            {% endif %}
+        
+            {% if current_user.level == "Avance" %}
+                <!-- TODO Faire les CSS -->
+                <button type="button" class="delete-btn" onclick="openRequestMotif()">Demande de suppression</button>
+        
+                <div id="requestMotif" style="display: none;">
+                    <h2>Demande de suppression2</h2>
+                    <button type="button" onclick="closeRequestMotif()">Fermer</button>
+                    <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
+                        <label for="description">Motif :</label>
+                        <textarea name="description" required></textarea>
+                        <button type="submit">Envoyer</button>
+                    </form>
+                </div>
+                
+            {% endif %}
+        
+            {% if current_user.level == "Expert" %}
+                <form action="{{ url_for('manage_object.delete_object', obj_id=obj.id) }}" method="post">
+                    <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cet objet ?')">
+                        Supprimer
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+
+
+    
+    </div>
+
 
 <script>
     function openRequestMotif() {
