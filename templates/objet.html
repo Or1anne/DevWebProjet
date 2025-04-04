@@ -15,8 +15,6 @@
     <div class="box-objet">
         <h2 class="title-box">Objets</h2>
         <div class="obj">
-            <!-- TODO Modifier les liens de redirect au bonne endroit comme pour les id (voir avec Alban) -->
-            <!-- TODO Utiliser la base de données -->
             {% for obj in objects %}
                 <a href="{{ url_for('manage_object.profile_object', obj_id=obj.id) }}" class="objet-item">
                     <h3>{{ obj.nom }} ({{ obj.type }})</h3>

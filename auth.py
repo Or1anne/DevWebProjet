@@ -2,7 +2,7 @@ from flask import *
 from flask_mail import Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import *
-from .models import User
+from .models import *
 from . import db, mail
 from .ItsDangerous import generate_confirmation_token, confirm_token
 
@@ -72,29 +72,20 @@ def confirm_email(token):
         return redirect(url_for('auth.signup'))
     
     user_data = session.get('user_data')
-    if not user_data:
-        flash('Aucune donnée d\'utilisateur trouvée.')
-        return redirect(url_for('auth.signup'))
-
-    new_user = User(
-        email=user_data['email'],
-        firstname=user_data['firstname'],
-        lastname=user_data['lastname'],
-        password= user_data['password'], #generate_password_hash(user_data['password'], method='pbkdf2:sha256'),
-        pseudo=user_data['pseudo'],
-        age=user_data['age'],
-        level="Debutant",
-        gender=user_data['gender']
+    
+    new_request = Request(
+        title = "Demande d'inscription",
+        description = user_data['firstname'] + " " + user_data['lastname'] + " a demandé à s'inscrire.",
+        status = "En attente",
+        user_lastname = user_data['lastname'],
+        user_firstname = user_data['firstname']
     )
 
-    db.session.add(new_user)
+    db.session.add(new_request)
     db.session.commit()
 
-    session.pop('user_data', None)
-
-    flash('Votre email a été confirmé avec succès. Vous pouvez maintenant vous connecter.')
+    flash("Votre email a été confirmé avec succès. En attente de confirmation de l'admin.")
     return redirect(url_for('auth.login'))
-
 
 @auth.route('/login', methods=['POST'])
 def login_post():
@@ -112,8 +103,6 @@ def login_post():
     else:
         login_user(user, remember=remember)
         return redirect(url_for('main.index'))
-
-
 
 @auth.route('/logout')
 def logout():

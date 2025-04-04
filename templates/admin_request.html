@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="search-container">
+    <input type="text" class="search-input search-obj" placeholder="Rechercher une requête...">
+    <button class="search-button">Rechercher</button>
+</div>
+
+<h1 class="title">
+    Page  des requêtes
+</h1>
+
+<div class="">
+    <div class="">
+        <table>
+            <tr>
+                <th>Requête</th>
+                <th>Commanditaire</th>
+                <th>Nom de l'objet / Utilisateur</th>
+                <th>Motif</th>
+                <th>Status</th>
+            </tr>
+        {% for rqs in requests %}
+        {% if rqs.title == "Demande de suppression" %}
+            <tr>
+                <td>{{rqs.title}}</td>
+                <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
+                <td>{{rqs.object_name}} ({{rqs.object_type}})</td>
+                <td>{{rqs.description}}</td>
+                {% if rqs.status == "En attente" %}
+                <td>
+                    <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="">Accepter</button>
+                    </form>
+                    <form action="{{ url_for('admin.request_refuse', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="">Refuser</button>
+                    </form>
+                </td>
+                {% else %}
+                    <td>{{rqs.status}}</td>
+                {% endif %}
+            </tr>
+        {% elif rqs.title == "Demande d'inscription" %}
+            <tr>
+                <td>{{rqs.title}}</td>
+                <td>Serveur</td>
+                <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
+                <td>{{rqs.description}}</td>
+                {% if rqs.status == "En attente" %}
+                <td>
+                    <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="">Accepter</button>
+                    </form>
+                    <form action="{{ url_for('admin.request_refuse', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="">Refuser</button>
+                    </form>
+                </td>
+                {% else %}
+                    <td>{{rqs.status}}</td>
+                {% endif %}
+            </tr>
+        {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
