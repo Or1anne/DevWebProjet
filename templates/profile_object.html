@@ -21,7 +21,7 @@
             {% if current_user.level =="Avance" or current_user.level == "Expert" %}
             <!-- TODO problème quand je refresh ma page le statut change -->
                 {% if obj.status == "ON" %}
-                    <a href="{{ url_for('manage_object.activate_object', obj_id=obj.id)}}"><button class="button is-info" >Désactiver</button></a>
+                    <a href="{{ url_for('manage_object.desactivate_object', obj_id=obj.id)}}"><button class="button is-info" >Désactiver</button></a>
                 {% else %}
                     <a href="{{ url_for('manage_object.activate_object', obj_id=obj.id)}}"><button class="button is-info" >Activer</button></a>
                 {% endif %}
@@ -88,17 +88,5 @@
 
     
     </div>
-
-
-<script>
-    function openRequestMotif() {
-        console.log("Bouton cliqué, ouverture du formulaire...");
-        document.getElementById("requestMotif").style.display = "block";
-    }
-    
-    function closeRequestMotif() {
-        document.getElementById("requestMotif").style.display = "none";
-    }
-</script>
 
 {% endblock %}

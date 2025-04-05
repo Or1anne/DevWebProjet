@@ -45,17 +45,23 @@ def create_app():
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
+    
+    from .manage_object import manage_object as manage_object_blueprint, b64encode_filter
+    app.register_blueprint(manage_object_blueprint)
+    app.jinja_env.filters['b64encode'] = b64encode_filter
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
+    app.jinja_env.filters['b64encode'] = b64encode_filter
 
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+    app.jinja_env.filters['b64encode'] = b64encode_filter
 
-    from .manage_object import manage_object as manage_object_blueprint, b64encode_filter
-    app.register_blueprint(manage_object_blueprint)
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
     app.jinja_env.filters['b64encode'] = b64encode_filter
 
     return app

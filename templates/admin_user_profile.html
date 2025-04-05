@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="user-container">
+    <div class="back">
+        <a href="{{ url_for('admin.gestion_utilisateur') }}" class="button">
+            <img src="{{ url_for('static', filename='croix.png') }}" alt="Profil"  width="20" height="20">
+        </a>
+    </div>
+
+    <h1 class="title-box">Information de l'utilisateur</h1>
+    {% if user.image %}
+        <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="50">
+    {% else %}
+        <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="50" height="50">
+    {% endif %}
+    <div class="user-info">
+        <h3>Partie publique</h3>
+            <p><strong>Pseudo :</strong> {{ user.pseudo }}</p>
+            <p><strong>Âge :</strong> {{ user.age }}</p>
+            <p><strong>Genre :</strong> {{ user.gender }}</p>
+            <p><strong>Date de Naissance :</strong> {{ user.birthday }}</p>
+            <p><strong>Rôle :</strong> {{ user.role }}</p>
+            <p><strong>Niveau :</strong> {{ user.level }}</p>
+        <h3>Partie privée</h3>
+            <p><strong>Nom :</strong> {{ user.lastname }}</p>
+            <p><strong>Prénom :</strong> {{ user.lastname }}</p>
+            <p><strong>Email :</strong> {{ user.email }}</p>
+            <p><strong>Mot de Passe :</strong> {{ user.password }}</p>
+    </div>  
+
+    <div class="user-actions">
+        <a href="{{ url_for('admin.edit_user', user_id=user.id) }}">
+            <button class="edit-btn">Modifier</button>
+        </a>
+        <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="post">
+            <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer ce compte ?')">
+                Supprimer
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -12,9 +12,8 @@
 </h2>
 <div class="is-flex is-justify-content-center">
     <div class="container-admin">
-        <!-- TODO Créer les pages html correspondantes -->
-        <a href="{{ url_for('main.manage') }}" class="admin-item">Requêtes</a>
-        <a href="{{ url_for('main.gestion_utilisateur') }}" class="admin-item">Gestion des utilisateurs</a>
+        <a href="{{ url_for('admin.request_admin_list') }}" class="admin-item">Requêtes</a>
+        <a href="{{ url_for('admin.gestion_utilisateur') }}" class="admin-item">Gestion des utilisateurs</a>
         <!-- TODO Créer les pages html correspondantes -->
         <a href="{{ url_for('main.manage') }}" class="admin-item">Gestion des objets et outils</a>
         <a href="{{ url_for('main.manage') }}" class="admin-item">Sécurité et maintenance</a>

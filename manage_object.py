@@ -130,25 +130,36 @@ def delete_object(obj_id):
 @manage_object.route('/activate_object/<int:obj_id>')
 def activate_object(obj_id):
     object = Object.query.get(obj_id)
-    if object.status == "ON" :
-        object.status = "OFF"
-    else:
-        object.status = "ON"
+    object.status = "ON"
     db.session.commit()
     return render_template('profile_object.html', obj=object)
 
-@manage_object.route('/request_object/<int:obj_id>')
+@manage_object.route('/desactivate_object/<int:obj_id>')
+def desactivate_object(obj_id):
+    object = Object.query.get(obj_id)
+    object.status = "OFF"
+    db.session.commit()
+    return render_template('profile_object.html', obj=object)
+
+@manage_object.route('/request_object/<int:obj_id>', methods=['POST'])
 def request_object(obj_id):
     title = "Demande de supression"
-    description = request.form.get['description']
+    description = request.form.get('description')
     status = "En Cours"
-    object_id = obj_id
+    object = Object.query.get(obj_id)
+    object_nom = object.name
+    object_type = object.type
+    user_lastname = current_user.lastname
+    user_firstname = current_user.firstname
 
     new_request = Request(
             title=title,
             description=description,
             status=status,
-            object_id=object_id
+            object_name=object_nom,
+            object_type=object_type,
+            user_lastname=user_lastname,
+            user_firstname=user_firstname
         )
     
     db.session.add(new_request)

@@ -2,18 +2,29 @@
 
 {% block content %}
     <div class="user-container">
-        <h2 class="title-box">Mes informations :</h2>
+        {% if current_user.image %}
+            <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="50">
+        {% else %}
+            <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="50" height="50">
+        {% endif %}
         <div class="user-info">
-            <p><strong>Prénom :</strong> {{ user.firstname }}</p>
-            <p><strong>Nom :</strong> {{ user.lastname }}</p>
-            <p><strong>Âge :</strong> {{ user.age }}</p>
-            <p><strong>Genre :</strong> {{ user.gender }}</p>
-            <p><strong>Email :</strong> {{ user.email }}</p>
-            <p><strong>Pseudo :</strong> {{ user.pseudo }}</p>
-            <p><strong>Niveau :</strong> {{ user.level }}</p>
+            <h3>Partie publique</h3>
+                <p><strong>Pseudo :</strong> {{ current_user.pseudo }}</p>
+                <p><strong>Âge :</strong> {{ current_user.age }} ans</p>
+                <p><strong>Genre :</strong> {{ current_user.gender }}</p>
+                <p><strong>Date de Naissance :</strong> {{ current_user.birthday }}</p>
+                <p><strong>Rôle :</strong> {{ current_user.role }}</p>
+                <p><strong>Niveau :</strong> {{ current_user.level }}</p>
+
+            <h3>Partie privée</h3>
+                <p><strong>Nom :</strong> {{ current_user.lastname }}</p>
+                <p><strong>Prénom :</strong> {{ current_user.lastname }}</p>
+                <p><strong>Email :</strong> {{ current_user.email }}</p>
+                <p><strong>Mot de Passe :</strong> {{ current_user.password }}</p>
+
         </div>  
         <div class="user-actions">
-            <a href="{{ url_for('main.update_profile') }}">
+            <a href="">
                 <button class="edit-btn">Modifier</button>
             </a>
             <form method="POST" action="{{ url_for('main.delete_profile') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
