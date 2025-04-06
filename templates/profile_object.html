@@ -61,19 +61,7 @@
             {% endif %}
         
             {% if current_user.level == "Avance" %}
-                <!-- TODO Faire les CSS -->
                 <button type="button" class="delete-btn" onclick="openRequestMotif()">Demande de suppression</button>
-        
-                <div id="requestMotif" style="display: none;">
-                    <h2>Demande de suppression2</h2>
-                    <button type="button" onclick="closeRequestMotif()">Fermer</button>
-                    <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
-                        <label for="description">Motif :</label>
-                        <textarea name="description" required></textarea>
-                        <button type="submit">Envoyer</button>
-                    </form>
-                </div>
-                
             {% endif %}
         
             {% if current_user.level == "Expert" %}
@@ -84,9 +72,33 @@
                 </form>
             {% endif %}
         </div>
-
-
-    
     </div>
 
+    <div id="requestMotifOverlay">
+        <div id="requestMotif">
+            <h2>Demande de suppression</h2>
+            <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
+                <div class="form-group">
+                    <label for="description">Motif :</label>
+                    <textarea name="description" id="description" required></textarea>
+                </div>
+                <div class="user-actions">
+                <button type="submit" class="edit-btn">Envoyer</button>
+                <button type="button" class="delete-btn" onclick="closeRequestMotif()">Fermer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- TODO Code JS a mettre en dehors de la page -->
+    <script>
+        function openRequestMotif() {
+            document.getElementById("requestMotifOverlay").style.display = "flex";
+        }
+    
+        function closeRequestMotif() {
+            document.getElementById("requestMotifOverlay").style.display = "none";
+        }
+    </script>
 {% endblock %}

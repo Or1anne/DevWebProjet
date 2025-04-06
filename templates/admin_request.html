@@ -11,7 +11,7 @@
     Page  des requêtes
 </h1>
 
-<div class="">
+<div class="resquest-container">
     <div class="">
         <table>
             <tr>
@@ -22,7 +22,7 @@
                 <th>Status</th>
             </tr>
         {% for rqs in requests %}
-        {% if rqs.title == "Demande de suppression" %}
+        {% if rqs.title == "Demande de supression" %}
             <tr>
                 <td>{{rqs.title}}</td>
                 <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
@@ -31,10 +31,10 @@
                 {% if rqs.status == "En attente" %}
                 <td>
                     <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
-                        <button type="submit" class="">Accepter</button>
+                        <button type="submit" class="accept-btn">Accepter</button>
                     </form>
                     <form action="{{ url_for('admin.request_refuse', request_id=rqs.id) }}" method="post">
-                        <button type="submit" class="">Refuser</button>
+                        <button type="submit" class="refuse-btn">Refuser</button>
                     </form>
                 </td>
                 {% else %}

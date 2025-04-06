@@ -332,7 +332,7 @@ html, body {
 
 .admin-item {
     flex: 1; /* Permet aux éléments de s’adapter à la taille du conteneur */
-    max-width: 200; /* Taille fixe pour éviter l’étirement */
+    max-width: 200px; /* Taille fixe pour éviter l’étirement */
     aspect-ratio: 1; /* Rend les éléments carrés */
     display: flex;
     align-items: center;
@@ -689,4 +689,111 @@ select {
 }
 
 
-/* Style de la requête de suppression */
+/* Mise en page de la requête de suppression */
+/* Fond flouté ou grisé */
+#requestMotifOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Au-dessus de tout */
+}
+
+/* La "fenêtre" du popup */
+#requestMotif {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    max-width: 90%;
+}
+
+/* Style de la zone de texte et de son titre */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+textarea {
+    padding: 1rem;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+
+
+/* Mise en page de la page des requtes */
+  /* --- Table --- */
+.resquest-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    max-width: 1000px;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.resquest-container th, td {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.resquest-container th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+  /* --- Boutons Accepter / Refuser --- */
+.resquest-container form {
+    display: inline-block;
+    margin: 0.25rem;
+}
+
+/* Style des boutons des requetes */
+.resquest-container form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.resquest-container .accept-btn[type="submit"]:first-child {
+    background-color: #22c55e;
+    color: white;
+}
+
+.resquest-container .accept-btn[type="submit"]:first-child:hover {
+    background-color: #16a34a;
+}
+
+.resquest-container .refuse-btn[type="submit"]:last-child {
+    background-color: #ef4444;
+    color: white;
+}
+
+.resquest-container .refuse-btn[type="submit"]:last-child:hover {
+    background-color: #dc2626;
+}

@@ -49,10 +49,11 @@
         </div>
 
         <div class="hero-body">
-            <div class="container has-text-centered">
+            <!-- TODO si on décommente ces lignes les affichages d'info sont plus petit -->
+            <!-- <div class="container has-text-centered"> -->
                 {% block content %}
                 {% endblock %}
-            </div>
+            <!-- </div> -->
             {% with messages = get_flashed_messages() %}
     {% if messages %}
     <div class="notification is-danger">

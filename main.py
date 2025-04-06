@@ -2,7 +2,7 @@ from flask import *
 from flask_login import login_required, current_user
 from .models import *
 from . import db
-from .forms import UpdateProfileForm # Pour update_profile
+# from .forms import UpdateProfileForm # Pour update_profile
 from flask import session
 from .ItsDangerous import generate_confirmation_token
 from .ItsDangerous import confirm_token

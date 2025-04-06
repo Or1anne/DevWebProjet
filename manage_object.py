@@ -145,9 +145,9 @@ def desactivate_object(obj_id):
 def request_object(obj_id):
     title = "Demande de supression"
     description = request.form.get('description')
-    status = "En Cours"
+    status = "En attente"
     object = Object.query.get(obj_id)
-    object_nom = object.name
+    object_nom = object.nom
     object_type = object.type
     user_lastname = current_user.lastname
     user_firstname = current_user.firstname
