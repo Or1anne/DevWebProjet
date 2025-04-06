@@ -742,6 +742,7 @@ textarea {
 /* Mise en page de la page des requtes */
   /* --- Table --- */
 .resquest-container table {
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
     margin: 0 auto;
@@ -792,6 +793,8 @@ textarea {
 .resquest-container .refuse-btn[type="submit"]:last-child {
     background-color: #ef4444;
     color: white;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .resquest-container .refuse-btn[type="submit"]:last-child:hover {
