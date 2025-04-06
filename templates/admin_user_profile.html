@@ -10,7 +10,7 @@
 
     <h1 class="title-box">Information de l'utilisateur</h1>
     {% if user.image %}
-        <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="50">
+        <img src="data:image/png;base64,{{ user.image | b64encode }}" width="50">
     {% else %}
         <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="50" height="50">
     {% endif %}
@@ -19,12 +19,13 @@
             <p><strong>Pseudo :</strong> {{ user.pseudo }}</p>
             <p><strong>Âge :</strong> {{ user.age }}</p>
             <p><strong>Genre :</strong> {{ user.gender }}</p>
-            <p><strong>Date de Naissance :</strong> {{ user.birthday }}</p>
+            <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
             <p><strong>Rôle :</strong> {{ user.role }}</p>
             <p><strong>Niveau :</strong> {{ user.level }}</p>
         <h3>Partie privée</h3>
             <p><strong>Nom :</strong> {{ user.lastname }}</p>
             <p><strong>Prénom :</strong> {{ user.lastname }}</p>
+            <p><strong>Points :</strong> {{ user.point }}</p>
             <p><strong>Email :</strong> {{ user.email }}</p>
             <p><strong>Mot de Passe :</strong> {{ user.password }}</p>
     </div>  

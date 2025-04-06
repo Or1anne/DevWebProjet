@@ -3,7 +3,7 @@
 {% block content %}
     <div class="user-container">
         {% if current_user.image %}
-            <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="50">
+            <img src="data:image/png;base64,{{ current_user.image | b64encode }}" width="50">
         {% else %}
             <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="50" height="50">
         {% endif %}
@@ -12,19 +12,20 @@
                 <p><strong>Pseudo :</strong> {{ current_user.pseudo }}</p>
                 <p><strong>Âge :</strong> {{ current_user.age }} ans</p>
                 <p><strong>Genre :</strong> {{ current_user.gender }}</p>
-                <p><strong>Date de Naissance :</strong> {{ current_user.birthday }}</p>
+                <p><strong>Date de Naissance :</strong> {{ current_user.birthdate.strftime('%d-%m-%Y')}}</p>
                 <p><strong>Rôle :</strong> {{ current_user.role }}</p>
                 <p><strong>Niveau :</strong> {{ current_user.level }}</p>
 
             <h3>Partie privée</h3>
                 <p><strong>Nom :</strong> {{ current_user.lastname }}</p>
                 <p><strong>Prénom :</strong> {{ current_user.lastname }}</p>
+                <p><strong>Points :</strong> {{ current_user.point }}</p>
                 <p><strong>Email :</strong> {{ current_user.email }}</p>
                 <p><strong>Mot de Passe :</strong> {{ current_user.password }}</p>
 
         </div>  
         <div class="user-actions">
-            <a href="">
+            <a href="{{ url_for('main.edit_user1') }}">
                 <button class="edit-btn">Modifier</button>
             </a>
             <form method="POST" action="{{ url_for('main.delete_profile') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">

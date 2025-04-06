@@ -143,7 +143,7 @@ def desactivate_object(obj_id):
 
 @manage_object.route('/request_object/<int:obj_id>', methods=['POST'])
 def request_object(obj_id):
-    title = "Demande de supression"
+    title = "Demande de suppression"
     description = request.form.get('description')
     status = "En attente"
     object = Object.query.get(obj_id)

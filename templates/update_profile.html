@@ -2,72 +2,97 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    <h3 class="title">Modifier mon profil</h3>
-    <div class="box"> 
-        <form method="POST" action="{{ url_for('.') }}">
-        
+    <h3 class="title">Modifier l'utilisateur</h3>
+    <div class="box">
+            {% if current_user.image %}
+                <img src="data:image/png;base64,{{ current_user.image | b64encode }}" width="50">
+            {% else %}
+                <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="50" height="50">
+            {% endif %}
+        <form method="POST" action="{{ url_for('main.edit_user1') }}" enctype="multipart/form-data">
+            <h3>Partie publique</h3>
             <div class="field">
                 <div class="control">
-                    {{ form.firstname(class="input is-large", placeholder="Prénom") }}
-                </div>
-                {% for error in form.firstname.errors %}
-                    <p class="help is-danger">{{ error }}</p>
-                {% endfor %}
-            </div>
-        
-            <div class="field">
-                <div class="control">
-                    {{ form.lastname(class="input is-large", placeholder="Nom") }}
-                </div>
-                {% for error in form.lastname.errors %}
-                    <p class="help is-danger">{{ error }}</p>
-                {% endfor %}
-            </div>
-        
-            <div class="field">
-                <div class="control">
-                    {{ form.age(class="input is-large", placeholder="Âge") }}
+                    <p>Pseudo</p>
+                    <input class="input is-large" type="text" name="pseudo" placeholder="pseudo" autofocus="" value="{{current_user.pseudo}}" required>
                 </div>
             </div>
-        
-            <div class="field">
-                <div class="control">
-                    {{ form.gender(class="input is-large", placeholder="Genre") }}
-                </div>
-            </div>
-        
-            <div class="field">
-                <div class="control">
-                    {{ form.email(class="input is-large", placeholder="Email") }}
-                </div>
-                {% for error in form.email.errors %}
-                    <p class="help is-danger">{{ error }}</p>
-                {% endfor %}
-            </div>
-            <div class="field">
-                
-                <div class="control">
-                    {{ form.password(class="input", placeholder="Modifiez votre mot de passe") }}
 
-                </div>
-            </div>
-            
-            
             <div class="field">
                 <div class="control">
-                    {{ form.pseudo(class="input is-large", placeholder="Pseudo") }}
+                    <input class="input is-large" type="number" name="age" placeholder="Âge" autofocus="" value="{{current_user.age}}" required>
                 </div>
-                {% for error in form.pseudo.errors %}
-                    <p class="help is-danger">{{ error }}</p>
-                {% endfor %}
             </div>
-            <div class="user-actions">
-                <button type="submit" class="edit-btn">Enregistrer</button>
-                <a href="{{ url_for('main.profile') }}">
-                    <button class="delete-btn">Annuler</button>
-                </a>
-            </div>                                
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="gender" placeholder="Sexe" autofocus="" value="{{current_user.gender}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="date" name="birthdate" placeholder="Date de Naissance" autofocus="" value="{{current_user.birthdate}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    {%if current_user.level == "Expert" %}
+                        <input class="input is-large" type="text" name="role" placeholder="Rôle" value="{{current_user.role}}" required>
+                    {% else %}
+                        <input class="input is-large" type="text" name="role" placeholder="Rôle" value="{{current_user.role}}" readonly>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="level" placeholder="Niveau" value="{{current_user.level}}" readonly>
+                </div>
+            </div>
+
+            <h3>Partie privée</h3>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="lastname" placeholder="Nom de Famille" value="{{current_user.lastname}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="firstname" placeholder="Prénom" autofocus="" value="{{current_user.firstname}}" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="point" placeholder="Points" autofocus="" value="{{current_user.point}}" readonly>
+                </div>
+            </div>
+
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="" value="{{current_user.email}}" readonly>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Mot de Passe" autofocus="" value="{{current_user.password}}" required>
+                </div>
+            </div>
+            
+            <div class="upload-file">
+                <label class="label">Modifier la photo de profil :</label>
+                <div class="control">
+                    <input class="input" type="file" name="image">
+                </div>
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">Enregistrer</button>
         </form>
     </div>
-</div>
 {% endblock %}

@@ -26,6 +26,7 @@ def signup_post():
     lastname=request.form.get('lastname')
     age=request.form.get('age')
     gender=request.form.get('gender')
+    birthdate=request.form.get('birthdate')
 
     user_by_email = User.query.filter_by(email=email).first()
     user_by_pseudo = User.query.filter_by(pseudo=pseudo).first()
@@ -45,7 +46,8 @@ def signup_post():
         'password': password,
         'age' : age,
         'gender' : gender,
-        'pseudo' : pseudo
+        'pseudo' : pseudo,
+        'birthdate' : birthdate
     }
     
     token = generate_confirmation_token(email)

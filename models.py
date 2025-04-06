@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     age = db.Column(db.Integer)
     gender = db.Column(db.String(100))
     point = db.Column(db.Integer, default=0)
+    birthdate = db.Column(db.Date)
     image = db.Column(db.LargeBinary)
 
 class Room(db.Model):

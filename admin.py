@@ -2,10 +2,10 @@ from flask import *
 from flask_login import login_required, current_user
 from .models import *
 from . import db
+from datetime import datetime
 from flask import session
 
 admin = Blueprint('admin', __name__)
-
 
 #pour la gestion
 @admin.route('/gestion')
@@ -20,9 +20,8 @@ def user_profile(user_id):
 
 @admin.route('/edit/<int:user_id>', methods=['GET', 'POST'])
 def edit_user(user_id):
-    user = User.query.get(user_id)  # Récupérer l'utilisateur par son ID
-    if not user:
-        return "Utilisateur non trouvé", 404
+    
+    user = User.query.get(user_id)
 
     if request.method == 'POST':
         user.email = request.form['email']
@@ -32,9 +31,20 @@ def edit_user(user_id):
         user.level = request.form['level']
         user.age = request.form['age']
         user.gender = request.form['gender']
+        user.role = request.form['role']
+        user.point = request.form['point']
+
+        image_data = None
+        if 'image' in request.files:
+            image_file = request.files['image']
+            if image_file.filename != '':
+                image_data = image_file.read()
+                user.image = image_data
+
+        user.birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
 
         db.session.commit()
-        return redirect(url_for('admin.gestion_utilisateur'))  # Redirection vers la liste des utilisateurs
+        return redirect(url_for('admin.gestion_utilisateur'))
 
     return render_template('admin_edit_user.html', user=user)
 
@@ -62,6 +72,7 @@ def request_accept(request_id):
         db.session.delete(object)
         db.session.commit()
     elif request.title == "Demande d'inscription":
+        #TODO Attribuer un rôle à l'utilisateur
         user_data = session.get('user_data')
         user = User(
             email=user_data['email'],
@@ -70,7 +81,8 @@ def request_accept(request_id):
             password=user_data['password'],
             gender=user_data['gender'],
             age=user_data['age'],
-            pseudo=user_data['pseudo']
+            pseudo=user_data['pseudo'],
+            birthdate=user_data['birthdate'],
         )
         request.status = "Acceptée"
         db.session.add(user)
