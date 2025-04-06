@@ -244,6 +244,11 @@ html, body {
     flex-basis: 70%;
 }
 
+.user-box{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .info-box {
     border-top: 5px solid #66a1ff; /* Couleur pour les informations locales */
     flex-basis: 30%;
@@ -254,7 +259,7 @@ html, body {
     background: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
-    margin: 10px 0;
+    margin: 10px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
 }
@@ -267,7 +272,7 @@ html, body {
 }
 
 /* Style des textes des articles */
-.news-item p, .info-item p {
+.info-item p {
     font-size: 14px;
     color: #666;
     line-height: 1.4;
@@ -275,8 +280,26 @@ html, body {
     text-align: justify; 
 }
 
+.news-item p{
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    overflow: hidden;
+    text-align: center; 
+    margin: 5px;
+}
+
+.news-item img{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.news-item .pp{
+    border-radius: 50%;
+}
+
 /* Style des liens des articles */
-.news-item a, .info-item a {
+.info-item a {
     display: inline-block;
     margin-top: 5px;
     text-decoration: none;
@@ -284,7 +307,7 @@ html, body {
     font-weight: bold;
 }
 
-.news-item a:hover, .info-item a:hover {
+.info-item a:hover {
     text-decoration: underline;
 }
 

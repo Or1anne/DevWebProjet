@@ -14,29 +14,39 @@
 </div>
 
 <h1 class="title">
-    Page d'accueil
+    Bienvenue {{current_user.firstname}} ! 
 </h1>
 
 <!-- Conteneur des actualités et informations -->
 <div class="content-container">
     <!-- Actualités -->
     <div class="box-index news-box">
-        <h2 class="title-box">📰 Actualités</h2>
-        <div class="news-item">
+        <h2 class="title-box">Membres de la famille</h2>
+        <!-- <div class="news-item">
             <h3>Nouvelle réforme économique</h3>
             <p>Le gouvernement annonce une nouvelle réforme pour soutenir les petites entreprises, dans le but de favoriser leur croissance et de renforcer leur compétitivité sur le marché. Cette réforme comprend des mesures de simplification administrative, un allégement fiscal, ainsi qu'un soutien renforcé à l'innovation et à la transition numérique. L'objectif est de permettre aux petites entreprises d'accéder plus facilement aux financements et de stimuler leur développement, tout en leur offrant un cadre plus flexible et adapté à leurs besoins. En renforçant ces acteurs économiques clés, le gouvernement espère également créer de nouveaux emplois et dynamiser l'économie locale.</p>
-        </div>
-        <div class="news-item">
-            <h3>Technologie : avancées de l'IA</h3>
-            <p>Une nouvelle IA révolutionnaire pourrait changer la manière dont nous interagissons avec le web</p>
-        </div>
-        <div class="news-item">
-            <h3>Sport : résultats de la Ligue 1</h3>
-            <p>Le PSG remporte son match contre l'OM avec un score de 3-1, consolidant ainsi sa place en tête du classement. Les Parisiens ont dominé la rencontre grâce à des buts de Mbappé, Messi et Neymar, offrant une performance impressionnante devant leur public. Malgré un bel effort de l'OM, qui a marqué par l'intermédiaire de Sanchez, ils n'ont pas réussi à revenir au score. Cette victoire permet au PSG de maintenir une avance confortable sur ses poursuivants et de continuer à viser le titre cette saison.</p>
+        </div> -->
+        <div class="user-box">
+            {% for user in users %}
+                <div class="news-item">
+                    <h3>{{ user.pseudo }}</h3>
+                    {% if user.image %}
+                        <img class="pp" src="data:image/png;base64,{{ current_user.image | b64encode }}" width="60" height="60">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                    {% endif %}
+                    <p><strong>Âge :</strong> {{ user.age }} ans</p>
+                    <p><strong>Genre :</strong> {{ user.gender }}</p>
+                    <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
+                    <p><strong>Rôle :</strong> {{ user.role }}</p>
+                    <p><strong>Niveau :</strong> {{ user.level }}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
     <!-- Informations locales -->
+    <!-- TODO à changer -->
     <div class="box-index info-box">
         <h2 class="title-box">📍 Informations Locales</h2>
         <div class="info-item">

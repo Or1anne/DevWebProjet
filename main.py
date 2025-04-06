@@ -10,7 +10,8 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    users = User.query.all()
+    return render_template('index.html',users=users)
 
 @main.route('/manage')
 def manage():
