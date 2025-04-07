@@ -8,7 +8,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     lastname = db.Column(db.String(1000))
     firstname = db.Column(db.String(100))
-    level = db.Column(db.String, default="Simple")
+    level = db.Column(db.String, default="Debutant")
     role = db.Column(db.String)
     age = db.Column(db.Integer)
     gender = db.Column(db.String(100))

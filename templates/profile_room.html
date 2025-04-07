@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="title">
+    {{ room.nom }}
+</h1>
+
+<div class="content-container">
+    <div class="box-objet">
+        <h2 class="title-box">Objets</h2>
+        <div class="obj">
+            {% for obj in objects %}
+                <a href="{{ url_for('manage_object.profile_object', obj_id=obj.id) }}" class="objet-item">
+                    <h3>{{ obj.nom }} ({{ obj.type }})</h3>
+                        {% if obj.image %}
+                            <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="200" height="200">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
+                        {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+            
+        <div class="user-actions">
+            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                <a href="{{ url_for('manage_object.add_object_room', room_id=room.id, obj_id=0) }}">
+                    <button class="add-btn">Ajouter un objet</button>
+                </a>
+            {% endif %}
+
+            {% if current_user.level == "Expert" %}
+            <form action="{{ url_for('manage_object.delete_room', room_id=room.id) }}" method="post">
+                <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cette Chambre ?')">
+                    Supprimer
+                </button>
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

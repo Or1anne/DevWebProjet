@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="column is-4 is-offset-4">
+    <h2 class="title">Ajouter une pièce</h2>
+    <div class="box">
+        <div class="back">
+            <a href="{{ url_for('manage_object.list_objects') }}" class="button">
+                <img src="{{ url_for('static', filename='croix.png') }}" alt="Profil"  width="20" height="20">
+            </a>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+                <label class="label">Nom :</label>
+                <div class="control">
+                    <input class="input" type="text" name="nom">
+                </div>
+            </div>
+
+            <div class="upload-file">
+                <label class="label">Image :</label>
+                <div class="control">
+                    <input class="input" type="file" name="image" onchange="previewImage(event)">
+                </div>
+                <div id="preview" style="margin-top: 10px;">
+                    <img id="preview-img" src="" alt="Prévisualisation" style="max-width: 300px; display: none;" />
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-info" type="submit">Ajouter une pièce</button>
+                </div>
+            </div>
+        </form>
+
+{% endblock %}

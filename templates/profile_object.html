@@ -19,7 +19,6 @@
             {% endif %}
 
             {% if current_user.level =="Avance" or current_user.level == "Expert" %}
-            <!-- TODO problème quand je refresh ma page le statut change -->
                 {% if obj.status == "ON" %}
                     <a href="{{ url_for('manage_object.desactivate_object', obj_id=obj.id)}}"><button class="button is-info" >Désactiver</button></a>
                 {% else %}
@@ -58,6 +57,15 @@
                 <a href="{{ url_for('manage_object.edit_object', obj_id=obj.id)}}">
                     <button class="edit-btn">Modifier</button>
                 </a>
+                {%if obj.room_id is not none %}
+                    <a href="{{ url_for('manage_object.remove_object_room', obj_id=obj.id)}}">
+                        <button class="edit-btn">Retirer de la pièce</button>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('manage_object.add_object_room2', obj_id=obj.id, room_id=0) }}">
+                        <button class="edit-btn">Ajouter à une autre pièce</button>
+                    </a>
+                {% endif %}
             {% endif %}
         
             {% if current_user.level == "Avance" %}

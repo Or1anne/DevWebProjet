@@ -82,7 +82,7 @@ def request_accept(request_id):
             gender=user_data['gender'],
             age=user_data['age'],
             pseudo=user_data['pseudo'],
-            birthdate=user_data['birthdate'],
+            birthdate = datetime.strptime(user_data['birthdate'], '%Y-%m-%d').date()
         )
         request.status = "Acceptée"
         db.session.add(user)
