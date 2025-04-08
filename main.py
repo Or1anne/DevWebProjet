@@ -69,3 +69,30 @@ def edit_user1():
         
 
     return render_template('update_profile.html')
+
+@main.route('/search')
+def search():
+    users = User.query.all()
+    objects = Object.query.all()
+    rooms = Room.query.all()
+    return render_template('search.html', users=users, objects=objects, rooms=rooms)
+
+@main.route('/result')
+def result():
+    q = request.args.get('q', '')
+    service_type = request.args.get('service', '')
+    object_type = request.args.get('type', '')
+    status = request.args.get('status', '')
+
+    users = User.query.filter(User.pseudo.ilike(f'%{q}%')).all() if service_type in ('', 'Utilisateurs') else []
+
+    objects = Object.query.filter(Object.nom.ilike(f'%{q}%'))
+    if object_type:
+        objects = objects.filter(Object.type == object_type)
+    if status:
+        objects = objects.filter(Object.status == status)
+    objects = objects.all() if service_type in ('', 'Objets') else []
+
+    rooms = Room.query.filter(Room.nom.ilike(f'%{q}%')).all() if service_type in ('', 'Chambres') else []
+
+    return render_template('search.html', users=users, objects=objects, rooms=rooms)

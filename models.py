@@ -49,9 +49,15 @@ class Request(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.Text)
     status = db.Column(db.String)
+    date = db.Column(db.DateTime)
 
     object_name = db.Column(db.String)
     object_type = db.Column(db.String)
 
     user_lastname = db.Column(db.String)
     user_firstname = db.Column(db.String)
+
+class Info(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    description = db.Column(db.Text)

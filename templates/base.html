@@ -15,6 +15,7 @@
     <script src="{{ url_for('static', filename='scripts/add_object.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile_object.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/preview.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/search.js') }}"></script>
         
         
 
@@ -24,12 +25,13 @@
                 <div class="container">
                     <div class="navbar-start">
                         <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
+                        <a href="{{ url_for('main.search') }}" class="navbar-item">Recherche</a>
 
                         {% if current_user.is_authenticated %}
 
                             <a href="{{ url_for('manage_object.list_objects') }}" class="navbar-item">Objet</a>
                             {% if current_user.level == "Expert" %}
-                            <a href="{{ url_for('main.admin') }}" class="navbar-item">Administration</a>
+                                <a href="{{ url_for('main.admin') }}" class="navbar-item">Administration</a>
                             {%endif%}
                         {% endif %}
                     </div>

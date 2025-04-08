@@ -5,6 +5,7 @@ from flask_login import *
 from .models import *
 from . import db, mail
 from .ItsDangerous import generate_confirmation_token, confirm_token
+from datetime import datetime
 
 auth = Blueprint('auth', __name__)
 
@@ -80,7 +81,8 @@ def confirm_email(token):
         description = user_data['firstname'] + " " + user_data['lastname'] + " a demandé à s'inscrire.",
         status = "En attente",
         user_lastname = user_data['lastname'],
-        user_firstname = user_data['firstname']
+        user_firstname = user_data['firstname'],
+        date=datetime.now()
     )
 
     db.session.add(new_request)

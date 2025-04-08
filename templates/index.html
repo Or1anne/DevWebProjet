@@ -63,6 +63,9 @@
             <h3>Météo : pluie prévue</h3>
             <p>Préparez vos parapluies ! De fortes averses sont prévues en fin de semaine</p>
         </div>
+        {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+            <button>Ajouter une information</button>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

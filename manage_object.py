@@ -3,8 +3,8 @@ import base64
 from flask_login import login_required, current_user
 from .models import *
 from . import db
-from flask import session
 import random
+from datetime import datetime
 
 manage_object = Blueprint('manage_object', __name__)
 
@@ -160,7 +160,8 @@ def request_object(obj_id):
             object_name=object_nom,
             object_type=object_type,
             user_lastname=user_lastname,
-            user_firstname=user_firstname
+            user_firstname=user_firstname,
+            date=datetime.now()
         )
     
     db.session.add(new_request)

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<input type="text" id="searchInput" class="search-input search-obj" placeholder="Rechercher...">
+
+<button id="resetBtn" class="reset-btn">Réinitialiser</button>
+
+<select id="UseSelect" class="search-select">
+    <option value="">-- Types de service --</option>
+    <option value="Utilisateurs">Utilisateurs</option>
+    <option value="Objets">Objets</option>
+    <option value="Chambres">Chambres</option>
+</select>
+
+<select id="typeSelect" class="search-select">
+    <option value="">-- Types d'objets --</option>
+    <option value="Television">Television/Smartphone</option>
+    <option value="Ecran">Ecran Ordinateur</option>
+    <option value="Enceinte">Enceinte</option>
+    <option value="Lave-Vaiselle">Lave-Vaiselle</option>
+    <option value="Machine à laver">Machine à laver</option>
+    <option value="Radiateur">Radiateur</option>
+    <option value="Thermomètre">Thermomètre</option>
+    <option value="Robot-aspirateur">Robot-aspirateur</option>
+    <option value="Lumiere">Lampe/Lumière</option>
+    <option value="Alarme">Alarme</option>
+    <option value="Autre">Autre</option>
+</select>
+
+<select id="StatusSelect" class="search-select">
+    <option value="">-- Etat --</option>
+    <option value="ON">Activé</option>
+    <option value="OFF">Désactivé</option>
+</select>
+
+
+  <div id="results">    
+    <h3>Utilisateurs</h3>
+    <div class="user-box"> 
+    {% for user in users %}
+        {% if user.id != current_user.id %}
+            <div class="news-item">
+                <h3>{{ user.pseudo }}</h3>
+                {% if user.image %}
+                    <img class="pp" src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
+                {% else %}
+                    <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                {% endif %}
+                <p><strong>Âge :</strong> {{ user.age }} ans</p>
+                <p><strong>Genre :</strong> {{ user.gender }}</p>
+                <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
+                <p><strong>Rôle :</strong> {{ user.role }}</p>
+                <p><strong>Niveau :</strong> {{ user.level }}</p>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="news-item">
+            <h3>Aucun utilisateur trouvé</h3>
+        </div>
+    {% endfor %}
+    </div>
+    <h3>Objets</h3>
+    <div class="user-box">
+    {% for object in objects %}
+        <div class="news-item">
+            <h3>{{ object.nom }}</h3>
+            {% if object.image %}
+                <img class="pp" src="data:image/png;base64,{{ object.image | b64encode }}" width="60" height="60">
+            {% else %}
+                <img src="{{ url_for('static', filename='objet-sans-fond.png') }}"  width="60" height="60">
+            {% endif %}
+            <p><strong>Type :</strong> {{ object.type }}</p>
+            <p><strong>Marque :</strong> {{ object.brand }}</p>
+            <p><strong>Reference :</strong> {{ object.reference }}</p>
+            <p><strong>Statut :</strong> {{ object.status }}</p>
+            {% if object.room_id is not none %}
+                <p><strong>Chambre :</strong> {{ object.room.nom }}</p>
+            {% else %}
+                <p><strong>Chambre :</strong> Aucune</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="news-item">
+            <h3>Aucun objet trouvé</h3>
+        </div>
+    {% endfor %}
+    </div>
+    <h3>Chambres</h3>
+    <div class="user-box">
+      {% for room in rooms %}
+        <div class="news-item">
+            <h3>{{ room.nom }}</h3>
+            {% if room.image %}
+                <img class="pp" src="data:image/png;base64,{{ room.image | b64encode }}" width="60" height="60">
+            {% else %}
+                <img src="{{ url_for('static', filename='objet-sans-fond.png') }}"  width="60" height="60">
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="news-item">
+            <h3>Aucune chambre trouvée</h3>
+        </div>
+    {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

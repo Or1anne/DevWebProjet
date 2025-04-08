@@ -19,6 +19,7 @@
                 <th>Commanditaire</th>
                 <th>Nom de l'objet / Utilisateur</th>
                 <th>Motif</th>
+                <th>Date</th>
                 <th>Status</th>
             </tr>
         {% for rqs in requests %}
@@ -28,6 +29,7 @@
                 <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
                 <td>{{rqs.object_name}} ({{rqs.object_type}})</td>
                 <td>{{rqs.description}}</td>
+                <td>{{rqs.date}}</td>
                 {% if rqs.status == "En attente" %}
                 <td>
                     <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
@@ -47,6 +49,7 @@
                 <td>Serveur</td>
                 <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
                 <td>{{rqs.description}}</td>
+                <td>{{rqs.date}}</td>
                 {% if rqs.status == "En attente" %}
                 <td>
                     <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">

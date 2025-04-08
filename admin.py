@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .models import *
 from . import db
 from datetime import datetime
+from sqlalchemy import desc
 from fpdf import FPDF
 from tempfile import NamedTemporaryFile
 
@@ -61,7 +62,7 @@ def delete_user(user_id):
 #Requêtes d'admin
 @admin.route('/request_admin')
 def request_admin_list():
-    requests = Request.query.all()
+    requests = Request.query.order_by(desc(Request.date)).all()
     return render_template('admin_request.html', requests=requests)
 
 @admin.route('/accept/<int:request_id>', methods=['POST'])
