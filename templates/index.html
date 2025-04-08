@@ -60,9 +60,54 @@
             <p>Retrouvez les producteurs locaux sur la place centrale ce samedi matin !</p>
         </div>
         <div class="info-item">
-            <h3>Météo : pluie prévue</h3>
-            <p>Préparez vos parapluies ! De fortes averses sont prévues en fin de semaine</p>
-        </div>
+            
+                <!-- Section Météo -->
+        
+            <h2 class="title-box">Météo à Cergy</h2>
+            <div id="weather-info" class="weather-info">
+                <p>Chargement...</p>
+            </div>
+        
+ 
+     
+    <script>
+    // Fonction pour récupérer la météo
+    const API_KEY = '47e393553f924e66b8a171010250704'; // Remplace par ta clé API
+    const city = 'Cergy'; // Nom de la ville
+     
+    const fetchWeather = async () => {
+        const weatherContainer = document.getElementById('weather-info');
+        try {
+            const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=4&lang=fr`);
+            if (!response.ok) throw new Error('Erreur lors de la récupération de la météo');
+            const data = await response.json();
+     
+            const weather = data.current;
+            const forecast = data.forecast.forecastday;
+     
+            // Construire le contenu météo
+            const iconUrl = `https://${weather.condition.icon}`;
+     
+            const weatherHTML = `
+                <div class="weather-details">
+                    <img src="${iconUrl}" alt="${weather.condition.text}" width="80" height="80">
+                    <div>
+                        <p><strong>Condition : </strong>${weather.condition.text}</p>
+                        <p><strong>Température actuelle : </strong>${Math.round(weather.temp_c)}°C</p>
+                    </div>
+                </div>            
+            `;
+     
+            weatherContainer.innerHTML = weatherHTML;
+        } catch (error) {
+            weatherContainer.innerHTML = `<p style="color: red;">Erreur : ${error.message}</p>`;
+        }
+    };
+     
+    // Charger la météo au chargement de la page
+    window.onload = fetchWeather;
+    </script>
+            </div>
         {% if current_user.level == "Avance" or current_user.level == "Expert" %}
             <button>Ajouter une information</button>
         {% endif %}
