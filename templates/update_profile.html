@@ -81,9 +81,27 @@
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Mot de Passe" autofocus="" value="{{current_user.password}}" required>
+                    <input class="input is-large" type="password" id="password" name="password" placeholder="Mot de Passe" autofocus="" value="{{current_user.password}}" required>
+                    <button type="button" id="toggle-password" class="button is-small" onclick="togglePassword()">Afficher</button>
                 </div>
             </div>
+            
+            <script>
+                // Fonction pour alterner l'affichage du mot de passe
+                function togglePassword() {
+                    var passwordField = document.getElementById('password');
+                    var toggleButton = document.getElementById('toggle-password');
+                    
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";  // Révéler le mot de passe
+                        toggleButton.innerText = "Masquer";  // Changer le texte du bouton
+                    } else {
+                        passwordField.type = "password";  // Masquer le mot de passe
+                        toggleButton.innerText = "Afficher";  // Changer le texte du bouton
+                    }
+                }
+            </script>
+            
             
             <div class="upload-file">
                 <label class="label">Modifier la photo de profil :</label>

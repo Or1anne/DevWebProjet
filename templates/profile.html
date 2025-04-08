@@ -21,7 +21,27 @@
                 <p><strong>Prénom :</strong> {{ current_user.firstname }}</p>
                 <p><strong>Points :</strong> {{ current_user.point }}</p>
                 <p><strong>Email :</strong> {{ current_user.email }}</p>
-                <p><strong>Mot de Passe :</strong> {{ current_user.password }}</p>
+                <!-- <p><strong>Mot de Passe :</strong> {{ current_user.password }}</p> -->
+                <p><strong>Mot de passe :</strong> 
+                    <input type="password" id="password-field" value="{{ current_user.password }}" readonly>
+                    <button type="button" id="toggle-password" onclick="togglePassword()">Afficher</button>
+                </p>
+                
+                <script>
+                    // Fonction pour alterner l'affichage du mot de passe
+                    function togglePassword() {
+                        var passwordField = document.getElementById('password-field');
+                        var toggleButton = document.getElementById('toggle-password');
+                        
+                        if (passwordField.type === "password") {
+                            passwordField.type = "text";  // Révéler le mot de passe
+                            toggleButton.innerText = "Masquer";  // Changer le texte du bouton
+                        } else {
+                            passwordField.type = "password";  // Masquer le mot de passe
+                            toggleButton.innerText = "Afficher";  // Changer le texte du bouton
+                        }
+                    }
+                </script>
 
         </div>  
         <div class="user-actions">
