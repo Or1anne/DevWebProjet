@@ -5,7 +5,6 @@ from datetime import datetime
 from . import db
 from flask import session
 from flask_login import logout_user
-
 main = Blueprint('main', __name__)
 
 @main.route('/')
@@ -21,9 +20,11 @@ def manage():
 def admin():
     return render_template('admin.html')
 
+
 @main.route('/objet')
 def objet():
     return render_template('objet.html')
+
 
 @main.route('/profile')
 @login_required
@@ -77,6 +78,9 @@ def search():
     rooms = Room.query.all()
     return render_template('search.html', users=users, objects=objects, rooms=rooms)
 
+
+
+
 @main.route('/result')
 def result():
     q = request.args.get('q', '')
@@ -96,3 +100,51 @@ def result():
     rooms = Room.query.filter(Room.nom.ilike(f'%{q}%')).all() if service_type in ('', 'Chambres') else []
 
     return render_template('search.html', users=users, objects=objects, rooms=rooms)
+
+@main.route('/actualite')
+def actualite():
+    return render_template('actualite.html')
+
+@main.route('/actualites')
+def list_actualites():
+    # Récupérer toutes les actualités et objets depuis la base de données
+    actualites = Actualite.query.all()
+    objets = Object.query.all()  # Récupérer tous les objets existants
+
+    return render_template('actualite.html', actualites=actualites, objets=objets)
+
+
+
+
+@main.route('/add_actualite', methods=['GET', 'POST'])
+def add_actualite():
+    if request.method == 'POST':
+        nom = request.form['nom']
+        description = request.form['description']
+        image_data = None
+        
+        # Traitement de l'image téléchargée
+        if 'image' in request.files:
+            image_file = request.files['image']
+            if image_file.filename != '':
+                image_data = image_file.read()
+
+        # Création d'une nouvelle actualité
+        new_actualite = Actualite(
+            nom=nom,
+            description=description,
+            image=image_data,
+            date_creation=datetime.now()
+        )
+
+        # Ajout de l'actualité à la base de données
+        db.session.add(new_actualite)
+        db.session.commit()
+
+        # Redirection vers la page de la liste des actualités
+        return redirect(url_for('main.list_actualites'))
+
+    return render_template('add_actualite.html')
+
+
+

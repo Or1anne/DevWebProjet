@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from . import db
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True) # clé primiaire obligatoire pour SQLAlchemy
@@ -61,3 +62,15 @@ class Info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     description = db.Column(db.Text)
+
+
+class Actualite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nom = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image = db.Column(db.LargeBinary, nullable=True)
+    date_creation = db.Column(db.DateTime, default=datetime.utcnow)  # Utilisation correcte de datetime
+
+    def __repr__(self):
+        return f"<Actualite {self.nom}>"
+

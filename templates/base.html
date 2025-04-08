@@ -26,6 +26,8 @@
                     <div class="navbar-start">
                         <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
                         <a href="{{ url_for('main.search') }}" class="navbar-item">Recherche</a>
+                        <a href="{{ url_for('main.actualite') }}" class="navbar-item">Actualite</a>
+
 
                         {% if current_user.is_authenticated %}
 

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title has-text-centered">Ajouter une Actualité</h1>
+
+<div class="container">
+    <form method="POST" enctype="multipart/form-data" class="box">
+        <div class="field">
+            <label for="nom" class="label">Nom de l'actualité</label>
+            <div class="control">
+                <input type="text" name="nom" id="nom" class="input" placeholder="Nom de l'actualité" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="description" class="label">Description</label>
+            <div class="control">
+                <textarea name="description" id="description" class="textarea" placeholder="Description de l'actualité" required></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="image" class="label">Image</label>
+            <div class="control">
+                <input type="file" name="image" id="image" accept="image/*" class="input">
+            </div>
+        </div>
+
+        <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+                <button type="submit" class="button is-primary">Ajouter l'actualité</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
