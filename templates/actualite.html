@@ -22,9 +22,11 @@
             {% endif %}
             
             <!-- Formulaire pour supprimer l'actualité -->
+            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
             <form action="{{ url_for('main.delete_actualite', id=actualite.id) }}" method="POST" style="display: inline-block;">
                 <button type="submit" class="delete-btn" style="background-color: red; color: white; padding: 5px 10px; border-radius: 5px;">Supprimer</button>
             </form>
+            {% endif %}
         </div>
     {% endfor %}
 </div>
