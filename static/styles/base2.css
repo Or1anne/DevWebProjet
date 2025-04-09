@@ -28,16 +28,16 @@ html, body {
 }
 
 .dark-mode {
-    --clair: #171717;
-    --moyen: #1f1f1f;
-    --fonce: #2b2b2b;
+    --clair: #282828;
+    --moyen: #262626;
+    --fonce: #343434;
     --tresfonce: #2e2e2e;
     --ecriture: #f0f0f0;
-    --box: #1e1e1e;
+    --box: #343434;
     --titrebox: white;
     --border: #444;
     --writeinput: #aaa;
-    --itembox: #2a2a2a;
+    --itembox: #474747;
     --titreitem:  #f0f0f0;
     --pitem: #d2d2d2;
     --ecritureform: #aaa;
@@ -382,10 +382,11 @@ html, body {
 /* Mise en forme de la page admin */
 .container-admin {
     display: grid;
-    grid-template-columns: repeat(5, 2fr); 
-    gap: 15px; 
-    width: 95vw; 
+    grid-template-columns: repeat(4, 2fr); 
+    gap: 15 px; 
+    width: 70vw; 
     padding: 20px 2vw;
+    padding-left: 100px;
     align-items: center;
     justify-content: center; 
     margin: auto; 

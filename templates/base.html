@@ -41,6 +41,7 @@
 
                     <div class="navbar-end">
                         {% if current_user.is_authenticated %}
+                        <a id="toggle-dark-mode" class="themeToggle navbar-item" onclick="toggleColorMode()" >Mode Sombre</a>
                         <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a>
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
                                 <img src="{{ url_for('static', filename='profile-icon-white-6-1.png') }}" alt="Profil"  width="30" height="30">
