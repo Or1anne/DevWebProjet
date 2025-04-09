@@ -1,34 +1,42 @@
 {% extends "base.html" %}
 
-{% block content %}
-<h1 class="title has-text-centered">Actualités</h1>
-<!-- Bouton pour ajouter une actualité (disponible pour les utilisateurs autorisés) -->
-{% if current_user.level == "Avance" or current_user.level == "Expert" %}
-    <a href="{{ url_for('main.add_actualite') }}">
-        <button class="add-btn">Ajouter une actualité</button>
-    </a>
-{% endif %}
-<!-- Affichage des actualités avec un meilleur design -->
-<div class="content-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 20px;">
-    {% for actualite in actualites %}
-        <div class="actualite-item" style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 20px; width: 250px; text-align: center;">
-            <h3 style="font-size: 18px; color: #333;">{{ actualite.nom }}</h3>
-            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">{{ actualite.description }}</p>
-            
-            {% if actualite.image %}
-                <img src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200" style="border-radius: 8px;">
-            {% else %}
-                <img src="{{ url_for('static', filename='image-default.png') }}" width="200" height="200" style="border-radius: 8px;">
-            {% endif %}
-            
-            <!-- Formulaire pour supprimer l'actualité -->
-            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
-            <form action="{{ url_for('main.delete_actualite', id=actualite.id) }}" method="POST" style="display: inline-block;">
-                <button type="submit" class="delete-btn" style="background-color: red; color: white; padding: 5px 10px; border-radius: 5px;">Supprimer</button>
-            </form>
-            {% endif %}
+{% block content %} 
+<div class="content-container">
+    <div class="box-objet">
+        <h1 class="title-box">Actualités</h1>
+        <!-- Affichage des actualités avec un meilleur design -->
+        <div class="actu-container">
+            {% for actualite in actualites %}
+                <div class="actualite-item">
+                    <h3>{{ actualite.nom }}</h3>
+                    <!-- <p>{{ actualite.description }}</p> -->
+                    
+                    {% if actualite.image %}
+                        <img src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='image-default.png') }}" width="200" height="200">
+                    {% endif %}
+                    
+                    <!-- Formulaire pour supprimer l'actualité -->
+                    <div class="user-actions" style="justify-content: center;">
+                        {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                        <form action="{{ url_for('main.delete_actualite', id=actualite.id) }}" method="POST">
+                            <button type="submit" class="delete-btn">Supprimer</button>
+                        </form>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+                <!-- Bouton pour ajouter une actualité (disponible pour les utilisateurs autorisés) -->
+                {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                <a href="{{ url_for('main.add_actualite') }}">
+                    <button class="add-btn">Ajouter une actualité</button>
+                </a>
+            {% endif %}
+    </div>
+
 </div>
 
 

@@ -29,11 +29,10 @@
             
         <div class="user-actions">
             {% if current_user.level == "Avance" or current_user.level == "Expert" %}
-                <a href="{{ url_for('manage_object.add_object_room', room_id=room.id, obj_id=0) }}">
-                    <button class="add-btn">Ajouter un objet</button>
-                </a>
+            <a href="{{ url_for('manage_object.add_object_room', room_id=room.id, obj_id=0) }}">
+                <button class="edit-btn">Ajouter un objet</button>
+            </a>
             {% endif %}
-
             {% if current_user.level == "Expert" %}
             <form action="{{ url_for('manage_object.delete_room', room_id=room.id) }}" method="post">
                 <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cette Chambre ?')">
