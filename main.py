@@ -138,5 +138,17 @@ def add_actualite():
 
     return render_template('add_actualite.html')
 
+@main.route('/delete_actualite/<int:id>', methods=['POST'])
+def delete_actualite(id):
+    # Récupérer l'actualité à supprimer par son ID
+    actualite_to_delete = Actualite.query.get(id)
+    
+    if actualite_to_delete:
+        # Supprimer l'actualité de la base de données
+        db.session.delete(actualite_to_delete)
+        db.session.commit()
+
+    # Rediriger vers la liste des actualités après la suppression
+    return redirect(url_for('main.list_actualites'))
 
 
