@@ -78,9 +78,6 @@ def search():
     rooms = Room.query.all()
     return render_template('search.html', users=users, objects=objects, rooms=rooms)
 
-
-
-
 @main.route('/result')
 def result():
     q = request.args.get('q', '')
@@ -103,18 +100,13 @@ def result():
 
 @main.route('/actualite')
 def actualite():
-    return render_template('actualite.html')
+    return redirect(url_for('main.list_actualites'))  # Rediriger vers la page de la liste des actualités
 
 @main.route('/actualites')
 def list_actualites():
-    # Récupérer toutes les actualités et objets depuis la base de données
-    actualites = Actualite.query.all()
+    actualites = Actualite.query.all()  # Récupérer toutes les actualités
     objets = Object.query.all()  # Récupérer tous les objets existants
-
     return render_template('actualite.html', actualites=actualites, objets=objets)
-
-
-
 
 @main.route('/add_actualite', methods=['GET', 'POST'])
 def add_actualite():
