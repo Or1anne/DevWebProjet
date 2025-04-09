@@ -8,6 +8,11 @@
 
 <div class="content-container">
     <div class="box-objet">
+        <div class="back">
+            <a href="{{ url_for('manage_object.list_objects') }}" class="button">
+                <img src="{{ url_for('static', filename='croix.png') }}" alt="Profil"  width="20" height="20">
+            </a>
+        </div>
         <h2 class="title-box">Objets</h2>
         <div class="obj">
             {% for obj in objects %}

@@ -10,9 +10,9 @@
 
     <h1 class="title-box">Information de l'utilisateur</h1>
     {% if user.image %}
-        <img src="data:image/png;base64,{{ user.image | b64encode }}" width="50">
+        <img src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
     {% else %}
-        <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="50" height="50">
+        <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}" width="60" height="60">
     {% endif %}
     <div class="user-info">
         <h3>Partie publique</h3>
@@ -24,9 +24,10 @@
             <p><strong>Niveau :</strong> {{ user.level }}</p>
         <h3>Partie privée</h3>
             <p><strong>Nom :</strong> {{ user.lastname }}</p>
-            <p><strong>Prénom :</strong> {{ user.lastname }}</p>
+            <p><strong>Prénom :</strong> {{ user.firstname }}</p>
             <p><strong>Points :</strong> {{ user.point }}</p>
             <p><strong>Email :</strong> {{ user.email }}</p>
+            <!-- TODO Supp cette ligne personne ne doit voir le mdp -->
             <p><strong>Mot de Passe :</strong> {{ user.password }}</p>
     </div>  
 

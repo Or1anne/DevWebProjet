@@ -11,48 +11,48 @@
     Gestion des objets
 </h1>
 
-<div class="content-container">
-    <div class="box-objet">
-        <h2 class="title-box">Objets</h2>
-        <div class="obj">
-            {% for obj in objects %}
-                <a href="{{ url_for('manage_object.profile_object', obj_id=obj.id) }}" class="objet-item">
-                    <h3>{{ obj.nom }} ({{ obj.type }})</h3>
-                        {% if obj.image %}
-                            <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="200" height="200">
-                        {% else %}
-                            <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
-                        {% endif %}
-                </a>
-                {% endfor %}
-            </div>
-            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
-                <a href="{{ url_for('manage_object.add_object') }}">
-                    <button class="add-btn">Ajouter un objet</button>
-                </a>
-            {%endif%}
-    </div>
-
+<div class="obj-container">
+    
     <div class="box-objet">
         <h2 class="title-box">Pièces / Chambres</h2>
         <div class="obj">
             {% for room in rooms %}
-                <a href="{{ url_for('manage_object.profile_room', room_id=room.id) }}" class="objet-item">
+            <a href="{{ url_for('manage_object.profile_room', room_id=room.id) }}" class="objet-item">
                     <h3>{{ room.nom }}</h3>
-                        {% if room.image %}
-                            <img src="data:image/png;base64,{{ room.image | b64encode }}" width="200" height="200">
+                    {% if room.image %}
+                    <img src="data:image/png;base64,{{ room.image | b64encode }}" width="200" height="200">
                         {% else %}
-                            <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
+                        <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
                         {% endif %}
-                </a>
-                {% endfor %}
-            </div>
-            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% if current_user.level == "Avance" or current_user.level == "Expert" %}
                 <a href="{{ url_for('manage_object.add_room') }}">
                     <button class="add-btn">Ajouter une pièce</button>
                 </a>
-            {%endif%}
-    </div>
+                {%endif%}
+            </div>
+            <div class="box-objet">
+                <h2 class="title-box">Objets</h2>
+                <div class="obj">
+                    {% for obj in objects %}
+                        <a href="{{ url_for('manage_object.profile_object', obj_id=obj.id) }}" class="objet-item">
+                            <h3>{{ obj.nom }} ({{ obj.type }})</h3>
+                                {% if obj.image %}
+                                    <img src="data:image/png;base64,{{ obj.image | b64encode }}" width="200" height="200">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='objet-sans-fond.png') }}" width="200" height="200">
+                                {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                        <a href="{{ url_for('manage_object.add_object') }}">
+                            <button class="add-btn">Ajouter un objet</button>
+                        </a>
+                    {%endif%}
+            </div>
 </div>
 
 

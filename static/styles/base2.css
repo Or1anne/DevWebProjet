@@ -10,18 +10,40 @@ html, body {
 }
 
 :root {
+    /* Light mode */
     --clair: #00d1b2;
     --moyen: #14c2a8;
     --fonce: #019e86;
     --tresfonce: #00a88b;
     --ecriture: white;
     --box: white;
+    --titrebox: black;
     --border: #ddd;
     --writeinput: #aaa;
     --itembox: #f9f9f9;
     --titreitem:  #333;
     --pitem: #666;
+    --ecritureform: black;
+    --titrerequete: #1e293b;
 }
+
+.dark-mode {
+    --clair: #171717;
+    --moyen: #1f1f1f;
+    --fonce: #2b2b2b;
+    --tresfonce: #2e2e2e;
+    --ecriture: #f0f0f0;
+    --box: #1e1e1e;
+    --titrebox: white;
+    --border: #444;
+    --writeinput: #aaa;
+    --itembox: #2a2a2a;
+    --titreitem:  #f0f0f0;
+    --pitem: #d2d2d2;
+    --ecritureform: #aaa;
+    --titrerequete: #f0f0f0;
+}
+
 
 
 
@@ -164,6 +186,7 @@ html, body {
     border: 2px solid var(--clair);
     border-radius: 5px;
     font-size: 16px;
+    background-color: var(--itembox);
 }
 
 .search-button {
@@ -244,6 +267,7 @@ html, body {
 
 .title-box {
     text-align: center;
+    color: var(--titrebox);
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 15px;
@@ -308,7 +332,7 @@ html, body {
     padding-bottom: 20px;
 }
 
-.news-item .pp{
+.news-item .pp, .user-container img, .box img{
     border-radius: 50%;
 }
 
@@ -468,7 +492,7 @@ html, body {
 }
 
 .gestion-container .list-user:hover {
-    color: var(--ecriture);
+    color: var(--pitem);
 }
 
 /* Conteneur principal */
@@ -491,6 +515,44 @@ html, body {
     padding: 10px;
     border-radius: 8px;
     margin: 8px 0;
+}
+
+.user-info h3, .box h3, .results h2{
+    color: var(--titreitem);
+}
+
+form input {
+    background-color: var(--itembox);
+    color: var(--ecritureform);
+}
+
+#password-field{
+    padding: 10px;
+    width: 200px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: var(--titreitem);
+    background-color: var(--itembox);
+}
+
+#toggle-password{
+    padding: 8px 16px;
+    background-color: var(--clair);
+    color: var(--ecriture);
+    width: 100px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+#toggle-password:hover {
+    background: var(--moyen);
+}
+
+.upload-file .input{
+    margin-top: 10px;
 }
 
 /* Boutons */
@@ -533,34 +595,43 @@ html, body {
 
 
 /* Mise en forme de la page objet */
+.obj-container {
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: flex-start;
+    /* gap: 20px; */
+    margin-top: 20px;
+    width: 90%; /* Utilise toute la largeur de la page */
+    padding: 0 50px; 
+    box-sizing: border-box
+}
+
 .box-objet {
     background: var(--box);
     padding: 20px;
+    margin: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;    
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  
     overflow: hidden; 
     width: 100%; 
     box-sizing: border-box; 
+    justify-items: center;
 }
 
 .obj{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 15px; 
-    width: 70vw; 
+    width: 70%; 
     padding: 20px 2vw;
     align-items: center;
     justify-content: center; 
-    margin: auto; 
 }
 
 /* Style des articles */
 .objet-item{
     background: var(--itembox);
-    padding: 15px;
+    padding: 25px;
     border-radius: 8px;
     margin: 10px 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -568,13 +639,14 @@ html, body {
     overflow-wrap: break-word;
     white-space: normal;
     text-decoration: none;
+    width: 250px;
+    height: 250px;
 }
 
 .objet-item:hover{
     background: var(--itembox);
 }
 
-/* Style des titres des articles */
 .objet-item h3{
     margin: 0;
     font-size: 18px;
@@ -618,6 +690,11 @@ html, body {
 
 /* Style des boutons retours */
 .box {
+    position: relative;
+    padding: 2rem;
+}
+
+.box-objet {
     position: relative;
     padding: 2rem;
 }
@@ -788,18 +865,24 @@ textarea {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
 }
 
 .resquest-container th, td {
     text-align: left;
     padding: 1rem;
-    border-bottom: 1px solid var(--itembox);
+    border-bottom: 1px solid var(--box);
 }
 
 .resquest-container th {
     background-color: var(--box);
-    color: #1e293b;
+    color: var(--titrerequete);
     font-weight: 600;
+}
+
+.resquest-container td {
+    background-color: var(--itembox);
+    color: var(--pitem);
 }
 
   /* --- Boutons Accepter / Refuser --- */
@@ -836,4 +919,22 @@ textarea {
 
 .resquest-container .refuse-btn[type="submit"]:last-child:hover {
     background-color: #dc2626;
+}
+
+
+
+/* Mise en forme de la page de recherche */
+
+.search-select {
+    position: relative;
+    width: 350px;
+    height: 45px;
+    background-color: var(--clair);
+    border: none;
+    justify-content: center;
+}
+
+.search-select-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }

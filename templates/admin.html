@@ -15,7 +15,7 @@
         <a href="{{ url_for('admin.request_admin_list') }}" class="admin-item">Requêtes</a>
         <a href="{{ url_for('admin.gestion_utilisateur') }}" class="admin-item">Gestion des utilisateurs</a>
         <a href="{{ url_for('manage_object.list_objects') }}" class="admin-item">Gestion des objets et outils</a>
-        <a href="{{ url_for('main.manage') }}" class="admin-item">Personnalisation</a>
+        <a id="toggle-dark-mode" class="themeToggle admin-item" onclick="toggleColorMode()" >Mode Sombre</a>
         <a href="{{ url_for('admin.rapport') }}" class="admin-item">Télécharger le rapport statistique</a>
     </div>
 </div>
