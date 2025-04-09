@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="content-container">
+    <div class="box-objet">
+        <h1> {{ actualite.nom }} </h1>
+        </br>
+
+        <p>Publié le : {{actualite.date_creation}}</p>
+        </br>
+        {% if actualite.image %}
+            <img src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200">
+            </br>
+        {% endif %}
+
+        <p>{{ actualite.description }}</p>
+    </div>
+</div>
+
+{% endblock %}

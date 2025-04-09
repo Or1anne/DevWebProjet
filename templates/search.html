@@ -38,74 +38,68 @@
 </div>
 
 
-<div class="results">    
-    <h2>Utilisateurs</h2>
-    <div class="user-box"> 
-    {% for user in users %}
-        {% if user.id != current_user.id %}
-            <div class="news-item">
-                <h3>{{ user.pseudo }}</h3>
-                {% if user.image %}
-                    <img class="pp" src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
-                {% else %}
-                    <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+<div id="results" class="results">  
+    {% if users %}  
+        <h2>Utilisateurs</h2>
+        <div class="user-box"> 
+            {% for user in users %}
+                {% if user.id != current_user.id %}
+                    <div class="news-item">
+                        <h3>{{ user.pseudo }}</h3>
+                        {% if user.image %}
+                            <img class="pp" src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                        {% endif %}
+                        <p><strong>Âge :</strong> {{ user.age }} ans</p>
+                        <p><strong>Genre :</strong> {{ user.gender }}</p>
+                        <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
+                        <p><strong>Rôle :</strong> {{ user.role }}</p>
+                        <p><strong>Niveau :</strong> {{ user.level }}</p>
+                    </div>
                 {% endif %}
-                <p><strong>Âge :</strong> {{ user.age }} ans</p>
-                <p><strong>Genre :</strong> {{ user.gender }}</p>
-                <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
-                <p><strong>Rôle :</strong> {{ user.role }}</p>
-                <p><strong>Niveau :</strong> {{ user.level }}</p>
-            </div>
-        {% endif %}
-    {% else %}
-        <div class="news-item">
-            <h2>Aucun utilisateur trouvé</h2>
+            {% endfor %}
         </div>
-    {% endfor %}
-    </div>
-    <h2>Objets</h2>
-    <div class="user-box">
-    {% for object in objects %}
-        <div class="news-item">
-            <h3>{{ object.nom }}</h3>
-            {% if object.image %}
-                <img class="pp" src="data:image/png;base64,{{ object.image | b64encode }}" width="60" height="60">
-            {% else %}
-                <img src="{{ url_for('static', filename='objet-sans-fond.png') }}"  width="60" height="60">
-            {% endif %}
-            <p><strong>Type :</strong> {{ object.type }}</p>
-            <p><strong>Marque :</strong> {{ object.brand }}</p>
-            <p><strong>Reference :</strong> {{ object.reference }}</p>
-            <p><strong>Statut :</strong> {{ object.status }}</p>
-            {% if object.room_id is not none %}
-                <p><strong>Chambre :</strong> {{ object.room.nom }}</p>
-            {% else %}
-                <p><strong>Chambre :</strong> Aucune</p>
-            {% endif %}
+    {% endif %}
+    {% if objects %}
+        <h2>Objets</h2>
+        <div class="user-box">
+            {% for object in objects %}
+                <div class="news-item">
+                    <h3>{{ object.nom }}</h3>
+                    {% if object.image %}
+                        <img class="pp" src="data:image/png;base64,{{ object.image | b64encode }}" width="60" height="60">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='objet-sans-fond.png') }}"  width="60" height="60">
+                    {% endif %}
+                    <p><strong>Type :</strong> {{ object.type }}</p>
+                    <p><strong>Marque :</strong> {{ object.brand }}</p>
+                    <p><strong>Reference :</strong> {{ object.reference }}</p>
+                    <p><strong>Statut :</strong> {{ object.status }}</p>
+                    {% if object.room_id is not none %}
+                        <p><strong>Chambre :</strong> {{ object.room.nom }}</p>
+                    {% else %}
+                        <p><strong>Chambre :</strong> Aucune</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
-    {% else %}
-        <div class="news-item">
-            <h2>Aucun objet trouvé</h2>
+    {% endif %}
+    {% if rooms %}
+        <h2>Chambres</h2>
+        <div class="user-box">
+            {% for room in rooms %}
+                <div class="news-item">
+                    <h2>{{ room.nom }}</h2>
+                    {% if room.image %}
+                        <img class="pp" src="data:image/png;base64,{{ room.image | b64encode }}" width="60" height="60">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='objet-sans-fond.png') }}"  width="60" height="60">
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-    </div>
-    <h2>Chambres</h2>
-    <div class="user-box">
-        {% for room in rooms %}
-            <div class="news-item">
-                <h2>{{ room.nom }}</h2>
-                {% if room.image %}
-                    <img class="pp" src="data:image/png;base64,{{ room.image | b64encode }}" width="60" height="60">
-                {% else %}
-                    <img src="{{ url_for('static', filename='objet-sans-fond.png') }}"  width="60" height="60">
-                {% endif %}
-            </div>
-        {% else %}
-            <div class="news-item">
-                <h2>Aucune chambre trouvée</h2>
-            </div>
-        {% endfor %}
-    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

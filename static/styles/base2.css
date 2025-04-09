@@ -669,7 +669,7 @@ form input {
 /* Style des articles */
 .objet-item {
     background: var(--itembox);
-    padding: 25px;
+    padding: 15px;
     border-radius: 8px;
     margin: 10px 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -846,7 +846,7 @@ select {
 
 /* Mise en page de la requête de suppression */
 /* Fond flouté ou grisé */
-#requestMotifOverlay {
+#requestMotifOverlay-object, #requestMotifOverlay-room {
     position: fixed;
     top: 0;
     left: 0;
@@ -861,7 +861,7 @@ select {
 }
 
 /* La "fenêtre" du popup */
-#requestMotif {
+#requestMotif-room, #requestMotif-object {
     background: var(--box);
     padding: 2rem;
     border-radius: 12px;
@@ -1029,4 +1029,17 @@ input[type="file"]::file-selector-button {
 
 input[type="file"]::file-selector-button:hover {
     background: var(--moyen);
+}
+
+#ProgressBar{
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#Progress{
+    background-color: #4caf50;
+    height: 24px;
+    transition: width 0.5s;
 }

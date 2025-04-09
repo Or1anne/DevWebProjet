@@ -25,9 +25,11 @@ def signup_post():
     password=generate_password_hash(request.form.get('password'), method='pbkdf2:sha256')
     firstname=request.form.get('firstname')
     lastname=request.form.get('lastname')
-    age=request.form.get('age')
     gender=request.form.get('gender')
-    birthdate=request.form.get('birthdate')
+    birthdate=datetime.strptime(request.form.get('birthdate'), '%Y-%m-%d')
+    
+    today = datetime.today()
+    age = age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
 
     user_by_email = User.query.filter_by(email=email).first()
     user_by_pseudo = User.query.filter_by(pseudo=pseudo).first()
@@ -48,7 +50,8 @@ def signup_post():
         'age' : age,
         'gender' : gender,
         'pseudo' : pseudo,
-        'birthdate' : birthdate
+        'birthdate' : birthdate,
+        'confirmed' : False
     }
     
     token = generate_confirmation_token(email)
@@ -65,7 +68,7 @@ def signup_post():
 
 @auth.route('/check_email')
 def check_email():
-    return render_template('check_email.html')  # Une page qui informe que l'email a été envoyé
+    return render_template('check_email.html')
 
 @auth.route('/confirm/<token>')
 def confirm_email(token):
@@ -75,6 +78,10 @@ def confirm_email(token):
         return redirect(url_for('auth.signup'))
     
     user_data = session.get('user_data')
+    if user_data['confirmed']:
+        flash("Votre email a déjà été confirmé.", "info")
+        return redirect(url_for('main.index'))
+    user_data['confirmed'] = True
     
     new_request = Request(
         title = "Demande d'inscription",
@@ -88,8 +95,8 @@ def confirm_email(token):
     db.session.add(new_request)
     db.session.commit()
 
-    flash("Votre email a été confirmé avec succès. En attente de confirmation de l'admin.")
-    return redirect(url_for('auth.login'))
+    flash("Votre inscription a bien été envoyée, en attente de validation par l'amdinistrateur.")
+    return redirect(url_for('main.index'))
 
 @auth.route('/login', methods=['POST'])
 def login_post():

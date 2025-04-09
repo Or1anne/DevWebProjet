@@ -7,6 +7,7 @@
         <!-- Affichage des actualités avec un meilleur design -->
         <div class="actu-container">
             {% for actualite in actualites %}
+            <a href="{{ url_for('main.actualite_profile', act_id=actualite.id) }}">
                 <div class="actualite-item">
                     <h3>{{ actualite.nom }}</h3>
                     <!-- <p>{{ actualite.description }}</p> -->
@@ -27,6 +28,7 @@
 
                     </div>
                 </div>
+            </a>
             {% endfor %}
         </div>
                 <!-- Bouton pour ajouter une actualité (disponible pour les utilisateurs autorisés) -->

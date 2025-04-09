@@ -68,45 +68,33 @@
                 {% endif %}
             {% endif %}
         
-            {% if current_user.level == "Avance" %}
-                <button type="button" class="delete-btn" onclick="openRequestMotif()">Demande de suppression</button>
-            {% endif %}
-        
-            {% if current_user.level == "Expert" %}
-                <form action="{{ url_for('manage_object.delete_object', obj_id=obj.id) }}" method="post">
-                    <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cet objet ?')">
-                        Supprimer
-                    </button>
+                {% if current_user.level == "Avance" %}
+                    <button type="button" class="delete-btn" onclick="openRequestMotif('object')">Demande de suppression d'objet</button>
+                {% endif %}
+            
+                {% if current_user.level == "Expert" %}
+                    <form action="{{ url_for('manage_object.delete_object', obj_id=obj.id) }}" method="post">
+                        <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cet objet ?')">
+                            Supprimer
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="requestMotifOverlay-object">
+            <div id="requestMotif-object">
+                <h2>Demande de suppression d'objet</h2>
+                <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
+                    <div class="form-group">
+                        <label for="description">Motif :</label>
+                        <textarea name="description" id="description" required></textarea>
+                    </div>
+                    <div class="user-actions">
+                    <button type="submit" class="edit-btn">Envoyer</button>
+                    <button type="button" class="delete-btn" onclick="closeRequestMotif('object')">Fermer</button>
+                    </div>
                 </form>
-            {% endif %}
+            </div>
         </div>
-    </div>
-
-    <div id="requestMotifOverlay">
-        <div id="requestMotif">
-            <h2>Demande de suppression</h2>
-            <form action="{{ url_for('manage_object.request_object', obj_id=obj.id) }}" method="post">
-                <div class="form-group">
-                    <label for="description">Motif :</label>
-                    <textarea name="description" id="description" required></textarea>
-                </div>
-                <div class="user-actions">
-                <button type="submit" class="edit-btn">Envoyer</button>
-                <button type="button" class="delete-btn" onclick="closeRequestMotif()">Fermer</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- TODO Code JS a mettre en dehors de la page -->
-    <script>
-        function openRequestMotif() {
-            document.getElementById("requestMotifOverlay").style.display = "flex";
-        }
-    
-        function closeRequestMotif() {
-            document.getElementById("requestMotifOverlay").style.display = "none";
-        }
-    </script>
 {% endblock %}

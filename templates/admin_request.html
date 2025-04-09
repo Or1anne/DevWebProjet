@@ -3,8 +3,7 @@
 {% block content %}
 
 <div class="search-container">
-    <input type="text" class="search-input search-obj" placeholder="Rechercher une requête...">
-    <button class="search-button">Rechercher</button>
+    <input type="text" id="searchInput" class="search-input search-obj" placeholder="Rechercher une requête...">
 </div>
 
 <h1 class="title">
@@ -12,18 +11,19 @@
 </h1>
 
 <div class="resquest-container">
-    <div class="">
         <table>
             <tr>
                 <th>Requête</th>
                 <th>Commanditaire</th>
-                <th>Nom de l'objet / Utilisateur</th>
+                <th>Objet/Utilisateur concerné</th>
                 <th>Motif</th>
                 <th>Date</th>
                 <th>Status</th>
+                <th></th>
             </tr>
+        <tbody id="results"> 
         {% for rqs in requests %}
-        {% if rqs.title == "Demande de suppression" %}
+        {% if rqs.title == "Demande de suppression d'objet" %}
             <tr>
                 <td>{{rqs.title}}</td>
                 <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
@@ -42,7 +42,37 @@
                 {% else %}
                     <td>{{rqs.status}}</td>
                 {% endif %}
+                <td>
+                    <form action="{{ url_for('admin.delete_request', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="refuse-btn">Supprimer</button>
+                    </form>
+                </td>
             </tr>
+        {% elif rqs.title == "Demande de suppression de pièce" %}
+        <tr>
+            <td>{{rqs.title}}</td>
+            <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
+            <td>{{rqs.object_name}}</td>
+            <td>{{rqs.description}}</td>
+            <td>{{rqs.date}}</td>
+            {% if rqs.status == "En attente" %}
+            <td>
+                <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
+                    <button type="submit" class="accept-btn">Accepter</button>
+                </form>
+                <form action="{{ url_for('admin.request_refuse', request_id=rqs.id) }}" method="post">
+                    <button type="submit" class="refuse-btn">Refuser</button>
+                </form>
+            </td>
+            {% else %}
+                <td>{{rqs.status}}</td>
+            {% endif %}
+            <td>
+                <form action="{{ url_for('admin.delete_request', request_id=rqs.id) }}" method="post">
+                    <button type="submit" class="refuse-btn">Supprimer</button>
+                </form>
+            </td>
+        </tr>
         {% elif rqs.title == "Demande d'inscription" %}
             <tr>
                 <td>{{rqs.title}}</td>
@@ -62,11 +92,41 @@
                 {% else %}
                     <td>{{rqs.status}}</td>
                 {% endif %}
+                <td>
+                    <form action="{{ url_for('admin.delete_request', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="refuse-btn">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% elif rqs.title == "Demande de passage à niveau" %}
+            <tr>
+                <td>{{rqs.title}}</td>
+                <td>{{rqs.user_firstname}} {{rqs.user_lastname}}</td>
+                <td>{{rqs.object_name}}</td>
+                <td>{{rqs.description}}</td>
+                <td>{{rqs.date}}</td>
+                {% if rqs.status == "En attente" %}
+                <td>
+                    <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="accept-btn">Accepter</button>
+                    </form>
+                    <form action="{{ url_for('admin.request_refuse', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="refuse-btn">Refuser</button>
+                    </form>
+                </td>
+                {% else %}
+                    <td>{{rqs.status}}</td>
+                {% endif %}
+                <td>
+                    <form action="{{ url_for('admin.delete_request', request_id=rqs.id) }}" method="post">
+                        <button type="submit" class="refuse-btn">Supprimer</button>
+                    </form>
+                </td>
             </tr>
         {% endif %}
         {% endfor %}
+        </tbody>
         </table>
-    </div>
 </div>
 
 {% endblock %}

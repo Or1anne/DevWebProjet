@@ -2,76 +2,137 @@
 
 {% block content %}
 
-<!-- Barre de recherche -->
-<div class="search-container">
-    {% if not current_user.is_authenticated %}
-    <input type="text" class="search-input search-news" placeholder="Rechercher une actualité...">
-    {% endif %}
-    {% if current_user.is_authenticated %}
-    <input type="text" class="search-input search-obj" placeholder="Rechercher un objet...">
-    {% endif %}
-    <button class="search-button">Rechercher</button>
-</div>
-
 <h1 class="title">
     Bienvenue {{current_user.firstname}} ! 
 </h1>
+
+<!-- Barre de recherche -->
+{% if not current_user.is_authenticated %}
+<div class="search-container">
+        <input type="text" id="searchInput" class="search-input search-obj" placeholder="Rechercher un objet">
+</div>
+
+<div class="search-select-container">
+    <select id="typeSelect" class="search-select">
+        <option value="">-- Types d'objets --</option>
+        <option value="Television">Television/Smartphone</option>
+        <option value="Ecran">Ecran Ordinateur</option>
+        <option value="Enceinte">Enceinte</option>
+        <option value="Lave-Vaiselle">Lave-Vaiselle</option>
+        <option value="Machine à laver">Machine à laver</option>
+        <option value="Radiateur">Radiateur</option>
+        <option value="Thermomètre">Thermomètre</option>
+        <option value="Robot-aspirateur">Robot-aspirateur</option>
+        <option value="Lumiere">Lampe/Lumière</option>
+        <option value="Alarme">Alarme</option>
+        <option value="Autre">Autre</option>
+    </select>
+    
+    <select id="StatusSelect" class="search-select">
+        <option value="">-- Etat --</option>
+        <option value="ON">Activé</option>
+        <option value="OFF">Désactivé</option>
+    </select>
+</div>
+{% endif %}
 
 <!-- Conteneur des actualités et informations -->
 <div class="content-container">
     <!-- Actualités -->
     <div class="box-index news-box">
-        <h2 class="title-box">Membres de la famille</h2>
-        <!-- <div class="news-item">
-            <h3>Nouvelle réforme économique</h3>
-            <p>Le gouvernement annonce une nouvelle réforme pour soutenir les petites entreprises, dans le but de favoriser leur croissance et de renforcer leur compétitivité sur le marché. Cette réforme comprend des mesures de simplification administrative, un allégement fiscal, ainsi qu'un soutien renforcé à l'innovation et à la transition numérique. L'objectif est de permettre aux petites entreprises d'accéder plus facilement aux financements et de stimuler leur développement, tout en leur offrant un cadre plus flexible et adapté à leurs besoins. En renforçant ces acteurs économiques clés, le gouvernement espère également créer de nouveaux emplois et dynamiser l'économie locale.</p>
-        </div> -->
-        <div class="user-box">
-            {% for user in users %}
-                {% if user.id != current_user.id %}
-                <div class="news-item">
-                    <h3>{{ user.pseudo }}</h3>
-                    {% if user.image %}
-                        <img class="pp" src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
-                    {% else %}
-                        <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
-                    {% endif %}
-                    <p><strong>Âge :</strong> {{ user.age }} ans</p>
-                    <p><strong>Genre :</strong> {{ user.gender }}</p>
-                    <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
-                    <p><strong>Rôle :</strong> {{ user.role }}</p>
-                    <p><strong>Niveau :</strong> {{ user.level }}</p>
-                </div>
+        {% if current_user.is_authenticated %}
+            <h2 class="title-box">Membres de la famille</h2>
+        {% else %}
+            <h2 class="title-box">Objets</h2>
+        {% endif %}
+
+        <div id="results"> 
+            <div class="user-box">
+                {% if current_user.is_authenticated %}
+                    {% for user in users %}
+                        {% if user.id != current_user.id %}
+                        <div class="news-item">
+                            <h3>{{ user.pseudo }}</h3>
+                            {% if user.image %}
+                                <img class="pp" src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                            {% endif %}
+                            <p><strong>Âge :</strong> {{ user.age }} ans</p>
+                            <p><strong>Genre :</strong> {{ user.gender }}</p>
+                            <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
+                            <p><strong>Rôle :</strong> {{ user.role }}</p>
+                            <p><strong>Niveau :</strong> {{ user.level }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% for object in objects %}
+                        <div class="news-item">
+                            <h3>{{ object.nom }}</h3>
+                                {% if object.image %}
+                                    <img class="pp" src="data:image/png;base64,{{ object.image | b64encode }}" width="60" height="60">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                                {% endif %}
+                                <p><strong>Type :</strong> {{ object.type }}</p>
+                                <p><strong>Marque :</strong> {{ object.brand }} </p>
+                                <p><strong>Etat :</strong> {{ object.status }}</p>
+                                <p><strong>Méthode de connexion :</strong> {{ object.connectivity }} </p>
+                        </div>
+                    {% endfor %}
                 {% endif %}
-            {% endfor %}
+            </div>
         </div>
     </div>
 
-    <!-- Informations locales -->
-    <!-- TODO à changer -->
     <div class="box-index info-box">
-        <h2 class="title-box">📍 Informations Locales</h2>
+        <h2 class="title-box">📍 Dernières actualités</h2>
+
+    {% if current_user.is_authenticated %}
         <div class="info-item">
-            <h3>Travaux sur la ligne de métro</h3>
-            <p>Le métro ligne 3 sera en travaux du 10 au 15 mars, avec des bus de substitution</p>
+            <h3>Progression</h3>
+            </br>
+
+            {% if current_user.level == "Avance" or current_user.level == "Expert" %}
+                {% set total_points = 1000 %}
+            {% elif current_user.level == "Intermediaire" %}
+                {% set total_points = 500 %}
+            {% else %}
+                {% set total_points = 100 %}
+            {% endif %}
+            {% set progress_percent = (current_user.point / total_points * 100) if total_points else 0 %}
+            <div id="ProgressBar">
+                <div id="Progress" style="width: {{ progress_percent }}%;">
+                </div>
+            </div>
+            <p>{{ current_user.point }} / {{ total_points }} points</p>
+
+            {% if current_user.point >= total_points and current_user.level != "Expert" %}
+                <a href="{{ url_for('main.update_level_request', user_id=current_user.id) }}">
+                    <button class="button is-info">Passer au niveau supérieur</button>
+                </a>
+            {% endif %}
         </div>
+    {% endif %}
+
         <div class="info-item">
-            <h3>Marché local ce weekend</h3>
-            <p>Retrouvez les producteurs locaux sur la place centrale ce samedi matin !</p>
-        </div>
-        <div class="info-item">
-            
-                <!-- Section Météo -->
-        
+            <!-- Section Météo -->
             <h2 class="title-box">Météo à Cergy</h2>
             <div id="weather-info" class="weather-info">
                 <p>Chargement...</p>
             </div>
-        
+        </div>
+
+        {% for actualite in actualites %}
+            <div class="info-item">
+                <h3>{{actualite.nom}}</h3>
+                <p>{{actualite.description}}</p>
+            </div>
+        {% endfor %}
  
      
     <script>
-    // Fonction pour récupérer la météo
     const API_KEY = '47e393553f924e66b8a171010250704'; // Remplace par ta clé API
     const city = 'Cergy'; // Nom de la ville
      
@@ -104,13 +165,9 @@
         }
     };
      
-    // Charger la météo au chargement de la page
     window.onload = fetchWeather;
     </script>
-            </div>
-        {% if current_user.level == "Avance" or current_user.level == "Expert" %}
-            <button class="button is-info">Ajouter une information</button>
-        {% endif %}
     </div>
 </div>
+
 {% endblock %}

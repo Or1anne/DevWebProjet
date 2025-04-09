@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .models import *
 from . import db
 from datetime import datetime
-from sqlalchemy import desc
+from sqlalchemy import *
 from fpdf import FPDF
 from tempfile import NamedTemporaryFile
 
@@ -62,16 +62,42 @@ def delete_user(user_id):
 #Requêtes d'admin
 @admin.route('/request_admin')
 def request_admin_list():
-    requests = Request.query.order_by(desc(Request.date)).all()
+    q = request.args.get('q', '')
+    requests = Request.query.filter(
+        or_(
+            Request.title.ilike(f'%{q}%'),
+            Request.object_name.ilike(f'%{q}%'),
+            Request.description.ilike(f'%{q}%'),
+            cast(Request.date, String).ilike(f'%{q}%')
+        )
+    ).order_by(desc(Request.date)).all()
     return render_template('admin_request.html', requests=requests)
 
 @admin.route('/accept/<int:request_id>', methods=['POST'])
 def request_accept(request_id):
     request = Request.query.get(request_id)
-    if request.title == "Demande de suppression":
+    if request.title == "Demande de suppression d'objet":
         request.status = "Acceptée"
         object = Object.query.filter_by(nom=request.object_name).first()
         db.session.delete(object)
+        db.session.commit()
+    elif request.title == "Demande de suppression de pièce":
+        request.status = "Acceptée"
+        room = Room.query.filter_by(nom=request.object_name).first()
+        db.session.delete(room)
+        db.session.commit()
+    elif request.title == "Demande de passage à niveau":
+        request.status = "Acceptée"
+        user = User.query.get(request.object_type)
+        if user.level == "Debutant":
+            user.level = "Intermediaire"
+            user.point -= 100
+        elif user.level == "Intermediaire":
+            user.level = "Avance"
+            user.point -= 500
+        elif user.level == "Avance":
+            user.level = "Expert"
+            user.point -= 1000
         db.session.commit()
     elif request.title == "Demande d'inscription":
         #TODO Attribuer un rôle à l'utilisateur
@@ -84,22 +110,32 @@ def request_accept(request_id):
             gender=user_data['gender'],
             age=user_data['age'],
             pseudo=user_data['pseudo'],
-            birthdate = datetime.strptime(user_data['birthdate'], '%Y-%m-%d').date()
+            birthdate = user_data['birthdate'],
+            confirmed=True
         )
         request.status = "Acceptée"
         db.session.add(user)
         db.session.commit()
+        session.pop('user_data', None)
     return redirect(url_for('admin.request_admin_list'))
 
 @admin.route('/refuse/<int:request_id>', methods=['POST'])
 def request_refuse(request_id):
     request = Request.query.get(request_id)
-    if request.title == "Demande de suppression":
+    if request.title == "Demande de suppression d'objet" or request.title == "Demande de suppression de pièce" or request.title == "Demande de passage à niveau":
         request.status = "Refusée"
         db.session.commit()
     elif request.title == "Demande d'inscription":
         session.pop('user_data', None)
         request.status = "Refusée"
+        db.session.commit()
+    return redirect(url_for('admin.request_admin_list'))
+
+@admin.route('/delete_request/<int:request_id>', methods=['POST'])
+def delete_request(request_id):
+    request = Request.query.get(request_id)
+    if request:
+        db.session.delete(request)
         db.session.commit()
     return redirect(url_for('admin.request_admin_list'))
 

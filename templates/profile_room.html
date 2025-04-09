@@ -33,6 +33,11 @@
                 <button class="edit-btn">Ajouter un objet</button>
             </a>
             {% endif %}
+
+            {% if current_user.level == "Avance" %}
+                <button type="button" class="delete-btn" onclick="openRequestMotif('room')">Demande de suppression de la pièce</button>
+            {% endif %}
+
             {% if current_user.level == "Expert" %}
             <form action="{{ url_for('manage_object.delete_room', room_id=room.id) }}" method="post">
                 <button type="submit" class="delete-btn" onclick="return confirm('Voulez-vous vraiment supprimer cette Chambre ?')">
@@ -42,6 +47,23 @@
             {% endif %}
         </div>
 
+    </div>
+</div>
+
+
+<div id="requestMotifOverlay-room">
+    <div id="requestMotif-room">
+        <h2>Demande de suppression de la pièce</h2>
+        <form action="{{ url_for('manage_object.request_room', room_id=room.id) }}" method="post">
+            <div class="form-group">
+                <label for="description">Motif :</label>
+                <textarea name="description" id="description" required></textarea>
+            </div>
+            <div class="user-actions">
+            <button type="submit" class="edit-btn">Envoyer</button>
+            <button type="button" class="delete-btn" onclick="closeRequestMotif('room')">Fermer</button>
+            </div>
+        </form>
     </div>
 </div>
 

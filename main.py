@@ -3,14 +3,38 @@ from flask_login import login_required, current_user
 from .models import *
 from datetime import datetime
 from . import db
+from sqlalchemy import desc
 from flask import session
 from flask_login import logout_user
 main = Blueprint('main', __name__)
 
-@main.route('/')
+def get_search(q, service_type, object_type, status):
+
+    users = User.query.filter(User.pseudo.ilike(f'%{q}%')).all() if service_type in ('', 'utilisateurs') else []
+    rooms = Room.query.filter(Room.nom.ilike(f'%{q}%')).all() if service_type in ('', 'chambres') else []
+
+    objects = Object.query.filter(Object.nom.ilike(f'%{q}%'))
+    if object_type:
+        objects = objects.filter(Object.type == object_type)
+        users = []
+        rooms = []
+    if status:
+        objects = objects.filter(Object.status == status)
+        users = []
+        rooms = []
+    objects = objects.all() if service_type in ('', 'objets') else []
+
+    return users, objects, rooms
+
+@main.route('/index')
 def index():
-    users = User.query.all()
-    return render_template('index.html',users=users)
+    q = request.args.get('q', '')
+    service_type = request.args.get('service', '').lower()
+    object_type = request.args.get('type', '')
+    status = request.args.get('status', '')
+    users, objects, rooms = get_search(q, service_type, object_type, status)
+    actualites = Actualite.query.order_by(Actualite.date_creation.desc()).limit(2).all()
+    return render_template('index.html',users=users, objects=objects, actualites=actualites)
 
 @main.route('/manage')
 def manage():
@@ -24,7 +48,6 @@ def admin():
 @main.route('/objet')
 def objet():
     return render_template('objet.html')
-
 
 @main.route('/profile')
 @login_required
@@ -73,34 +96,22 @@ def edit_user1():
 
 @main.route('/search')
 def search():
-    users = User.query.all()
-    objects = Object.query.all()
-    rooms = Room.query.all()
-    return render_template('search.html', users=users, objects=objects, rooms=rooms)
-
-@main.route('/result')
-def result():
     q = request.args.get('q', '')
-    service_type = request.args.get('service', '')
+    service_type = request.args.get('service', '').lower()
     object_type = request.args.get('type', '')
     status = request.args.get('status', '')
-
-    users = User.query.filter(User.pseudo.ilike(f'%{q}%')).all() if service_type in ('', 'Utilisateurs') else []
-
-    objects = Object.query.filter(Object.nom.ilike(f'%{q}%'))
-    if object_type:
-        objects = objects.filter(Object.type == object_type)
-    if status:
-        objects = objects.filter(Object.status == status)
-    objects = objects.all() if service_type in ('', 'Objets') else []
-
-    rooms = Room.query.filter(Room.nom.ilike(f'%{q}%')).all() if service_type in ('', 'Chambres') else []
-
+    users, objects, rooms = get_search(q, service_type, object_type, status)
     return render_template('search.html', users=users, objects=objects, rooms=rooms)
 
 @main.route('/actualite')
 def actualite():
     return redirect(url_for('main.list_actualites'))  # Rediriger vers la page de la liste des actualités
+
+@main.route('/actualite_profile/<int:act_id>')
+def actualite_profile(act_id):
+    actualite = Actualite.query.get(act_id)
+    current_user.point += 10
+    return render_template("profile_actualite.html", actualite=actualite)
 
 @main.route('/actualites')
 def list_actualites():
@@ -151,4 +162,37 @@ def delete_actualite(id):
     # Rediriger vers la liste des actualités après la suppression
     return redirect(url_for('main.list_actualites'))
 
+@main.route('/request_level/<int:user_id>')
+def update_level_request(user_id):
 
+    user = User.query.get(user_id)
+
+    title = "Demande de passage à niveau"
+    description = user.firstname + ' ' + user.lastname + " (" + user.pseudo + ")" + " voudrait passer au niveau supérieur."
+    status = "En attente"
+    if user.level == 'Debutant':
+        object_nom = "Debutant -> Intermédiaire"
+    elif user.level == 'Intermediaire':
+        object_nom = "Intermédiaire -> Avancé"
+    elif user.level == 'Avance':
+        object_nom = "Avancé -> Expert"
+    object_type = user.id
+    user_lastname = user.lastname
+    user_firstname = user.firstname
+
+    new_request = Request(
+            title=title,
+            description=description,
+            status=status,
+            object_name=object_nom,
+            object_type=object_type,
+            user_lastname=user_lastname,
+            user_firstname=user_firstname,
+            date=datetime.now()
+        )
+    
+    db.session.add(new_request)
+    db.session.commit()
+    flash("Votre demande de passage à niveau a été envoyée avec succès.")
+    return redirect(url_for('main.index'))
+    

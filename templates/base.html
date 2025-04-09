@@ -16,6 +16,7 @@
     <script src="{{ url_for('static', filename='scripts/profile_object.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/preview.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/search.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/search_request.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/dark_mode.js') }}"></script>
         
         
@@ -26,13 +27,11 @@
                 <div class="container">
                     <div class="navbar-start">
                         <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
-                        <a href="{{ url_for('main.search') }}" class="navbar-item">Recherche</a>
-                        <a href="{{ url_for('main.actualite') }}" class="navbar-item">Actualite</a>
-
+                        <a href="{{ url_for('main.actualite') }}" class="navbar-item">Actualités</a>
 
                         {% if current_user.is_authenticated %}
-
-                            <a href="{{ url_for('manage_object.list_objects') }}" class="navbar-item">Objet</a>
+                            <a href="{{ url_for('main.search') }}" class="navbar-item">Recherche</a>
+                            <a href="{{ url_for('manage_object.list_objects') }}" class="navbar-item">Objets/Pièces</a>
                             {% if current_user.level == "Expert" %}
                                 <a href="{{ url_for('main.admin') }}" class="navbar-item">Administration</a>
                             {%endif%}
@@ -40,11 +39,15 @@
                     </div>
 
                     <div class="navbar-end">
-                        {% if current_user.is_authenticated %}
                         <a id="toggle-dark-mode" class="themeToggle navbar-item" onclick="toggleColorMode()" >Mode Sombre</a>
+                        {% if current_user.is_authenticated %}
                         <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a>
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                                <img src="{{ url_for('static', filename='profile-icon-white-6-1.png') }}" alt="Profil"  width="30" height="30">
+                                {% if current_user.image %}
+                                    <img class="pp" src="data:image/png;base64,{{ current_user.image | b64encode }}" width="30" height="30">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='profile-icon-white-6-1.png') }}" alt="Profil"  width="30" height="30">
+                                {% endif %}
                             </a>
                         {% else %}
                             <a href="{{ url_for('auth.login') }}" class="navbar-item">Login</a>
@@ -61,18 +64,28 @@
                 {% block content %}
                 {% endblock %}
             <!-- </div> -->
-            {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="notification is-danger">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-    {% endif %}
-{% endwith %}
 
         </div>
     </section>
 </body>
 
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        // Pour chaque message flash
+        {% for message in messages %}
+            Swal.fire({
+            icon: 'info', // Tu peux personnaliser l'icône, ici c'est 'info'
+            title: '{{ message }}',
+            confirmButtonText: 'OK' // Tu peux personnaliser le texte du bouton
+            });
+        {% endfor %}
+        });
+    </script>
+    {% endif %}
+{% endwith %}

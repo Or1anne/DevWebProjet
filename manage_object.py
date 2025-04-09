@@ -78,6 +78,8 @@ def add_object():
         if temp is not None:
             new_object.temp = temp
 
+        current_user.point += 50
+
         db.session.add(new_object)
         db.session.commit()
         return redirect(url_for('manage_object.list_objects'))
@@ -87,6 +89,8 @@ def add_object():
 @manage_object.route('/profile_object/<int:obj_id>')
 def profile_object(obj_id):
     object = Object.query.get(obj_id)
+    current_user.point += 10
+    db.session.commit()
     return render_template('profile_object.html', obj=object)
 
 @manage_object.route('/edit_object/<int:obj_id>', methods=['GET', 'POST'])
@@ -111,8 +115,11 @@ def edit_object(obj_id):
         if object.size is not None:
             object.size = request.form['size']
             object.resolution = request.form['resolution']
+        if object.luminosity is not None:
+            object.luminosity = request.form['luminosity']
 
-
+        current_user.point += 30
+    
         db.session.commit()
         return redirect(url_for('manage_object.list_objects'))
 
@@ -144,7 +151,7 @@ def desactivate_object(obj_id):
 
 @manage_object.route('/request_object/<int:obj_id>', methods=['POST'])
 def request_object(obj_id):
-    title = "Demande de suppression"
+    title = "Demande de suppression d'objet"
     description = request.form.get('description')
     status = "En attente"
     object = Object.query.get(obj_id)
@@ -159,6 +166,31 @@ def request_object(obj_id):
             status=status,
             object_name=object_nom,
             object_type=object_type,
+            user_lastname=user_lastname,
+            user_firstname=user_firstname,
+            date=datetime.now()
+        )
+    
+    db.session.add(new_request)
+    db.session.commit()
+    return redirect(url_for('manage_object.list_objects'))
+
+@manage_object.route('/request_room/<int:room_id>', methods=['POST'])
+def request_room(room_id):
+    title = "Demande de suppression de pièce"
+    description = request.form.get('description')
+    status = "En attente"
+    room = Room.query.get(room_id)
+    object_nom = room.nom
+    object_type = "Pièce/Chambre"
+    user_lastname = current_user.lastname
+    user_firstname = current_user.firstname
+
+    new_request = Request(
+            title=title,
+            description=description,
+            status=status,
+            object_name=object_nom,
             user_lastname=user_lastname,
             user_firstname=user_firstname,
             date=datetime.now()
@@ -183,6 +215,8 @@ def add_room():
             image=image_data
         )
 
+        current_user.point += 50
+        
         db.session.add(new_room)
         db.session.commit()
         return redirect(url_for('manage_object.list_objects'))
@@ -193,6 +227,8 @@ def add_room():
 def profile_room(room_id):
     room = Room.query.get(room_id)
     objects = Object.query.filter_by(room_id=room_id).all()
+    current_user.point += 10
+    db.session.commit()
     return render_template('profile_room.html', room=room, objects=objects)
 
 @manage_object.route('/add_object_room/<int:room_id>/<int:obj_id>', methods=['GET', 'POST'])

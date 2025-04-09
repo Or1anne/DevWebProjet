@@ -3,7 +3,7 @@ from . import db
 from datetime import datetime
 
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True) # clé primiaire obligatoire pour SQLAlchemy
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, index=True)
     pseudo = db.Column(db.String(100), unique=True, index=True)
     password = db.Column(db.String(100))
@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
     point = db.Column(db.Integer, default=0)
     birthdate = db.Column(db.Date)
     image = db.Column(db.LargeBinary)
+    confirmed = db.Column(db.Boolean, default=False)
 
 class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,11 +58,6 @@ class Request(db.Model):
 
     user_lastname = db.Column(db.String)
     user_firstname = db.Column(db.String)
-
-class Info(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
-    description = db.Column(db.Text)
 
 
 class Actualite(db.Model):

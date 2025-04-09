@@ -3,22 +3,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const useSelect = document.getElementById("UseSelect");
   const typeSelect = document.getElementById("typeSelect");
   const statusSelect = document.getElementById("StatusSelect");
-  const resultsDiv = document.getElementById("results");
+  const resultsDiv = document.getElementById("results"); 
 
   // Fonction pour mettre à jour les résultats
   function updateResults() {
     const query = input.value;
-    const serviceType = useSelect.value;   // Type de service (Utilisateurs, Objets, Chambres)
+    let serviceType = 'objets'; // Par défaut pour index.html
+    if (useSelect) {
+      serviceType = useSelect.value;   // Type de service (Utilisateurs, Objets, Chambres)
+    }
     const objectType = typeSelect.value;   // Type d'objet
     const status = statusSelect.value;     // Statut de l'objet (ON/OFF)
 
     // Construire l'URL avec tous les filtres
-    let url = `/result?q=${encodeURIComponent(query)}&service=${encodeURIComponent(serviceType)}&type=${encodeURIComponent(objectType)}&status=${encodeURIComponent(status)}`;
+    let url;
+    if (window.location.pathname === '/search') {
+      // Si on est sur la page de recherche
+      url = `/search?q=${encodeURIComponent(query)}&service=${encodeURIComponent(serviceType)}&type=${encodeURIComponent(objectType)}&status=${encodeURIComponent(status)}`;
+    } else {
+      // Si on est sur la page d'index
+      url = `/index?q=${encodeURIComponent(query)}&service=${encodeURIComponent(serviceType)}&type=${encodeURIComponent(objectType)}&status=${encodeURIComponent(status)}`;
+    }
 
     // Requête fetch avec les filtres
     fetch(url)
       .then(response => response.text())
       .then(html => {
+        // Parser la réponse HTML et mettre à jour le contenu des résultats
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
         const newResults = doc.querySelector("#results");
@@ -34,22 +45,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // Écouteurs pour chaque champ de filtrage
+  // Ajout des événements pour mettre à jour les résultats
   input.addEventListener("input", updateResults);
-  useSelect.addEventListener("change", updateResults);
+  if (useSelect) {
+    useSelect.addEventListener("change", updateResults);
+  }
   typeSelect.addEventListener("change", updateResults);
   statusSelect.addEventListener("change", updateResults);
 
-  // Fonction de réinitialisation
+  // Réinitialisation des champs
   document.getElementById("resetBtn").addEventListener("click", function() {
-    // Réinitialisation des champs
     input.value = "";
     useSelect.value = "";
     typeSelect.value = "";
     statusSelect.value = "";
     
-    // Mise à jour des résultats après réinitialisation
+    // Actualiser les résultats après réinitialisation
     updateResults(); 
   });
 });
-
