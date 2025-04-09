@@ -1,20 +1,33 @@
-
-(function() {
+(function () {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    const isDark = savedTheme === 'dark';
+
+    if (isDark) {
         document.documentElement.classList.add('dark-mode');
     }
+
+    // Met à jour le texte du bouton selon le thème enregistré
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButton = document.querySelector('.themeToggle');
+        if (toggleButton) {
+            toggleButton.textContent = isDark ? 'Mode Clair' : 'Mode Sombre';
+        }
+    });
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementsByClassName('themeToggle');
+    const toggleButton = document.querySelector('.themeToggle');
 
-    if (toggleButton[0]) {
-        toggleButton[0].addEventListener('click', () => {
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark-mode');
-            // Sauvegarde le thème dans le localStorage
             const isDarkMode = document.documentElement.classList.contains('dark-mode');
+
+            // Met à jour le texte du bouton
+            toggleButton.textContent = isDarkMode ? 'Mode Clair' : 'Mode Sombre';
+
+            // Sauvegarde dans le localStorage
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         });
     }
-    });
+});
