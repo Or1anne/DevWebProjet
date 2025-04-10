@@ -5,6 +5,7 @@
 - [Fichiers](#fichiers) Quels sont les fichiers et leurs fonctions
 - [Compiler](#compiler) Comment compiler le projet
 - [Prérequis](#prérequis) Les bibliothèques à installer 
+- [Lancement](#lancement) Accéder à la page d'accueil du site
 
 
 ## Contenu
