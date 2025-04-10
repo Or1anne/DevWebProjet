@@ -10,6 +10,13 @@ body {
     text-align: center;
 }
 
+@media (max-width: 640px) {
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}
+
 :root {
     /* Light mode */
     --clair: #00d1b2;
@@ -234,38 +241,43 @@ body {
 
 /* TODO presque bon mais pas encore ça à modifier */
 /* TODO s'occuper de la barre de recher qui n'est pas adapter */
-@media (max-width: 640px) {
+@media (max-width: 500px) {
     .content-container {
         display: grid;
         grid-template-columns: 1fr;
-        /* Une seule colonne */
         grid-auto-rows: min-content;
-        /* Les éléments prennent leur hauteur naturelle */
         row-gap: 20px;
-        /* Ajoute de l'espace entre les éléments */
         width: 95vw;
     }
 
     .news-box,
-    .info-box {
+    .info-box,
+    .box-index {
         width: 100%;
-        /* Prend toute la largeur */
-        min-height: auto;
-        /* S'ajuste au contenu */
         height: auto;
-        /* Permet à la box de s'étendre */
-
+        overflow: hidden;
     }
 
-    .box-index {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        width: 100%;
-        height: auto;
-        /* Permet l'agrandissement */
-        overflow: visible;
-        /* Assure que rien n'est caché */
+    .news-item {
+        background: var(--itembox);
+        border-radius: 8px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-box {
+        display: none !important;
+    }
+}
+
+.user-box-mobile {
+    display: none;
+}
+
+@media (max-width: 500px) {
+    .user-box-mobile {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 20px;
     }
 }
 

@@ -47,7 +47,29 @@
         {% endif %}
 
         <div id="results"> 
+            <div class="user-box-mobile">
+                {% if current_user.is_authenticated %}
+                    {% for user in users %}
+                        {% if user.id != current_user.id %}
+                        <div class="news-item">
+                            <h3>{{ user.pseudo }}</h3>
+                            {% if user.image %}
+                                <img class="pp" src="data:image/png;base64,{{ user.image | b64encode }}" width="60" height="60">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                            {% endif %}
+                            <p><strong>Âge :</strong> {{ user.age }} ans</p>
+                            <p><strong>Genre :</strong> {{ user.gender }}</p>
+                            <p><strong>Date de Naissance :</strong> {{ user.birthdate.strftime('%d-%m-%Y')}}</p>
+                            <p><strong>Rôle :</strong> {{ user.role }}</p>
+                            <p><strong>Niveau :</strong> {{ user.level }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
             <div class="user-box">
+                
                 {% if current_user.is_authenticated %}
                     {% for user in users %}
                         {% if user.id != current_user.id %}
