@@ -75,19 +75,19 @@ def request_admin_list():
 
 @admin.route('/accept/<int:request_id>', methods=['POST'])
 def request_accept(request_id):
-    request = Request.query.get(request_id)
-    if request.title == "Demande de suppression d'objet":
-        request.status = "Acceptée"
+    rqs = Request.query.get(request_id)
+    if rqs.title == "Demande de suppression d'objet":
+        rqs.status = "Acceptée"
         object = Object.query.filter_by(nom=request.object_name).first()
         db.session.delete(object)
         db.session.commit()
-    elif request.title == "Demande de suppression de pièce":
-        request.status = "Acceptée"
+    elif rqs.title == "Demande de suppression de pièce":
+        rqs.status = "Acceptée"
         room = Room.query.filter_by(nom=request.object_name).first()
         db.session.delete(room)
         db.session.commit()
-    elif request.title == "Demande de passage à niveau":
-        request.status = "Acceptée"
+    elif rqs.title == "Demande de passage à niveau":
+        rqs.status = "Acceptée"
         user = User.query.get(request.object_type)
         if user.level == "Debutant":
             user.level = "Intermediaire"
@@ -99,8 +99,7 @@ def request_accept(request_id):
             user.level = "Expert"
             user.point -= 1000
         db.session.commit()
-    elif request.title == "Demande d'inscription":
-        #TODO Attribuer un rôle à l'utilisateur
+    elif rqs.title == "Demande d'inscription":
         user_data = session.get('user_data')
         user = User(
             email=user_data['email'],
@@ -111,9 +110,10 @@ def request_accept(request_id):
             age=user_data['age'],
             pseudo=user_data['pseudo'],
             birthdate = user_data['birthdate'],
+            role = request.form.get('role'),
             confirmed=True
         )
-        request.status = "Acceptée"
+        rqs.status = "Acceptée"
         db.session.add(user)
         db.session.commit()
         session.pop('user_data', None)

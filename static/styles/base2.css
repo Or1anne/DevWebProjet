@@ -26,6 +26,7 @@ body {
     --pitem: #666;
     --ecritureform: black;
     --titrerequete: #1e293b;
+    --progress : #0fd812;
 }
 
 .dark-mode {
@@ -43,6 +44,7 @@ body {
     --pitem: #d2d2d2;
     --ecritureform: #aaa;
     --titrerequete: #f0f0f0;
+    --progress : #0a730b;
 }
 
 
@@ -359,6 +361,12 @@ body {
 .news-item .pp,
 .user-container img,
 .box img {
+    border-radius: 50%;
+}
+
+.pp{
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -846,7 +854,7 @@ select {
 
 /* Mise en page de la requête de suppression */
 /* Fond flouté ou grisé */
-#requestMotifOverlay-object, #requestMotifOverlay-room {
+#requestMotifOverlay-object, #requestMotifOverlay-room, #requestMotifOverlay-role {
     position: fixed;
     top: 0;
     left: 0;
@@ -861,7 +869,7 @@ select {
 }
 
 /* La "fenêtre" du popup */
-#requestMotif-room, #requestMotif-object {
+#requestMotif-room, #requestMotif-object, #requestMotif-role {
     background: var(--box);
     padding: 2rem;
     border-radius: 12px;
@@ -876,6 +884,20 @@ select {
     flex-direction: column;
     margin-bottom: 1.5rem;
 }
+
+.form-groupRadio {
+    display: flex;
+    gap: 1rem; /* espace entre les items */
+    margin-bottom: 1.5rem;
+}
+
+.radio-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
 
 label {
     font-weight: bold;
@@ -944,12 +966,12 @@ td {
     transition: all 0.2s ease-in-out;
 }
 
-.resquest-container .accept-btn[type="submit"]:first-child {
+.resquest-container .accept-btn:first-child {
     background-color: var(--clair);
     color: var(--ecriture);
 }
 
-.resquest-container .accept-btn[type="submit"]:first-child:hover {
+.resquest-container .accept-btn:first-child:hover {
     background-color: var(--moyen);
 }
 
@@ -1033,13 +1055,13 @@ input[type="file"]::file-selector-button:hover {
 
 #ProgressBar{
     width: 100%;
-    background-color: #e0e0e0;
+    background-color: var(--titrebox);
     border-radius: 10px;
     overflow: hidden;
 }
 
 #Progress{
-    background-color: #4caf50;
+    background-color: var(--progress);
     height: 24px;
     transition: width 0.5s;
 }

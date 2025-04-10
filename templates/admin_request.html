@@ -82,8 +82,8 @@
                 <td>{{rqs.date}}</td>
                 {% if rqs.status == "En attente" %}
                 <td>
-                    <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
-                        <button type="submit" class="accept-btn">Accepter</button>
+                    <form>
+                        <button type="button" onclick="openRequestMotif('role')" class="accept-btn">Accepter</button>
                     </form>
                     <form action="{{ url_for('admin.request_refuse', request_id=rqs.id) }}" method="post">
                         <button type="submit" class="refuse-btn">Refuser</button>
@@ -98,6 +98,49 @@
                     </form>
                 </td>
             </tr>
+
+            <div id="requestMotifOverlay-role">
+                <div id="requestMotif-role">
+                    <h2>Attribuer un rôle à l'utilisateur</h2>
+                    <form action="{{ url_for('admin.request_accept', request_id=rqs.id) }}" method="post">
+                        <div class="form-groupRadio">
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Père" checked />
+                                <span>Père</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Mère" />
+                                <span>Mère</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Enfant" />
+                                <span>Enfant</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Cousin" />
+                                <span>Cousin</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Oncle" />
+                                <span>Oncle</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Tante" />
+                                <span>Tante</span>
+                            </label>
+                            <label class="radio-wrapper">
+                                <input type="radio" name="role" value="Grand-parent" />
+                                <span>Grand-parent</span>
+                            </label>
+                        </div>
+                        <div class="user-actions">
+                        <button type="submit" class="edit-btn">Envoyer</button>
+                        <button type="button" class="delete-btn" onclick="closeRequestMotif('role')">Fermer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         {% elif rqs.title == "Demande de passage à niveau" %}
             <tr>
                 <td>{{rqs.title}}</td>
