@@ -50,7 +50,7 @@ flask run
 
 ## Prérequis
 
-Vous devez en premier lieu télécharger le dossier DevWebProjet à partir du dépot git, ensuite entrez dans le dossier et créez un environnement virtuel à l'aide des commandes suivantes :
+Vous devez en premier lieu télécharger le dossier DevWebProjet (Si celui si s'appelle différemment, le renommer "DevWebProjet") à partir du dépot git, ensuite entrez dans le dossier et accédez à Powershell pour créer un environnement virtuel à l'aide des commandes suivantes :
 ```
 python -m venv venv
 ```
@@ -65,7 +65,7 @@ Afin d'installer toutes les bilbliothèques nécessaires il faut exéctuer sous 
 ```
 pip install -r biblioRequise.txt
 ```
-Une fois toutes les bibliothèques installer, vous devez modifier les variables d'environnement de votre environnement virtuel:
+Une fois toutes les bibliothèques installées, vous devez modifier les variables d'environnement de votre environnement virtuel:
 ```
 [System.Environment]::SetEnvironmentVariable("FLASK_APP", "DevWebProjet", "User")
 [System.Environment]::SetEnvironmentVariable("FLASK_DEBUG", "1", "User")
