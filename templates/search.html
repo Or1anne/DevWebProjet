@@ -65,6 +65,7 @@
         <h2>Objets</h2>
         <div class="user-box">
             {% for object in objects %}
+            <a href="{{ url_for('manage_object.profile_object', obj_id=object.id) }}" style="text-decoration: none;">
                 <div class="news-item">
                     <h3>{{ object.nom }}</h3>
                     {% if object.image %}
@@ -82,6 +83,7 @@
                         <p><strong>Chambre :</strong> Aucune</p>
                     {% endif %}
                 </div>
+            </a>
             {% endfor %}
         </div>
     {% endif %}

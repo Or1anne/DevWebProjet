@@ -152,8 +152,9 @@ def rapport():
 
     NBActivate = Object.query.filter_by(status="ON").count()
     NBDesactivate = Object.query.filter_by(status="OFF").count()
+    NBError = Object.query.filter_by(battery=0).count()
 
-    total_energy = db.session.query(db.func.sum(Object.energy)).filter(Object.status == "ON").scalar() or 0
+    total_energy = db.session.query(db.func.sum(Object.energy)).filter(Object.status == "ON", Object.battery != 0).scalar() or 0
     total_luminosity = db.session.query(db.func.sum(Object.luminosity)).filter(Object.status == "ON").scalar() or 0
 
     pdf = FPDF()
@@ -190,24 +191,31 @@ def rapport():
     pdf.cell(200, 10, txt=f"Nombre d'utilisateurs incrits sur la plateforme : {NBusers}", ln=True)
     pdf.ln(5)
 
-    pdf.set_font('Courier', style="B", size=14)
-    pdf.cell(195, 10, txt="Liste des objets connectés par Wifi", ln=True, align='C')
-    pdf.cell(50, 10, "Nom de l'objet", 1, 0, align='C')
+    pdf.set_font('Courier', style="B", size=10)
+    pdf.cell(195, 10, txt="Liste des objets dans la maison", ln=True, align='C')
+    pdf.cell(40, 10, "Nom de l'objet", 1, 0, align='C')
     pdf.cell(40, 10, "Type d'objet", 1, 0, align='C')
-    pdf.cell(40, 10, "Marque", 1, 0, align='C')
-    pdf.cell(60, 10, "Référence", 1, 1, align='C')
+    pdf.cell(30, 10, "Marque", 1, 0, align='C')
+    pdf.cell(40, 10, "Référence", 1, 0, align='C')
+    pdf.cell(40, 10, "Pièce assignée", 1, 1, align='C')
 
-    pdf.set_font('Courier', size=12)
+    pdf.set_font('Courier', size=8)
     for object in objects:
-        pdf.cell(50, 10, object.nom, 1, 0, 'C')
+        pdf.cell(40, 10, object.nom, 1, 0, 'C')
         pdf.cell(40, 10, object.type, 1, 0, 'C')
-        pdf.cell(40, 10, object.brand, 1, 0, 'C')
-        pdf.cell(60, 10, object.reference, 1, 1, 'C')
+        pdf.cell(30, 10, object.brand, 1, 0, 'C')
+        pdf.cell(40, 10, object.reference, 1, 0, 'C')
+        pdf.cell(40, 10, object.room.nom if object.room else "Non assignée", 1, 1, 'C')
     pdf.ln(5)
     
+    pdf.set_font('Courier', size=12)
     pdf.cell(200, 10, txt=f"Nombre d'objets total enregistrés sur la plateforme : {NBobjects}", ln=True)
     pdf.cell(200, 10, txt=f"Nombre d'objets activés : {NBActivate} ", ln=True)
     pdf.cell(200, 10, txt=f"Nombre d'objets non activés : {NBDesactivate} ", ln=True)
+    pdf.ln(1)
+
+    pdf.cell(200, 10, txt=f"Nombre d'objets dysfonctionnels (Plus de batterie) : {NBError} ", ln=True)
+
     pdf.ln(5)
 
     pdf.set_font('Courier',style="BU", size=14)

@@ -72,6 +72,7 @@
 
             {% if obj.luminosity is not none %}
                 <div class="field">
+                    <label class="label">Consommation lumineuse :</label>
                     <div class="control">
                         <input class="input is-large" type="number" name="luminosity" value="{{obj.luminosity}}" required>
                     </div>
@@ -80,11 +81,13 @@
             
             {% if obj.size is not none %}
                 <div class="field">
+                    <label class="label">Taille :</label>
                     <div class="control">
                         <input class="input is-large" type="number" name="size" value="{{obj.size}}" required>
                     </div>
                 </div>
                 <div class="field">
+                    <label class="label">Résolution :</label>
                     <div class="control">
                         <input class="input is-large" type="text" name="resolution" value="{{obj.resolution}}" required>
                     </div>
@@ -93,6 +96,7 @@
         
             {% if obj.volume is not none %}
                 <div class="field">
+                    <label class="label">Volume :</label>
                     <div class="control">
                         <input class="input is-large" type="number" name="volume" value="{{obj.volume}}" required>
                     </div>
@@ -101,6 +105,7 @@
             
             {% if obj.temp is not none %}
             <div class="field">
+                <label class="label">Température :</label>
                 <div class="control">
                     <input class="input is-large" type="number" name="temp" placeholder="temp" value="{{obj.temp}}" required>
                 </div>

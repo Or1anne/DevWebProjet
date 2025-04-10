@@ -17,6 +17,7 @@ def login():
 def signup():
     return render_template('signup.html')
 
+#Inscription de l'utilisateur + envoi d'un mail de confirmation
 @auth.route('/signup', methods=['POST'])
 def signup_post():
 
@@ -35,11 +36,11 @@ def signup_post():
     user_by_pseudo = User.query.filter_by(pseudo=pseudo).first()
 
     if user_by_email:  # Vérifie si l'email existe déjà
-        flash('Email address already exists')
+        flash('Cet email est déjà utilisé.')
         return redirect(url_for('auth.signup'))
 
     if user_by_pseudo:  # Vérifie si le pseudo existe déjà
-        flash('Pseudo already taken. Please choose another one.')
+        flash('Ce pseudo est déjà utilisé.')
         return redirect(url_for('auth.signup'))
     
     session['user_data'] = {
@@ -61,15 +62,13 @@ def signup_post():
     msg.body = f'Bonjour {firstname} {lastname}, \n \nMerci de vous être inscrit, veuillez cliquer sur lien pour confirmer votre adresse mail : {confirm_url}'
     try:
         mail.send(msg)
+        flash("Veuillez vérifier votre email pour confirmer votre inscription.")
     except Exception as e:
         return redirect(url_for('auth.signup'))
 
-    return redirect(url_for('auth.check_email'))
+    return redirect(url_for('main.index'))
 
-@auth.route('/check_email')
-def check_email():
-    return render_template('check_email.html')
-
+#Vérification du token de confirmation d'email
 @auth.route('/confirm/<token>')
 def confirm_email(token):
 
@@ -98,6 +97,7 @@ def confirm_email(token):
     flash("Votre inscription a bien été envoyée, en attente de validation par l'amdinistrateur.")
     return redirect(url_for('main.index'))
 
+#Connexion de l'utilisateur
 @auth.route('/login', methods=['POST'])
 def login_post():
     pseudo = request.form.get('pseudo')
@@ -106,13 +106,13 @@ def login_post():
 
     user = User.query.filter_by(pseudo=pseudo).first()
 
-    # check if the user actually exists
-    # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # Si l'utilisateur ou le MDP n'existe pas alors refresh la page
+        flash('Identifiant ou mot de passe incorrect, veuillez réessayer.')
+        return redirect(url_for('auth.login'))
     else:
         login_user(user, remember=remember)
+        user.point += 10
+        db.session.commit()
         return redirect(url_for('main.index'))
 
 @auth.route('/logout')
