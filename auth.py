@@ -30,7 +30,7 @@ def signup_post():
     birthdate=datetime.strptime(request.form.get('birthdate'), '%Y-%m-%d')
     
     today = datetime.today()
-    age = age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
 
     user_by_email = User.query.filter_by(email=email).first()
     user_by_pseudo = User.query.filter_by(pseudo=pseudo).first()

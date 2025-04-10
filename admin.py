@@ -31,7 +31,6 @@ def edit_user(user_id):
         user.lastname = request.form['lastname']
         user.firstname = request.form['firstname']
         user.level = request.form['level']
-        user.age = request.form['age']
         user.gender = request.form['gender']
         user.role = request.form['role']
         user.point = request.form['point']
@@ -43,7 +42,11 @@ def edit_user(user_id):
                 image_data = image_file.read()
                 user.image = image_data
 
-        user.birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
+        birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
+        user.birthdate = birthdate
+
+        today = datetime.today()
+        user.age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
 
         db.session.commit()
         return redirect(url_for('admin.gestion_utilisateur'))
@@ -88,7 +91,7 @@ def request_accept(request_id):
         db.session.commit()
     elif rqs.title == "Demande de passage à niveau":
         rqs.status = "Acceptée"
-        user = User.query.get(request.object_type)
+        user = User.query.get(rqs.object_type)
         if user.level == "Debutant":
             user.level = "Intermediaire"
             user.point -= 100

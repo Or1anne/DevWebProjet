@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("searchInput2");
-    const resultsDiv = document.getElementById("results2"); // <- C'est ça qui manquait
+    const resultsDiv = document.getElementById("results2");
 
     // Fonction pour mettre à jour les résultats
     function updateResults() {

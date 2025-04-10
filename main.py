@@ -110,7 +110,8 @@ def actualite():
 @main.route('/actualite_profile/<int:act_id>')
 def actualite_profile(act_id):
     actualite = Actualite.query.get(act_id)
-    current_user.point += 10
+    if current_user.is_authenticated:
+        current_user.point += 10
     return render_template("profile_actualite.html", actualite=actualite)
 
 @main.route('/actualites')
