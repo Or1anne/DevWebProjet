@@ -109,17 +109,16 @@ def edit_object(obj_id):
         connectivity_str = request.form.getlist('connectivity')
         object.connectivity = ', '.join(connectivity_str)
         object.energy = request.form.get('energy')
-
-    if object.volume is not None:
-        object.volume = request.form.get('volume')
-    if object.temp is not None:
-        object.temp = request.form.get('temp')
-    if object.size is not None:
-        object.size = request.form.get('size')
-        object.resolution = request.form.get('resolution')
-    if object.luminosity is not None:
-        object.luminosity = request.form.get('luminosity')
-
+        if object.volume is not None:
+            object.volume = request.form.get('volume')
+        if object.temp is not None:
+            object.temp = request.form.get('temp')
+        if object.size is not None:
+            object.size = request.form.get('size')
+            object.resolution = request.form.get('resolution')
+        if object.luminosity is not None:
+            object.luminosity = request.form.get('luminosity')
+            
         current_user.point += 30
     
         db.session.commit()

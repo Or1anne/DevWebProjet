@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    <h3 class="title">Modifier l'utilisateur</h3>
+    <h3 class="title">Modifier l'objet</h3>
     <div class="box">
         <div class="back">
             <a href="{{ url_for('manage_object.profile_object', obj_id=obj.id) }}" class="button">
@@ -11,36 +11,42 @@
         </div>
         <form method="POST" action='/edit_object/{{obj.id}}'>
             <div class="field">
+                <label class="label">Nom :</label>
                 <div class="control">
                     <input class="input is-large" type="text" name="nom" autofocus="" value="{{obj.nom}}" required>
                 </div>
             </div>
 
             <div class="field">
+                <label class="label">Type :</label>
                 <div class="control">
                     <input class="input is-large" type="text" name="type" autofocus="" value="{{obj.type}}" readonly>
                 </div>
             </div>
 
             <div class="field">
+                <label class="label">Référence :</label>
                 <div class="control">
                     <input class="input is-large" type="text" name="reference" value="{{obj.reference}}" required>
                 </div>
             </div>
 
             <div class="field">
+                <label class="label">Marque :</label>
                 <div class="control">
                     <input class="input is-large" type="text" name="brand" value="{{obj.brand}}" required>
                 </div>
             </div>
 
             <div class="field">
+                <label class="label">Batterie :</label>
                 <div class="control">
                     <input class="input is-large" type="number" name="battery" value="{{obj.battery}}" required>
                 </div>
             </div>
 
             <div class="field">
+                <label class="label">Énergie :</label>
                 <div class="control">
                     <input class="input is-large" type="number" name="energy" value="{{obj.energy}}" required>
                 </div>

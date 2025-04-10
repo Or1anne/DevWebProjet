@@ -3,14 +3,19 @@
 {% block content %}
 
 <div class="content-container">
-    <div class="box-objet">
-        <h1> {{ actualite.nom }} </h1>
+    <div class="box-actu">
+        <div class="back">
+            <a href="{{ url_for('main.list_actualites')}}">
+                <img src="{{ url_for('static', filename='croix.png') }}" alt="Profil"  width="20" height="20">
+            </a>
+        </div>
+        <h1 class="title-box"> {{ actualite.nom }} </h1>
         </br>
 
-        <p>Publié le : {{actualite.date_creation}}</p>
+        <p class="publi">Publié le : {{actualite.date_creation}}</p>
         </br>
         {% if actualite.image %}
-            <img src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200">
+            <img class="image" src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200">
             </br>
         {% endif %}
 

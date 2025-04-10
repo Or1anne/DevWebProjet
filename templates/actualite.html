@@ -13,7 +13,7 @@
                     <!-- <p>{{ actualite.description }}</p> -->
                     
                     {% if actualite.image %}
-                        <img src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200">
+                        <img class="image" src="data:image/png;base64,{{ actualite.image | b64encode }}" width="200" height="200">
                     {% else %}
                         <img src="{{ url_for('static', filename='image-default.png') }}" width="200" height="200">
                     {% endif %}
