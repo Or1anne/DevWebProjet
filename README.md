@@ -41,7 +41,7 @@ Notre groupe est composé d'Orianne COURTADE, Alban SOUPPAYA, Medhi BOULAICH EL 
     - models.py : tables de la base de données
 
 ## Compiler
-Avant de lancer et compiler le projet vous devez aller dans le dossier "DevWebProjet" est lancer l'environnement virtuel à l'aide des commandes suivantes:
+Avant de lancer et compiler le projet vous devez aller dans le dossier "DevWebProjet" et lancer l'environnement virtuel à l'aide des commandes suivantes:
 ```
 .\venv\Scripts\activate
 cd ..
@@ -50,7 +50,7 @@ flask run
 
 ## Prérequis
 
-Vous devez en premier lieu télécharger le dossier DevWebProjet (Si celui si s'appelle différemment, le renommer "DevWebProjet") à partir du dépot git, ensuite entrez dans le dossier et accédez à Powershell pour créer un environnement virtuel à l'aide des commandes suivantes :
+Vous devez en premier lieu télécharger le dossier DevWebProjet (Si celui si s'appelle différemment, le renommer "DevWebProjet") à partir du dépot git, ensuite entrez dans le dossier et accédez au Powershell du dossier DevWebProjet pour créer un environnement virtuel à l'aide des commandes suivantes :
 ```
 python -m venv venv
 ```
@@ -73,6 +73,14 @@ Une fois toutes les bibliothèques installées, vous devez modifier les variable
 ```
 Une fois ces commandes exécutées vous devez redémarrer le terminal.
 
+
+## Lancement
+
+Pour accéder au site web, il faut aller dans l'url suivante :
+
+```
+http://localhost:5000/
+```
 
 # CY_Tech
 ![CYTECH](CY_Tech_logo.jpg)
