@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("searchInput");
-    const resultsDiv = document.getElementById("results"); // <- C'est ça qui manquait
+    const input = document.getElementById("searchInput2");
+    const resultsDiv = document.getElementById("results2"); // <- C'est ça qui manquait
 
     // Fonction pour mettre à jour les résultats
     function updateResults() {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(html => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, "text/html");
-                const newResults = doc.querySelector("#results");
+                const newResults = doc.querySelector("#results2");
 
                 if (newResults && resultsDiv) {
                     resultsDiv.innerHTML = newResults.innerHTML;

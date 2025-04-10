@@ -18,15 +18,16 @@ def list_objects():
 @manage_object.route('/add_object', methods=['GET', 'POST'])
 def add_object():
     if request.method == 'POST':
-        nom = request.form['nom']
-        type_obj = request.form['type']
+        nom = request.form.get('nom')
+        type_obj = request.form.get('type')
         reference = request.form.get('reference')
         brand = request.form.get('brand')
         status = "OFF"
 
         battery = random.randint(0,100)
         energy = request.form.get('energy')
-        connectivity = request.form.get('connectivity')
+        connectivity = request.form.getlist('connectivity')
+        connectivity_str = ', '.join(connectivity)
 
         volume = None
         temp = None
@@ -62,7 +63,7 @@ def add_object():
             image=image_data,
             battery=battery,
             energy=energy,
-            connectivity=connectivity
+            connectivity=connectivity_str
         )
 
         if size is not None:
@@ -100,23 +101,24 @@ def edit_object(obj_id):
         return "Objet non trouvé", 404
     
     if request.method == 'POST':
-        object.nom = request.form['nom']
-        object.type = request.form['type']
-        object.brand = request.form['brand']
-        object.reference= request.form['reference']
-        object.battery = request.form['battery']
-        object.connectivity = request.form['connectivity']
-        object.energy = request.form['energy']
+        object.nom = request.form.get('nom')
+        object.type = request.form.get('type')
+        object.brand = request.form.get('brand')
+        object.reference = request.form.get('reference')
+        object.battery = request.form.get('battery')
+        connectivity_str = request.form.getlist('connectivity')
+        object.connectivity = ', '.join(connectivity_str)
+        object.energy = request.form.get('energy')
 
-        if object.volume is not None:
-            object.volume = request.form['volume']
-        if object.temp is not None:
-            object.temp = request.form['temp']
-        if object.size is not None:
-            object.size = request.form['size']
-            object.resolution = request.form['resolution']
-        if object.luminosity is not None:
-            object.luminosity = request.form['luminosity']
+    if object.volume is not None:
+        object.volume = request.form.get('volume')
+    if object.temp is not None:
+        object.temp = request.form.get('temp')
+    if object.size is not None:
+        object.size = request.form.get('size')
+        object.resolution = request.form.get('resolution')
+    if object.luminosity is not None:
+        object.luminosity = request.form.get('luminosity')
 
         current_user.point += 30
     
@@ -216,7 +218,7 @@ def add_room():
         )
 
         current_user.point += 50
-        
+
         db.session.add(new_room)
         db.session.commit()
         return redirect(url_for('manage_object.list_objects'))

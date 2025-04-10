@@ -26,7 +26,7 @@ def get_search(q, service_type, object_type, status):
 
     return users, objects, rooms
 
-@main.route('/index')
+@main.route('/')
 def index():
     q = request.args.get('q', '')
     service_type = request.args.get('service', '').lower()

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       url = `/search?q=${encodeURIComponent(query)}&service=${encodeURIComponent(serviceType)}&type=${encodeURIComponent(objectType)}&status=${encodeURIComponent(status)}`;
     } else {
       // Si on est sur la page d'index
-      url = `/index?q=${encodeURIComponent(query)}&service=${encodeURIComponent(serviceType)}&type=${encodeURIComponent(objectType)}&status=${encodeURIComponent(status)}`;
+      url = `/?q=${encodeURIComponent(query)}&service=${encodeURIComponent(serviceType)}&type=${encodeURIComponent(objectType)}&status=${encodeURIComponent(status)}`;
     }
 
     // Requête fetch avec les filtres
