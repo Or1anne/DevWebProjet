@@ -1,11 +1,9 @@
 from flask import *
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, logout_user
 from .models import *
 from datetime import datetime
 from . import db
 from sqlalchemy import desc
-from flask import session
-from flask_login import logout_user
 main = Blueprint('main', __name__)
 
 def get_search(q, service_type, object_type, status):
@@ -69,16 +67,31 @@ def delete_profile():
 
 @main.route('/update_profile', methods=['GET', 'POST'])
 def edit_user1():
+
     if request.method == 'POST':
         current_user.email = request.form['email']
-        current_user.pseudo = request.form['pseudo']
+
+        pseudo = request.form['pseudo']
+        existing_pseudo = User.query.filter(User.pseudo == pseudo, User.id != current_user.id ).first()
+        if existing_pseudo:
+            flash("Ce pseudo est déjà utilisé, veuillez en choisir un autre.")
+            return redirect(url_for('main.edit_user1'))
+        else :
+            current_user.pseudo = pseudo
+            
         current_user.lastname = request.form['lastname']
         current_user.firstname = request.form['firstname']
         current_user.level = request.form['level']
-        current_user.age = request.form['age']
         current_user.gender = request.form['gender']
         current_user.role = request.form['role']
         current_user.point = request.form['point']
+
+        birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
+        current_user.birthdate = birthdate
+
+        today = datetime.today()
+        current_user.age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
 
         image_data = None
         if 'image' in request.files:
@@ -87,7 +100,6 @@ def edit_user1():
                 image_data = image_file.read()
                 current_user.image = image_data
 
-        current_user.birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
         db.session.commit()
         return render_template('profile.html')
         

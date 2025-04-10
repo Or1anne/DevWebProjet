@@ -26,8 +26,23 @@ def edit_user(user_id):
     user = User.query.get(user_id)
 
     if request.method == 'POST':
-        user.email = request.form['email']
-        user.pseudo = request.form['pseudo']
+
+        pseudo = request.form['pseudo']
+        existing_pseudo = User.query.filter(User.pseudo == pseudo, User.id != user.id ).first()
+        if existing_pseudo:
+            flash("Ce pseudo est déjà utilisé, veuillez en choisir un autre.")
+            return redirect(url_for('admin.edit_user', user_id=user.id))
+        else :
+            user.pseudo = pseudo
+
+        email = request.form['email']
+        existing_email = User.query.filter(User.email == email, User.id != user.id).first()
+        if existing_email:
+            flash("Cette adresse email est déjà utilisée, veuillez en choisir une autre.")
+            return redirect(url_for('admin.edit_user', user_id=user.id))
+        else :
+            user.email = email
+        
         user.lastname = request.form['lastname']
         user.firstname = request.form['firstname']
         user.level = request.form['level']
@@ -92,15 +107,19 @@ def request_accept(request_id):
     elif rqs.title == "Demande de passage à niveau":
         rqs.status = "Acceptée"
         user = User.query.get(rqs.object_type)
-        if user.level == "Debutant":
+
+        if user.level == "Debutant" and user.point >= 100:
             user.level = "Intermediaire"
             user.point -= 100
-        elif user.level == "Intermediaire":
+        elif user.level == "Intermediaire" and user.point >= 500:
             user.level = "Avance"
             user.point -= 500
-        elif user.level == "Avance":
+        elif user.level == "Avance" and user.point >= 1000:
             user.level = "Expert"
             user.point -= 1000
+        else : 
+            flash(user.pseudo + " n'a pas assez de points pour passer au niveau supérieur.")
+            return redirect(url_for('admin.request_admin_list'))
         db.session.commit()
     elif rqs.title == "Demande d'inscription":
         user_data = session.get('user_data')
