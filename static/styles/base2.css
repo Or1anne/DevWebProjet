@@ -10,7 +10,7 @@ body {
     text-align: center;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 500px) {
     html, body {
         max-width: 100%;
         overflow-x: hidden;
@@ -54,6 +54,106 @@ body {
     --progress : #0a730b;
 }
 
+
+
+/* ------------------- */
+/* MENU BURGER SIDEBAR */
+/* ------------------- */
+@media (max-width: 500px) {
+    /* Masquer la navbar traditionnelle */
+    .navbar {
+        display: none !important;
+    }
+
+    /* Affichage du menu burger */
+    .mobile-navbar {
+        display: flex !important;
+        position: relative;
+        z-index: 1001;
+        background-color: var(--clair);
+        padding: 10px;
+        align-items: center;
+    }
+
+    /* Style du burger */
+    .burger {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        font-size: 2em;
+        background: none;
+        border: none;
+        color: var(--ecriture);
+        cursor: pointer;
+        z-index: 1002; /* Burger au premier plan */
+    }
+    
+    /* Bouton de fermeture (croix) dans la sidebar */
+    .close-btn {
+        align-self: flex-end;
+        font-size: 1.5em;
+        background: none;
+        border: none;
+        color: var(--ecriture);
+        margin-bottom: 20px;
+        cursor: pointer;
+        display: none;
+    }
+
+    /* La sidebar (mobile-menu) */
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: -250px;  /* Position de départ (cachée) */
+        width: 250px;
+        height: 100vh;
+        background-color: var(--fonce);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 15px;
+        transition: left 0.3s ease;
+        z-index: 1000;  /* Moins élevé que le burger */
+    }
+
+    /* Quand le menu est ouvert */
+    .mobile-menu.open {
+        left: 0;  /* Affiche la sidebar */
+    }
+
+    /* Affiche la croix (close-btn) lorsque la sidebar est ouverte */
+    .mobile-menu.open .close-btn {
+        display: block;
+    }
+
+    /* Masquer burger quand le menu est ouvert */
+    .mobile-menu.open ~ .burger {
+        display: none;
+    }
+
+    /* Liens dans la sidebar */
+    .mobile-menu a {
+        color: var(--ecriture);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Supprimer le bandeau de la sidebar quand elle est fermée */
+    .mobile-menu:not(.open) {
+        display: none;
+    }
+
+    /* Assurer que le contenu principal se trouve sous le burger */
+    body {
+        padding-top: 60px;  /* Marge pour le burger */
+    }
+}
+
+.mobile-navbar {
+    display: none;
+
+}
 
 
 
@@ -192,6 +292,7 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    width: 90%;
 }
 
 .search-input {
@@ -239,8 +340,6 @@ body {
     box-sizing: border-box;     /* Inclut le padding dans les dimensions */
 }
 
-/* TODO presque bon mais pas encore ça à modifier */
-/* TODO s'occuper de la barre de recher qui n'est pas adapter */
 @media (max-width: 500px) {
     .content-container {
         display: grid;
@@ -264,7 +363,7 @@ body {
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .user-box {
+    .user-box-2 {
         display: none !important;
     }
 }
@@ -320,6 +419,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
 }
 
+.user-box-2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
 .info-box {
     border-top: 5px solid #66a1ff;
     /* Couleur pour les informations locales */
@@ -429,13 +532,10 @@ body {
 .container-admin {
     display: grid;
     grid-template-columns: repeat(4, 2fr);
-    gap: 15 px;
-    width: 70vw;
-    padding: 20px 2vw;
-    padding-left: 100px;
+    width: 100%;
+    padding: 20px;
     align-items: center;
     justify-content: center;
-    margin: auto;
 }
 
 .admin-item {
@@ -468,12 +568,14 @@ body {
     background-color: var(--clair);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 500px) {
     .container-admin {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        width: 95vw;
-        /* Plus large sur mobile */
-        padding: 20px 2vw;
+        grid-template-columns: repeat(2, 1fr);
+        width: 85%;
+    }
+    .admin-item {
+        width: 100px;
+        margin: 10px;
     }
 }
 
@@ -549,14 +651,14 @@ body {
 
 /* Conteneur principal */
 .user-container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 10px;
     background: var(--box);
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 100%;
+    width: 85%;
 }
 
 /* Informations utilisateur */
@@ -665,7 +767,7 @@ form input {
 .box-objet {
     background: var(--box);
     padding: 20px;
-    margin: 20px;
+    margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -718,7 +820,7 @@ form input {
     text-align: justify;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 500px) {
     .obj {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -947,6 +1049,18 @@ textarea {
     margin-bottom: 30px;
 }
 
+@media (max-width: 500px) {
+    .resquest-container table{
+        font-size: 0.5em;
+        table-layout: fixed;
+        width: 470px;
+    }
+
+    .resquest-container form button {
+        font-size: 0.5em;
+    }
+}
+
 .resquest-container th,
 td {
     text-align: left;
@@ -1031,6 +1145,14 @@ td {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     justify-items: center;
+}
+
+@media (max-width: 500px) {
+    .actu-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: center;
+    }
 }
 
 .actualite-item {
