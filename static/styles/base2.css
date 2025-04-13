@@ -374,7 +374,7 @@ body {
 
 @media (max-width: 500px) {
     .user-box-mobile {
-        display: grid;
+        display: grid !important;
         grid-template-columns: 1fr;
         row-gap: 20px;
     }
@@ -1152,6 +1152,14 @@ td {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         justify-items: center;
+    }
+
+    .search-select-container2 {
+        display:list-item;
+    }
+
+    .search-select-container {
+        display: list-item;
     }
 }
 
