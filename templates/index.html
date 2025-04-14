@@ -48,20 +48,6 @@
 
         <div id="results"> 
             <div class="user-box-mobile">
-                {% for object in objects %}
-                <div class="news-item">
-                    <h3>{{ object.nom }}</h3>
-                        {% if object.image %}
-                            <img class="pp" src="data:image/png;base64,{{ object.image | b64encode }}" width="60" height="60">
-                        {% else %}
-                            <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
-                        {% endif %}
-                        <p><strong>Type :</strong> {{ object.type }}</p>
-                        <p><strong>Marque :</strong> {{ object.brand }} </p>
-                        <p><strong>Etat :</strong> {{ object.status }}</p>
-                        <p><strong>Méthode de connexion :</strong> {{ object.connectivity }} </p>
-                </div>
-            {% endfor %}
                 {% if current_user.is_authenticated %}
                     {% for user in users %}
                         {% if user.id != current_user.id %}
@@ -80,7 +66,22 @@
                         </div>
                         {% endif %}
                     {% endfor %}
-                {% endif %}
+                    {%else %}
+                        {% for object in objects %}
+                        <div class="news-item">
+                            <h3>{{ object.nom }}</h3>
+                                {% if object.image %}
+                                    <img class="pp" src="data:image/png;base64,{{ object.image | b64encode }}" width="60" height="60">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='utilisateur-de-profil-sans-fond.png') }}"  width="60" height="60">
+                                {% endif %}
+                                <p><strong>Type :</strong> {{ object.type }}</p>
+                                <p><strong>Marque :</strong> {{ object.brand }} </p>
+                                <p><strong>Etat :</strong> {{ object.status }}</p>
+                                <p><strong>Méthode de connexion :</strong> {{ object.connectivity }} </p>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
             </div>
             <div class="user-box-2">
                 
