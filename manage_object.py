@@ -172,6 +172,7 @@ def request_object(obj_id):
             date=datetime.now()
         )
     
+    current_user.point += 50
     db.session.add(new_request)
     db.session.commit()
     return redirect(url_for('manage_object.list_objects'))
@@ -197,6 +198,8 @@ def request_room(room_id):
             date=datetime.now()
         )
     
+    current_user.point += 50
+
     db.session.add(new_request)
     db.session.commit()
     return redirect(url_for('manage_object.list_objects'))
@@ -234,7 +237,6 @@ def profile_room(room_id):
 
 @manage_object.route('/add_object_room/<int:room_id>/<int:obj_id>', methods=['GET', 'POST'])
 def add_object_room(room_id, obj_id):
-    from sqlalchemy import or_
     objects = Object.query.filter(Object.room_id == None).all()
     print(objects)
     room = Room.query.get(room_id)

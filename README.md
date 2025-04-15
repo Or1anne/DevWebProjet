@@ -16,6 +16,18 @@ Le module "Visualisation" accessible seulement aux personnes inscrites sur la pl
 Le module "Gestion" est dédier aux utilisateurs de type complexe (qui ont aussi accès aux modules "Information" et "Visualisation"). Ce module est une sorte de tableau de bord avancé dédié à la gestion des objets connectés et des services.  
 Le module "Administrateur" est dédié aux utilisateurs du type administrateur, qui ont accès à tous les modules de la plateforme. IL permet de gèrer la plateforme dans son ensemble, y compris les utilisateurs, les objets connectés et les services.
 
+Système de Points :
+- Connexion = 5 points
+- Consultation Objet/Pièce/Actualité = 10 points
+- Ajout Objet/Pièce = 50 points
+- Modification Objet = 30 points
+- Demande de supression Objet/Pièce = 50 points
+
+Paliers : 
+- Débutant -> Intermédiaire = 100 points
+- Intermédiaire -> Avancé = 500 points
+- Avancé -> Expert = 1000 points
+
 
 ## Objectif
 

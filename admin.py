@@ -5,6 +5,7 @@ from . import db
 from datetime import datetime
 from sqlalchemy import *
 from fpdf import FPDF
+from werkzeug.security import generate_password_hash, check_password_hash
 from tempfile import NamedTemporaryFile
 
 admin = Blueprint('admin', __name__)
@@ -49,6 +50,8 @@ def edit_user(user_id):
         user.gender = request.form['gender']
         user.role = request.form['role']
         user.point = request.form['point']
+        if current_user.password != request.form['password']:
+            current_user.password = generate_password_hash(request.form['password'], method='pbkdf2:sha256')
 
         image_data = None
         if 'image' in request.files:
@@ -96,12 +99,12 @@ def request_accept(request_id):
     rqs = Request.query.get(request_id)
     if rqs.title == "Demande de suppression d'objet":
         rqs.status = "Acceptée"
-        object = Object.query.filter_by(nom=request.object_name).first()
+        object = Object.query.filter_by(nom=rqs.object_name).first()
         db.session.delete(object)
         db.session.commit()
     elif rqs.title == "Demande de suppression de pièce":
         rqs.status = "Acceptée"
-        room = Room.query.filter_by(nom=request.object_name).first()
+        room = Room.query.filter_by(nom=rqs.object_name).first()
         db.session.delete(room)
         db.session.commit()
     elif rqs.title == "Demande de passage à niveau":

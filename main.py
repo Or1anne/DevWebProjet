@@ -4,6 +4,8 @@ from .models import *
 from datetime import datetime
 from . import db
 from sqlalchemy import desc
+from werkzeug.security import generate_password_hash, check_password_hash
+
 main = Blueprint('main', __name__)
 
 def get_search(q, service_type, object_type, status):
@@ -85,6 +87,8 @@ def edit_user1():
         current_user.gender = request.form['gender']
         current_user.role = request.form['role']
         current_user.point = request.form['point']
+        if current_user.password != request.form['password']:
+            current_user.password = generate_password_hash(request.form['password'], method='pbkdf2:sha256')
 
         birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
         current_user.birthdate = birthdate
