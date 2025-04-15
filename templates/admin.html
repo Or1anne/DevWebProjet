@@ -2,14 +2,9 @@
 
 {% block content %}
 <h1 class="title">
-    Page de gestion de la plateforme
+    Gestion Administrateur
 </h1>
-<h2 class="subtitle">
-    Page accessible seulement pour les administrateurs
-    Statistiques clés (ex. : nombre d’utilisateurs, taux d’utilisation, alertes en cours)<br>
-    Graphiques et indicateurs (ex. consommation énergétique, historique de connexion)<br>
-    Liste des derniers événements (ex. derniers utilisateurs inscrits, objets ajoutés)<br>
-</h2>
+
 <div class="is-flex is-justify-content-center">
     <div class="container-admin">
         <a href="{{ url_for('admin.request_admin_list') }}" class="admin-item">Requêtes</a>
